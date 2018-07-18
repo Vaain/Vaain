@@ -8,15 +8,15 @@
 
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etEmail"
         android:layout_width="343dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="138dp"
         android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="343dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
+        android:layout_below="@+id/etEmail"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         app:passwordToggleContentDescription="pass"

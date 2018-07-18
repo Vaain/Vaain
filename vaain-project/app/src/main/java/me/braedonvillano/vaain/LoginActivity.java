@@ -14,7 +14,7 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText usernameInput;
+    private EditText emailInput;
     private EditText passwordInput;
     private Button loginBtn;
     private Button signupBtn;
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        usernameInput = findViewById(R.id.etUsername);
+        emailInput = findViewById(R.id.etEmail);
         passwordInput = findViewById(R.id.etPassword);
         loginBtn = findViewById(R.id.btnlogin);
         signupBtn = findViewById(R.id.btnSign);
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
+                final String username = emailInput.getText().toString();
                 final String password = passwordInput.getText().toString();
 
                 login(username, password);
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, HomeFragment.class);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
                 }
             });
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void done(ParseUser user, ParseException e) {
                     if (e == null) {
                         Log.d("LoginActivity", "Login successful");
-                        final Intent intent = new Intent(LoginActivity.this, HomeFragment.class);
+                        final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
