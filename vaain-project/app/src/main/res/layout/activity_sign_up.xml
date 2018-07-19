@@ -25,6 +25,7 @@
         android:layout_marginTop="22dp"
         android:fontFamily="@font/lobster"
         android:text="Welcome to Vaain Join us Today"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -40,6 +41,8 @@
         android:ems="10"
         android:hint="Enter a email"
         android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/background_light"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="61dp" />
 
@@ -49,11 +52,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="163dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="Enter a password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/background_light" />
 
     <EditText
         android:id="@+id/etEnterPhone"
@@ -61,11 +66,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="224dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="Enter a phone number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/background_light" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -75,5 +82,29 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="97dp"
         android:text="Sign Up"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:textColor="@android:color/white"/>
+
+    <CheckBox
+        android:id="@+id/cbClient"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/etEnterEmail"
+        android:layout_marginBottom="152dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Client"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white" />
+
+    <CheckBox
+        android:id="@+id/cbBeaut"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cbClient"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Beaut"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

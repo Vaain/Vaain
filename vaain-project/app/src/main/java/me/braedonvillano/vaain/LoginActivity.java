@@ -1,6 +1,5 @@
 package me.braedonvillano.vaain;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,9 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ActionBar actionBar = getActionBar();
-        actionBar.hide();
-
+//        ActionBar actionBar = getActionBar();
+//        actionBar.hide();
 
         emailInput = findViewById(R.id.etEmail);
         passwordInput = findViewById(R.id.etPassword);
@@ -47,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(i);
                 }
             });

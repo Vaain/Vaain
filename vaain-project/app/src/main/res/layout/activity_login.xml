@@ -22,12 +22,13 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="138dp"
+        android:layout_marginTop="169dp"
+        android:background="@drawable/border"
         android:ems="10"
         android:hint=" Email"
-        android:textColorHint="@android:color/background_light"
-        android:background="@drawable/border"
         android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,13 +37,12 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="343dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etEmail"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
+        android:textColorHint="@android:color/background_light"
         app:passwordToggleContentDescription="pass"
         app:passwordToggleDrawable="@drawable/another_toggle_drawable"
         app:passwordToggleEnabled="true"
-        android:textColorHint="@android:color/background_light"
         app:passwordToggleTint="@color/ig_yellow">
 
         <android.support.design.widget.TextInputEditText
@@ -53,7 +53,8 @@
             android:layout_marginRight="0dp"
             android:background="@drawable/border"
             android:hint=" Password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColor="@android:color/white" />
     </android.support.design.widget.TextInputLayout>
 
 
