@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         // define your fragments here
         final Fragment profileFragment = new ProfileFragment();
+        final Fragment searchFragment = new SearchFragment();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_profile:
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(R.id.frag_placeholder, profileFragment).commit();
+                                return true;
+                            case R.id.action_search:
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frag_placeholder,searchFragment).commit();
                                 return true;
                         }
                         return false;
