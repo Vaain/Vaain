@@ -51,26 +51,31 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
                 }
             });
-
-
         }
 
         private void login(String username, String password) {
-            // logincallback so we know when network request was completed
             ParseUser.logInInBackground(username, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if (e == null) {
-                        Log.d("LoginActivity", "Login successful");
-                        final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                       startUserActivity(user.getBoolean("isClient"));
                     } else {
                         Log.e("LoginActivity", "Login failure");
                         e.printStackTrace();
                     }
                 }
             });
+        }
+
+        public void startUserActivity(Boolean isClient) {
+            final Intent intent;
+            if (isClient) {
+                intent = new Intent(LoginActivity.this, MainActivity.class);
+            } else {
+                intent = new Intent(LoginActivity.this, BeautMainActivity.class);
+            }
+            startActivity(intent);
+            finish();
         }
     }
 
