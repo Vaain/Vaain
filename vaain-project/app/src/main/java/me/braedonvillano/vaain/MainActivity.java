@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         // define your fragments here
         final Fragment profileFragment = new ProfileFragment();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
