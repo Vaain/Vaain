@@ -11,14 +11,14 @@
     <ImageView
         android:id="@+id/ivBackdrop"
         android:layout_width="0dp"
-        android:layout_height="246dp"
-        android:src="@android:color/holo_purple"
-        app:layout_constraintBottom_toBottomOf="@+id/tvEmail"
+        android:layout_height="227dp"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/purple_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.parse.ParseImageView
         android:id="@+id/ivProfileImage"
@@ -40,25 +40,12 @@
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
         android:text="Name"
-        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
-
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:fontFamily="sans-serif"
-        android:text="Email"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -70,8 +57,9 @@
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif"
         android:text="Logout"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,6 +95,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text="Email"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBackdrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>
