@@ -1,0 +1,13 @@
+package me.braedonvillano.vaain;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class BeautMainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_beaut_main);
+    }
+}
