@@ -6,19 +6,29 @@ import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -90,6 +100,10 @@ public class ProfileFragment extends Fragment {
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         btnLogout = view.findViewById(R.id.btnLogout);
 
+
+
+
+
         //assign values to views
         tvEmail.setText(user.getEmail());
         //assign profileImage
@@ -105,8 +119,57 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        setupViewPager(viewPager);
+
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+
         return view;
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+
+        Adapter adapter = new Adapter(getChildFragmentManager());
+        adapter.addFragment(new ClientFollowingFragment(), "Today");
+        adapter.addFragment(new ClientHistoryFragment(), "Week");
+        viewPager.setAdapter(adapter);
+
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
 
     private void logout() {
         ParseUser.logOut();
