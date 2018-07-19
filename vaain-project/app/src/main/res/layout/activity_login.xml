@@ -6,16 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <!--android:fontFamily="@font/lobster"-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/womanbackground" />
+
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="343dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="138dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint=" Email"
+        android:textColorHint="@android:color/background_light"
+        android:background="@drawable/border"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,28 +42,32 @@
         app:passwordToggleContentDescription="pass"
         app:passwordToggleDrawable="@drawable/another_toggle_drawable"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/colorAccent">
+        android:textColorHint="@android:color/background_light"
+        app:passwordToggleTint="@color/ig_yellow">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/etPassword"
-            android:layout_width="344dp"
-            android:layout_height="58dp"
+            android:layout_width="343dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:background="@drawable/border"
+            android:hint=" Password"
+            android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
 
     <Button
         android:id="@+id/btnlogin"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="354dp"
+        android:layout_width="143dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="176dp"
+        android:layout_alignStart="@+id/etEmail"
+        android:layout_marginBottom="121dp"
         android:text="Log in"
+        android:textColor="@android:color/white"
+        android:textColorLink="@color/ig_yellow"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,12 +78,12 @@
     <Button
         android:id="@+id/btnSign"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="354dp"
+        android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnlogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-176dp"
+        android:layout_alignEnd="@+id/etEmail"
+        android:layout_alignTop="@+id/btnlogin"
         android:text="Sign Up"
+        android:textColor="@android:color/white"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +98,19 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="96dp"
-        android:text="Forgot password?" />
+        android:text="Forgot password?"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvVaain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/lobster"
+        android:textColor="@android:color/white"
+        android:text="Vaain"
+        android:textSize="50sp" />
 
 
 </RelativeLayout>

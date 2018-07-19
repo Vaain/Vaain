@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!--android:fontFamily="@font/lobster"-->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/guymodel" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/lobster"
+        android:text="Welcome to Vaain Join us Today"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/etEnterEmail"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="Enter a email"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="61dp" />
+
+    <EditText
+        android:id="@+id/etEnterPass"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="155dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="Enter a password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/etEnterPhone"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="216dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="Enter a phone number"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="97dp"
+        android:text="Sign Up"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>
