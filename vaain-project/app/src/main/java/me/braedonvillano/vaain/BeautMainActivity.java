@@ -3,6 +3,7 @@ package me.braedonvillano.vaain;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ public class BeautMainActivity extends AppCompatActivity {
     // define your fragments here
     final RequestsFragment requestsFragment = new RequestsFragment();
     final BusinessFragment businessFragment = new BusinessFragment();
+    final Fragment beautProfileFragment = new BeautProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,7 @@ public class BeautMainActivity extends AppCompatActivity {
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.beauts_frag_placeholder, requestsFragment).commit();
+        fragmentTransaction.replace(R.id.beaut_frag_holder, requestsFragment).commit();
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -33,10 +35,13 @@ public class BeautMainActivity extends AppCompatActivity {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     switch (item.getItemId()) {
                         case R.id.action_requests:
-                            fragmentTransaction.replace(R.id.beauts_frag_placeholder, requestsFragment).commit();
+                            fragmentTransaction.replace(R.id.beaut_frag_holder, requestsFragment).commit();
                             return true;
                         case R.id.action_business:
-                            fragmentTransaction.replace(R.id.beauts_frag_placeholder, businessFragment).commit();
+                            fragmentTransaction.replace(R.id.beaut_frag_holder, businessFragment).commit();
+                            return true;
+                        case R.id.action_profile:
+                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
                             return true;
                         default:
                             return false;
