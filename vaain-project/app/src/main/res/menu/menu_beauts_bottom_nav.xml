@@ -8,6 +8,12 @@
         android:title="Requests"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_business"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_profile"
