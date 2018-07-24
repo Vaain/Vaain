@@ -130,13 +130,67 @@ public class BusinessFragment extends Fragment {
         btnSat = view.findViewById(R.id.btnSat);
 
 
+        swSun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnSun, b);
+            }
+        });
 
-
-
-
+        swMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnMon, b);
+            }
+        });
+        swTues.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnTues, b);
+            }
+        });
+        swWed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnWed, b);
+            }
+        });
+        swThurs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnThurs, b);
+            }
+        });
+        swFri.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnFri, b);
+            }
+        });
+        swFri.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnFri, b);
+            }
+        });
+        swSat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switchChange(btnSat, b);
+            }
+        });
         return view;
     }
 
+    private void switchChange(Button button, boolean state){
+        Drawable buttonPurple = getResources().getDrawable(R.drawable.rounded_button_purple);
+        if(state){
+          button.setBackground(buttonPurple);
+        }else{
+            Drawable buttonGrey = getResources().getDrawable(R.drawable.rounded_button_grey);
+            button.setBackground(buttonGrey);
+        }
+    }
 
 
     public void onButtonPressed(Uri uri) {
