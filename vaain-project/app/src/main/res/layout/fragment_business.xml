@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,16 +7,668 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProducts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
+        android:id="@+id/tvProductsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_add_black_24dp"
-        android:layout_margin="16dp" />
-</FrameLayout>
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:text="Products"
+        app:layout_constraintBottom_toTopOf="@+id/rvProducts"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSchedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:text="Schedule"
+        app:layout_constraintBottom_toTopOf="@+id/swSun"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLocLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:text="Location"
+        app:layout_constraintBottom_toTopOf="@+id/etStreet"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/tvProductsLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    <Button
+        android:id="@+id/btnMon"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="M"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/btnTues"
+        app:layout_constraintStart_toEndOf="@+id/btnSun" />
+
+    <Button
+        android:id="@+id/btnWed"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="W"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnTues"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="T"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/btnWed"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnMon" />
+
+    <Button
+        android:id="@+id/btnThurs"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="Th"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/btnFri"
+        app:layout_constraintStart_toEndOf="@+id/btnWed" />
+
+    <Button
+        android:id="@+id/btnSat"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="Sa"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnFri" />
+
+    <Button
+        android:id="@+id/btnFri"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="F"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/btnSat"
+        app:layout_constraintStart_toEndOf="@+id/btnThurs" />
+
+    <Button
+        android:id="@+id/btnSun"
+        android:layout_width="50dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/rounded_button_purple"
+        android:gravity="top|center"
+        android:text="S"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toStartOf="@+id/btnMon"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etSunStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSun"
+        app:layout_constraintEnd_toEndOf="@+id/btnSun"
+        app:layout_constraintStart_toStartOf="@+id/btnSun"
+        app:layout_constraintTop_toTopOf="@+id/btnSun"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSun"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnSun"
+        app:layout_constraintTop_toBottomOf="@+id/etSunStart" />
+
+    <EditText
+        android:id="@+id/etSunEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="time"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSun"
+        app:layout_constraintStart_toStartOf="@+id/btnSun"
+        app:layout_constraintTop_toBottomOf="@+id/etTo1" />
+    <EditText
+        android:id="@+id/etMonStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnMon"
+        app:layout_constraintEnd_toEndOf="@+id/btnMon"
+        app:layout_constraintStart_toStartOf="@+id/btnMon"
+        app:layout_constraintTop_toTopOf="@+id/btnMon"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnMon"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnMon"
+        app:layout_constraintTop_toBottomOf="@+id/etMonStart" />
+
+    <EditText
+        android:id="@+id/etMonEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnMon"
+        app:layout_constraintStart_toStartOf="@+id/btnMon"
+        app:layout_constraintTop_toBottomOf="@+id/etTo2" />
+
+    <EditText
+        android:id="@+id/etTuesStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTues"
+        app:layout_constraintEnd_toEndOf="@+id/btnTues"
+        app:layout_constraintStart_toStartOf="@+id/btnTues"
+        app:layout_constraintTop_toTopOf="@+id/btnTues"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnTues"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnTues"
+        app:layout_constraintTop_toBottomOf="@+id/etTuesStart" />
+
+    <EditText
+        android:id="@+id/etTuesEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnTues"
+        app:layout_constraintStart_toStartOf="@+id/btnTues"
+        app:layout_constraintTop_toBottomOf="@+id/etTo3" />
+
+    <EditText
+        android:id="@+id/etWedStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnWed"
+        app:layout_constraintEnd_toEndOf="@+id/btnWed"
+        app:layout_constraintStart_toStartOf="@+id/btnWed"
+        app:layout_constraintTop_toTopOf="@+id/btnWed"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnWed"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnWed"
+        app:layout_constraintTop_toBottomOf="@+id/etWedStart" />
+
+    <EditText
+        android:id="@+id/etWedEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnWed"
+        app:layout_constraintStart_toStartOf="@+id/btnWed"
+        app:layout_constraintTop_toBottomOf="@+id/etTo4" />
+
+    <EditText
+        android:id="@+id/etThursStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnThurs"
+        app:layout_constraintEnd_toEndOf="@+id/btnThurs"
+        app:layout_constraintStart_toStartOf="@+id/btnThurs"
+        app:layout_constraintTop_toTopOf="@+id/btnThurs"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnThurs"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnThurs"
+        app:layout_constraintTop_toBottomOf="@+id/etThursStart" />
+
+    <EditText
+        android:id="@+id/etThursEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnThurs"
+        app:layout_constraintStart_toStartOf="@+id/btnThurs"
+        app:layout_constraintTop_toBottomOf="@+id/etTo5" />
+
+    <EditText
+        android:id="@+id/etFriStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFri"
+        app:layout_constraintEnd_toEndOf="@+id/btnFri"
+        app:layout_constraintStart_toStartOf="@+id/btnFri"
+        app:layout_constraintTop_toTopOf="@+id/btnFri"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnFri"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnFri"
+        app:layout_constraintTop_toBottomOf="@+id/etFriStart" />
+
+    <EditText
+        android:id="@+id/etFriEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnFri"
+        app:layout_constraintStart_toStartOf="@+id/btnFri"
+        app:layout_constraintTop_toBottomOf="@+id/etTo6" />
+
+    <EditText
+        android:id="@+id/etSatStart"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="8:30 AM"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSat"
+        app:layout_constraintEnd_toEndOf="@+id/btnSat"
+        app:layout_constraintStart_toStartOf="@+id/btnSat"
+        app:layout_constraintTop_toTopOf="@+id/btnSat"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/etTo7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:elevation="5dp"
+        android:text="to"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSat"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/btnSat"
+        app:layout_constraintTop_toBottomOf="@+id/etSatStart" />
+
+    <EditText
+        android:id="@+id/etSatEnd"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        android:elevation="5dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:text="5:30 PM"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSat"
+        app:layout_constraintStart_toStartOf="@+id/btnSat"
+        app:layout_constraintTop_toBottomOf="@+id/etTo7" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tvSchedLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etStreet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="textPostalAddress"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/etCity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tvLocLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Switch
+        android:id="@+id/swSun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSun"
+        app:layout_constraintEnd_toEndOf="@+id/btnSun"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/swMon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnMon"
+        app:layout_constraintEnd_toEndOf="@+id/btnMon"
+        app:layout_constraintStart_toStartOf="@+id/etMonStart" />
+
+    <Switch
+        android:id="@+id/swTues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnTues"
+        app:layout_constraintEnd_toEndOf="@+id/btnTues"
+        app:layout_constraintStart_toStartOf="@+id/etTuesStart" />
+
+    <Switch
+        android:id="@+id/swWed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnWed"
+        app:layout_constraintEnd_toEndOf="@+id/btnWed"
+        app:layout_constraintStart_toStartOf="@+id/btnWed" />
+
+    <Switch
+        android:id="@+id/swThurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnThurs"
+        app:layout_constraintEnd_toEndOf="@+id/etThursStart"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/btnThurs" />
+
+    <Switch
+        android:id="@+id/swFri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnFri"
+        app:layout_constraintEnd_toEndOf="@+id/btnFri"
+        app:layout_constraintStart_toStartOf="@+id/etFriStart" />
+
+    <Switch
+        android:id="@+id/swSat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSat"
+        app:layout_constraintEnd_toEndOf="@+id/btnSat"
+        app:layout_constraintStart_toStartOf="@+id/btnSat" />
+
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPostalAddress"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,16 +1,21 @@
 package me.braedonvillano.vaain;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -40,6 +45,25 @@ public class BusinessFragment extends Fragment {
     private ParseUser user;
     private List<Product> productIds;
     private List<Product> products;
+
+    Switch swSun;
+    Switch swMon;
+    Switch swTues;
+    Switch swWed;
+    Switch swThurs;
+    Switch swFri;
+    Switch swSat;
+
+    Button btnSun;
+    Button btnMon;
+    Button btnTues;
+    Button btnWed;
+    Button btnThurs;
+    Button btnFri;
+    Button btnSat;
+
+
+
 
     private ProductAdapter productAdapter;
     private RecyclerView rvProducts;
@@ -77,31 +101,43 @@ public class BusinessFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_business, container, false);
 
+        //Attach products to recycler view
         user = ParseUser.getCurrentUser();
         productIds = (List<Product>) user.get("products");
         rvProducts = view.findViewById(R.id.rvProducts);
         products = new ArrayList<>();
         productAdapter = new ProductAdapter(productIds);
-        rvProducts.setLayoutManager(new GridLayoutManager(getContext(), 3));
+//        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+//        rvProducts.setLayoutManager(layoutManager);
         rvProducts.setAdapter(productAdapter);
-
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
-            }
-        });
-
-//        getProductsTranscendence();
         loadPostsNoUser();
 
-//        addProduct(createFakeProduct("Welp!", "U Know", 39.99));
+        //Initialize other views
+        swSun = view.findViewById(R.id.swSun);
+        swMon = view.findViewById(R.id.swMon);
+        swTues = view.findViewById(R.id.swTues);
+        swWed = view.findViewById(R.id.swWed);
+        swThurs = view.findViewById(R.id.swThurs);
+        swFri = view.findViewById(R.id.swFri);
+        swSat = view.findViewById(R.id.swSat);
+
+        btnSun = view.findViewById(R.id.btnSun);
+        btnMon = view.findViewById(R.id.btnMon);
+        btnTues = view.findViewById(R.id.btnTues);
+        btnWed = view.findViewById(R.id.btnWed);
+        btnThurs = view.findViewById(R.id.btnThurs);
+        btnFri = view.findViewById(R.id.btnFri);
+        btnSat = view.findViewById(R.id.btnSat);
+
+
+
+
+
 
         return view;
     }
+
+
 
     public void onButtonPressed(Uri uri) {
         if (businessInterface != null) {
