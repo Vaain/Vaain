@@ -22,12 +22,14 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.braedonvillano.vaain.models.BeautSchedule;
 import me.braedonvillano.vaain.models.Product;
 
 
@@ -93,6 +95,7 @@ public class BusinessFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -228,6 +231,8 @@ public class BusinessFragment extends Fragment {
         return newProd;
     }
 
+
+
     // this is a general function that adds a product to a users list
     public void addProduct(final Product newProd) {
         newProd.setBeaut(ParseUser.getCurrentUser());
@@ -256,18 +261,6 @@ public class BusinessFragment extends Fragment {
         });
     }
 
-    public void getProductsTranscendence() {
-        for (int i = 0; i < productIds.size(); i++) {
-            productIds.get(i).fetchInBackground(new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Log.d("********", "they have been updated");
-                    products.add((Product) object);
-                    productAdapter.notifyItemInserted(products.size() - 1);
-                }
-            });
-        }
-    }
 
     public void loadPostsNoUser() {
         final Product.Query postQuery = new Product.Query();
