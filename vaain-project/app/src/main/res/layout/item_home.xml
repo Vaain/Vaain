@@ -24,7 +24,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <EditText
-        android:id="@+id/etLocation"
+        android:id="@+id/etStreet"
         android:layout_width="222dp"
         android:layout_height="39dp"
         android:ems="10"

@@ -12,4 +12,8 @@
         @import url('https://fonts.googleapis.com/css?family=Lobster');
     </style>
 
+    <style name="TwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
 </resources>

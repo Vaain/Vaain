@@ -25,8 +25,7 @@
     <item
         android:id="@+id/action_business"
         android:enabled="true"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile"
+        android:icon="@drawable/ic_action_business"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_profile"
