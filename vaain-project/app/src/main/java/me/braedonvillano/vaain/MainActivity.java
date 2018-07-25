@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         final Fragment profileFragment = new ProfileFragment();
         final Fragment searchFragment = new SearchFragment();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(

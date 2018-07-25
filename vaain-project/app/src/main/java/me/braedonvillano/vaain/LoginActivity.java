@@ -39,9 +39,22 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = passwordInput.getText().toString();
 
                 login(username, password);
+            }
+        });
 
-                }
-            });
+        // this is just for temporary use, so login is quicker
+        loginBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final String username = "w@w.com";
+                final String password = "pass";
+
+                login(username, password);
+
+                return true;
+            }
+        });
+
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

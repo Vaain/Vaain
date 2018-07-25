@@ -2,7 +2,6 @@ package me.braedonvillano.vaain;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -25,56 +24,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+public class BeautProfileFragment extends Fragment {
 
     ParseImageView ivProfileImage;
     TextView tvName;
     TextView tvEmail;
     Button btnLogout;
 
-    public ProfileFragment() {
+    public BeautProfileFragment() {
+        // Required empty public constructor
     }
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        
+        View view = inflater.inflate(R.layout.fragment_beaut_profile, container, false);
+
         ParseUser user = ParseUser.getCurrentUser();
 
         //attach views variables
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         btnLogout = view.findViewById(R.id.btnLogout);
+
+
+
+
 
         //assign values to views
         tvEmail.setText(user.getEmail());
@@ -97,14 +79,19 @@ public class ProfileFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
+
+
         return view;
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
 
-        Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new ClientFollowingFragment(), "Following");
+        ProfileFragment.Adapter adapter = new ProfileFragment.Adapter(getChildFragmentManager());
+        //TODO create the actual frags and change to these
+        adapter.addFragment(new ClientFollowingFragment(), "Availability");
+        adapter.addFragment(new ClientHistoryFragment(), "Appointments");
+        adapter.addFragment(new ClientHistoryFragment(), "Payment");
         adapter.addFragment(new ClientHistoryFragment(), "History");
         viewPager.setAdapter(adapter);
 
@@ -139,8 +126,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
-
     private void logout() {
         ParseUser.logOut();
         assert(ParseUser.getCurrentUser() == null);
@@ -149,25 +134,17 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }
