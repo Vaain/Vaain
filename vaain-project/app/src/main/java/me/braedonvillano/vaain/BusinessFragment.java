@@ -11,14 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +87,6 @@ public class BusinessFragment extends Fragment {
             public void onClick(View view) {
 //                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-
             }
         });
 
@@ -128,56 +123,61 @@ public class BusinessFragment extends Fragment {
 
     /* below are the non-boilerplate functions  */
 
-    public Product createFakeProduct(String description, String name,  Number price) {
-        Product newProd = new Product();
-
-        newProd.setDescription(description);
-        newProd.setName(name);
-        newProd.setPrice(price);
-
-        return newProd;
-    }
+//    public Product createFakeProduct(String description, String name,  Number price) {
+//        Product newProd = new Product();
+//
+//        newProd.setDescription(description);
+//        newProd.setName(name);
+//        newProd.setPrice(price);
+//
+//        return newProd;
+//    }
 
     // this is a general function that adds a product to a users list
-    public void addProduct(final Product newProd) {
-        newProd.setBeaut(ParseUser.getCurrentUser());
-        newProd.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("BusinessFragment", "Created Product");
-                    addProductToUser(newProd);
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public void addProduct(final Product newProd) {
+//        newProd.setBeaut(ParseUser.getCurrentUser());
+//        newProd.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if (e == null) {
+//                    Log.d("BusinessFragment", "Created Product");
+//                    addProductToUser(newProd);
+//                } else {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     // we need to then add the product to the users array
-    public void addProductToUser(Product newProd) {
-        user.add("products", newProd);
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                Toast.makeText(getContext(), "Product Added", Toast.LENGTH_LONG).show();
-                productAdapter.notifyDataSetChanged();
-            }
-        });
+//    public void addProductToUser(Product newProd) {
+//        user.add("products", newProd);
+//        user.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                Toast.makeText(getContext(), "Product Added", Toast.LENGTH_LONG).show();
+//                productAdapter.notifyDataSetChanged();
+//            }
+//        });
+//    }
+
+    public void addProductToAdapter(Product newProduct) {
+        products.add(newProduct);
+        productAdapter.notifyItemInserted(products.size() - 1);
     }
 
-    public void getProductsTranscendence() {
-        for (int i = 0; i < productIds.size(); i++) {
-            productIds.get(i).fetchInBackground(new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    Log.d("********", "they have been updated");
-                    products.add((Product) object);
-                    productAdapter.notifyItemInserted(products.size() - 1);
-                }
-            });
-        }
-    }
+//    public void getProductsTranscendence() {
+//        for (int i = 0; i < productIds.size(); i++) {
+//            productIds.get(i).fetchInBackground(new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject object, ParseException e) {
+//                    Log.d("********", "they have been updated");
+//                    products.add((Product) object);
+//                    productAdapter.notifyItemInserted(products.size() - 1);
+//                }
+//            });
+//        }
+//    }
 
     public void loadPostsNoUser() {
         final Product.Query postQuery = new Product.Query();

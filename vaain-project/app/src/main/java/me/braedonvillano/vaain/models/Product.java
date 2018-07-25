@@ -6,16 +6,20 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.util.Date;
 
+
 @ParseClassName("Product")
-public class Product extends ParseObject {
+public class Product extends ParseObject implements Serializable {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CREATED_AT = "createdAt";
     private static final String KEY_NAME = "name";
     private static final String KEY_PRICE = "price";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_BEAUT = "beaut";
+
+    public Product() {}
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -60,14 +64,6 @@ public class Product extends ParseObject {
     public void setBeaut(ParseUser user) {
         put(KEY_BEAUT, user);
     }
-
-//    public ParseUser getUser() {
-//        return getParseUser(KEY_USER);
-//    }
-//
-//    public void setUser(ParseUser user) {
-//        put(KEY_USER, user);
-//    }
 
     public static class Query extends ParseQuery<Product> {
         public Query() {

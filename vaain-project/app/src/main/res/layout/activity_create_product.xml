@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.braedonvillano.vaain.CreateProductActivity">
+
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="119dp"
+        android:layout_height="108dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/mtProductDescription"
+        android:layout_width="356dp"
+        android:layout_height="71dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/ivProductImage"
+        android:layout_marginTop="136dp"
+        android:ems="10"
+        android:hint="Write a description"
+        android:inputType="textMultiLine"
+        android:textAppearance="@android:style/TextAppearance.Small" />
+
+    <EditText
+        android:id="@+id/tvProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/ivProductImage"
+        android:layout_marginEnd="23dp"
+        android:ems="10"
+        android:hint="Product Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/tvProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivProductImage"
+        android:layout_alignStart="@+id/tvProductName"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="number|numberDecimal" />
+
+    <Button
+        android:id="@+id/btnCreateProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="215dp"
+        android:text="SUBMIT" />
+
+</RelativeLayout>
