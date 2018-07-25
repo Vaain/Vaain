@@ -27,20 +27,13 @@ import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
 
-public class searchRecyclerViewAdapter extends RecyclerView.Adapter<searchRecyclerViewAdapter.ViewHolder>  {
+public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
     static List<Product> mProduct;
     Context context;
-    //private View.OnClickListener mClickListener;
     private Dialog myDialog;
 
-
-//    public searchRecyclerViewAdapter(Context context, List<Product> products) {
-//        this.context = context;
-//        mProduct = products;
-//    }
-
-    public searchRecyclerViewAdapter(List<Product> products) {
+    public SearchProductsAdapter(List<Product> products) {
         mProduct = products;
     }
 
@@ -49,19 +42,14 @@ public class searchRecyclerViewAdapter extends RecyclerView.Adapter<searchRecycl
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
+    // add a list of items -- change to type used
     public void addAll(List<Product> list) {
         mProduct.addAll(list);
         notifyDataSetChanged();
     }
 
     public void add(Product product) {
-
     }
-
-    //this.context = context;
-        //this.product = product;
-       // mClickListener = new mClickListener;
 
     @NonNull
     @Override
@@ -84,13 +72,13 @@ public class searchRecyclerViewAdapter extends RecyclerView.Adapter<searchRecycl
             @Override
             public void onClick(View view) {
                 ImageView Dialog_profilePic = myDialog.findViewById(R.id.ivDProfilePic);
-                TextView Dialog_nameBeaut = (TextView) myDialog.findViewById(R.id.tvDiaBeautName);
-                TextView Dialog_price = (TextView) myDialog.findViewById(R.id.tvDPrice);
-                TextView Dialog_descript = (TextView) myDialog.findViewById(R.id.tvDDescript);
+                TextView Dialog_nameBeaut = myDialog.findViewById(R.id.tvDiaBeautName);
+                TextView Dialog_price = myDialog.findViewById(R.id.tvDPrice);
+                TextView Dialog_descript = myDialog.findViewById(R.id.tvDDescript);
                 //TextView Dialog_location = (TextView) myDialog.findViewById(R.id.tvDLoc);
                 ImageView Dialog_productpic = myDialog.findViewById(R.id.ivDProduct);
-                Button Dialog_request = (Button) myDialog.findViewById(R.id.btnDRequest);
-                TextView Dialog_nameProduct = (TextView) myDialog.findViewById(R.id.tvDProName);
+                Button Dialog_request = myDialog.findViewById(R.id.btnDRequest);
+                TextView Dialog_nameProduct = myDialog.findViewById(R.id.tvDProName);
 
 
                 Dialog_nameBeaut.setText(mProduct.get(vHolder.getAdapterPosition()).getBeaut().getUsername());

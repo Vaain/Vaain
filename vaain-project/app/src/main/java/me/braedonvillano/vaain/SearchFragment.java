@@ -31,9 +31,9 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //private FragmentInteraction mListener;
+    // private FragmentInteraction mListener;
     private RecyclerView rvSearch;
-    private searchRecyclerViewAdapter searchRecyclerViewAdapter;
+    private SearchProductsAdapter searchRecyclerViewAdapter;
     private RecyclerView.LayoutManager gridLayoutManager;
     private List<Product> products;
 
@@ -44,17 +44,8 @@ public class SearchFragment extends Fragment {
     }
 
     public SearchFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
@@ -86,13 +77,11 @@ public class SearchFragment extends Fragment {
         rvSearch.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rvSearch.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        searchRecyclerViewAdapter = new searchRecyclerViewAdapter(products);
+        searchRecyclerViewAdapter = new SearchProductsAdapter(products);
         gridLayoutManager = new GridLayoutManager(getContext(), 3);
         rvSearch.setLayoutManager(gridLayoutManager);
         rvSearch.setAdapter(searchRecyclerViewAdapter);
 
-
-        loadTopPosts();
         return view;
     }
 
@@ -133,49 +122,4 @@ public class SearchFragment extends Fragment {
         super.onDetach();
         searchInterface = null;
     }
-
-    public void loadTopPosts() {
-
-
-        final Product.Query postQuery = new Product.Query();
-        postQuery.getTop();
-
-        postQuery.findInBackground(new FindCallback<Product>() {
-            @Override
-            public void done(final List<Product> objects, ParseException e) {
-                if (e == null) {
-               //     ParseUser user = ParseUser.getCurrentUser();
-                    //for (int i = 0; i < objects.size(); i++) {
-                    //Log.d("BusinessFragment", "Product[" + i + "] = " + objects.get(i).getDescription());
-//                        user.add("products", objects.get(i));
-//                        user.removeAll("products", objects);
-
-                 //   user.saveInBackground(new SaveCallback() {
-//                        @Override
-//                        public void done(ParseException e) {
-//                            if (e != null) return;
-//                        }
-                    //});
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
-
-
 }
