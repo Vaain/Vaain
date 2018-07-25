@@ -15,6 +15,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
@@ -22,16 +23,16 @@ import me.braedonvillano.vaain.models.Product;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     static List<Product> mProducts;
     Context context;
-//    static Callback callback;
-//
-//    public interface Callback {
-//        void onProductClicked(Product post);
-//    }
+    static Callback callback;
 
-//    public ProductAdapter(ArrayList<Product> posts, @NonNull final Callback callback) {
-//        mProducts = posts;
-//        this.callback = callback;
-//    }
+    public interface Callback {
+        void onProductClicked(Product post);
+    }
+
+    public ProductAdapter(ArrayList<Product> posts, @NonNull final Callback callback) {
+        mProducts = posts;
+        this.callback = callback;
+    }
 
     public ProductAdapter(List<Product> products) {
         mProducts = products;
