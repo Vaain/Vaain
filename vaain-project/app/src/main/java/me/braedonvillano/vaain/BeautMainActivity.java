@@ -43,6 +43,12 @@ public class BeautMainActivity extends AppCompatActivity {
                         case R.id.action_profile:
                             fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
                             return true;
+                        case R.id.action_schedule:
+                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
+                            return true;
+                        case R.id.action_add:
+                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
+                            return true;
                         default:
                             return false;
                     }
