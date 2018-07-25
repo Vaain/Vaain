@@ -1,5 +1,6 @@
 package me.braedonvillano.vaain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,14 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class BeautMainActivity extends AppCompatActivity {
 
-    // define your fragments here
+    // define fragments here
     final RequestsFragment requestsFragment = new RequestsFragment();
     final BusinessFragment businessFragment = new BusinessFragment();
     final Fragment beautProfileFragment = new BeautProfileFragment();
+
+    private FragmentManager fragmentManager;
+
+    public final static int ADD_PRODUCT_ACTIVITY = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +29,7 @@ public class BeautMainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.beaut_bottom_navigation);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.beaut_frag_holder, requestsFragment).commit();
 
@@ -32,22 +38,22 @@ public class BeautMainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
                     switch (item.getItemId()) {
                         case R.id.action_requests:
-                            fragmentTransaction.replace(R.id.beaut_frag_holder, requestsFragment).commit();
+                            changeMainFragment(requestsFragment);
                             return true;
                         case R.id.action_business:
-                            fragmentTransaction.replace(R.id.beaut_frag_holder, businessFragment).commit();
+                            changeMainFragment(businessFragment);
                             return true;
                         case R.id.action_profile:
-                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
+                            changeMainFragment(beautProfileFragment);
                             return true;
                         case R.id.action_schedule:
-                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
+                            changeMainFragment(beautProfileFragment);
                             return true;
                         case R.id.action_add:
-                            fragmentTransaction.replace(R.id.beaut_frag_holder, beautProfileFragment).commit();
+                            openAddProductActivity();
                             return true;
                         default:
                             return false;
@@ -55,5 +61,34 @@ public class BeautMainActivity extends AppCompatActivity {
                 }
 
             });
+    }
+
+    public void changeMainFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.beaut_frag_holder, fragment).commit();
+    }
+
+    public void openAddProductActivity() {
+        // TODO: consider adding the dialogue fragment back here to clean up create flow -- a bit choppy
+        Intent intent = new Intent(BeautMainActivity.this, CreateProductActivity.class);
+        startActivityForResult(intent, ADD_PRODUCT_ACTIVITY);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            Log.d("BeautMainActivity", "FIX THE RESULT CODE");
+            return;
+        }
+
+        switch (requestCode) {
+            case ADD_PRODUCT_ACTIVITY: {
+                changeMainFragment(businessFragment);
+                break;
+            }
+            default:
+                Log.e("OnActivityResult", "The requestCode did not match any case!");
+                break;
+        }
     }
 }
