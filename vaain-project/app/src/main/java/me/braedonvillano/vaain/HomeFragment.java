@@ -12,13 +12,6 @@ import android.view.ViewGroup;
 
 
 public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-    // TODO: Rename and change types of parameters
-    //private final List<Products> products = new ArrayList<>();
-
     //ProductsAdapter productsAdapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeContainer;
@@ -31,7 +24,6 @@ public class HomeFragment extends Fragment {
 
     public HomeFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

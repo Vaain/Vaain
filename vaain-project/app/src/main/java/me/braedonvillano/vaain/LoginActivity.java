@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                final String username = "b@b.com";
+                final String username = "w@w.com";
                 final String password = "pass";
 
                 login(username, password);

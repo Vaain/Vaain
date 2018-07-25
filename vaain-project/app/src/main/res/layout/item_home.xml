@@ -1,69 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="97dp"
-        android:layout_height="95dp"
-        app:srcCompat="@drawable/ic_account_circle_black_24dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <EditText
-        android:id="@+id/etNameBeaut"
-        android:layout_width="222dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <EditText
-        android:id="@+id/etStreet"
-        android:layout_width="222dp"
-        android:layout_height="39dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="71dp" />
+        android:id="@+id/ivDProfilePic"
+        android:layout_width="91dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDiaBeautName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
     <ImageView
-        android:id="@+id/ivProduct"
-        android:layout_width="354dp"
-        android:layout_height="277dp"
-        app:srcCompat="@android:color/black"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="128dp" />
-
-    <EditText
-        android:id="@+id/etDescript"
-        android:layout_width="353dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="405dp" />
+        android:id="@+id/ivDProduct"
+        android:layout_width="285dp"
+        android:layout_height="242dp"
+        android:layout_above="@+id/tvDDescript"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/tvDDescript"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:color/black" />
 
     <Button
-        android:id="@+id/btnRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnDRequest"
+        android:layout_width="85dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Request"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="458dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/etprice"
-        android:layout_width="72dp"
+    <TextView
+        android:id="@+id/tvDiaBeautName"
+        android:layout_width="285dp"
+        android:layout_height="23dp"
+        android:layout_below="@+id/ivDProfilePic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/background_light"
+        android:text="Name"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvDLoc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDLoc"
+        android:layout_width="285dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="293dp"
-        tools:layout_editor_absoluteY="356dp" />
+        android:layout_below="@+id/tvDiaBeautName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/white"
+        android:text="Location"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvDProName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDPrice"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvDDescript"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/background_light"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnDRequest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="441dp" />
+
+    <TextView
+        android:id="@+id/tvDDescript"
+        android:layout_width="285dp"
+        android:layout_height="51dp"
+        android:layout_above="@+id/btnDRequest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/background_light"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/tvDPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDProName"
+        android:layout_width="285dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ivDProduct"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/background_light"
+        android:text="ProName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/ivDProduct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

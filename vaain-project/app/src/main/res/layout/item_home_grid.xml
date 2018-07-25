@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_home_grid"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBeautName"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvBeautName"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="240dp"
+        android:layout_height="171dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvProductName"
+        android:scaleType="fitXY"
+        app:srcCompat="@android:color/black" />
+
+
+</RelativeLayout>
