@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -53,7 +54,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int b) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int b) {
         context = viewGroup.getContext();
         LayoutInflater i = LayoutInflater.from(context);
         View view = i.inflate(R.layout.item_home_grid, viewGroup, false);
@@ -71,14 +72,14 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         vHolder.item_home_grid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView Dialog_profilePic = myDialog.findViewById(R.id.ivDProfilePic);
+                final ImageView Dialog_profilePic = myDialog.findViewById(R.id.ivDProfilePic);
                 TextView Dialog_nameBeaut = myDialog.findViewById(R.id.tvDiaBeautName);
                 TextView Dialog_price = myDialog.findViewById(R.id.tvDPrice);
                 TextView Dialog_descript = myDialog.findViewById(R.id.tvDDescript);
                 //TextView Dialog_location = (TextView) myDialog.findViewById(R.id.tvDLoc);
                 ImageView Dialog_productpic = myDialog.findViewById(R.id.ivDProduct);
                 Button Dialog_request = myDialog.findViewById(R.id.btnDRequest);
-                TextView Dialog_nameProduct = myDialog.findViewById(R.id.tvDProName);
+                final TextView Dialog_nameProduct = myDialog.findViewById(R.id.tvDProName);
 
 
                 Dialog_nameBeaut.setText(mProduct.get(vHolder.getAdapterPosition()).getBeaut().getUsername());
@@ -92,11 +93,24 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                 Dialog_request.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        String prodName = Dialog_nameProduct.getText().toString();
+
+
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ProductName", prodName);
+
+
+
                         // Create new fragment and transaction
                         Fragment newFragment = new ClientRequestsFragment();
                         FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
                         // Replace whatever is in the fragment_container view with this fragment,
                         // and add the transaction to the back stack
+
+                        newFragment.setArguments(bundle);
+
                         transaction.replace(R.id.frag_placeholder, newFragment);
                         transaction.addToBackStack(null);
                         transaction.commit();
