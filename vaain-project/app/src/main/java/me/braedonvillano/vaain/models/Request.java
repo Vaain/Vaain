@@ -13,9 +13,9 @@ public class Request extends ParseObject implements Serializable {
 
     final private static String KEY_BEAUT = "beaut";
     final private static String KEY_PRODUCT = "product";
-    final private static String KEY_DATE_TIME = "dat_time";
+    final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
-
+    final private static String KEY_DESCRIPTION = "description";
 
     public Request() {}
 
@@ -41,6 +41,22 @@ public class Request extends ParseObject implements Serializable {
 
     public void setClient(ParseUser client) {
         put(KEY_CLIENT, client);
+    }
+
+    public String getDescription() {
+        return getString(KEY_DESCRIPTION);
+    }
+
+    public void setDescription(String description) {
+        put(KEY_DESCRIPTION, description);
+    }
+
+    public Product getProduct() {
+        return (Product) get(KEY_PRODUCT);
+    }
+
+    public void setProduct(Product product) {
+        put(KEY_PRODUCT, product);
     }
 
     public static class Query extends ParseQuery<Request> {

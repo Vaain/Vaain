@@ -9,18 +9,22 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import me.braedonvillano.vaain.models.Product;
+
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface {
+
+    private FragmentManager fragmentManager;
+
+    final ProfileFragment profileFragment = new ProfileFragment();
+    final SearchFragment searchFragment = new SearchFragment();
+    final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-
-        // define your fragments here
-        final Fragment profileFragment = new ProfileFragment();
-        final Fragment searchFragment = new SearchFragment();
+        fragmentManager = getSupportFragmentManager();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -31,17 +35,26 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_profile:
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.frag_placeholder, profileFragment).commit();
+                                changeMainFragment(profileFragment);
                                 return true;
                             case R.id.action_search:
-                                fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.frag_placeholder,searchFragment).commit();
+                                changeMainFragment(searchFragment);
                                 return true;
                         }
                         return false;
                     }
 
                 });
+    }
+
+    public void changeMainFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frag_placeholder, fragment).commit();
+    }
+
+    @Override
+    public void renderRequestFlow(Product product) {
+        requestFragment.setProduct(product);
+        changeMainFragment(requestFragment);
     }
 }
