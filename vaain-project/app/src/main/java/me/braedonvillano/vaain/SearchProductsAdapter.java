@@ -4,11 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
 
 import java.util.List;
 
@@ -30,22 +23,29 @@ import me.braedonvillano.vaain.models.Product;
 
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
-    static List<Product> mProduct;
-    Context context;
+    static List<Product> mProducts;
+    public Context context;
     private Dialog myDialog;
+    static Callback callback;
 
-    public SearchProductsAdapter(List<Product> products) {
-        mProduct = products;
+    public interface Callback {
+        void onRequestProduct(Product product);
+    }
+
+
+    public SearchProductsAdapter(List<Product> products, @NonNull final Callback callback) {
+        mProducts = products;
+        this.callback = callback;
     }
 
     public void clear() {
-        mProduct.clear();
+        mProducts.clear();
         notifyDataSetChanged();
     }
 
     // add a list of items -- change to type used
     public void addAll(List<Product> list) {
-        mProduct.addAll(list);
+        mProducts.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -69,58 +69,47 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
 
 
-        vHolder.item_home_grid.setOnClickListener(new View.OnClickListener() {
+        vHolder.rlHomeGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ImageView Dialog_profilePic = myDialog.findViewById(R.id.ivDProfilePic);
-                TextView Dialog_nameBeaut = myDialog.findViewById(R.id.tvDiaBeautName);
-                TextView Dialog_price = myDialog.findViewById(R.id.tvDPrice);
-                TextView Dialog_descript = myDialog.findViewById(R.id.tvDDescript);
-                //TextView Dialog_location = (TextView) myDialog.findViewById(R.id.tvDLoc);
-                ImageView Dialog_productpic = myDialog.findViewById(R.id.ivDProduct);
-                Button Dialog_request = myDialog.findViewById(R.id.btnDRequest);
-                final TextView Dialog_nameProduct = myDialog.findViewById(R.id.tvDProName);
+                Product curProd = mProducts.get(vHolder.getAdapterPosition());
+
+                ImageView dlgProfilePic = myDialog.findViewById(R.id.ivDProfilePic);
+                TextView dlgBeautName = myDialog.findViewById(R.id.tvDiaBeautName);
+                TextView dlgPrice = myDialog.findViewById(R.id.tvDPrice);
+                TextView dlgDescription = myDialog.findViewById(R.id.tvDDescript);
+                ImageView dlgProductPic = myDialog.findViewById(R.id.ivDProduct);
+                Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
+                final TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
 
 
-                Dialog_nameBeaut.setText(mProduct.get(vHolder.getAdapterPosition()).getBeaut().getUsername());
-                Dialog_price.setText(mProduct.get(vHolder.getAdapterPosition()).getPrice().toString());
-                Dialog_descript.setText(mProduct.get(vHolder.getAdapterPosition()).getDescription());
-                //Dialog_location.setText(product.get(vHolder.getAdapterPosition()).getLocation());
-                Dialog_nameProduct.setText(mProduct.get(vHolder.getAdapterPosition()).getName());
-                Glide.with(context).load(mProduct.get(vHolder.getAdapterPosition()).getImage().getUrl()).into(Dialog_productpic);
-                Glide.with(context).load(mProduct.get(vHolder.getAdapterPosition()).getBeaut().getParseFile("profileImage").getUrl()).apply(RequestOptions.circleCropTransform()).into(Dialog_profilePic);
+                dlgBeautName.setText(curProd.getBeaut().getUsername());
+                dlgPrice.setText(curProd.getPrice().toString());
+                dlgDescription.setText(curProd.getDescription());
+                dlgProductName.setText(curProd.getName());
 
-                Dialog_request.setOnClickListener(new View.OnClickListener() {
+                // add profile and product pic to modal
+                Glide.with(context)
+                        .load(curProd.getImage()
+                        .getUrl())
+                        .into(dlgProductPic);
+                Glide.with(context)
+                        .load(curProd.getBeaut().getParseFile("profileImage")
+                        .getUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(dlgProfilePic);
+
+                dlgRequest.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                            callback.onRequestProduct(curProd);
+                            myDialog.dismiss();
+                        }
 
-                        String prodName = Dialog_nameProduct.getText().toString();
-
-
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("ProductName", prodName);
-
-
-
-                        // Create new fragment and transaction
-                        Fragment newFragment = new ClientRequestsFragment();
-                        FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                        // Replace whatever is in the fragment_container view with this fragment,
-                        // and add the transaction to the back stack
-
-                        newFragment.setArguments(bundle);
-
-                        transaction.replace(R.id.frag_placeholder, newFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                        myDialog.dismiss();
-                    }
-
-                });
-
-                myDialog.show();
-            }
+                    });
+                    myDialog.show();
+                }
         });
 
         return vHolder;
@@ -128,50 +117,37 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
+        final Product product = mProducts.get(position);
 
-
-
-        final Product product = mProduct.get(position);
-        //ParseQuery<Product> query = new ParseQuery<Product>("Product");
-
-
-        product.fetchInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject objects, ParseException e) {
-                viewHolder.BeautName.setText(product.getBeaut().getUsername());
-                //viewHolder.price("$" + product.getPrice().toString());
-                viewHolder.ProductName.setText(product.getName());
-                if (product.getImage() != null) {
-                    Glide.with(context)
-                            .load(product.getImage().getUrl())
-                            .into(viewHolder.productImage);
-                } else {
-                    // Something went wrong.
-                }
-            }
-        });
-
+        viewHolder.tvBeautName.setText(product.getBeaut().getUsername());
+        viewHolder.tvProductName.setText(product.getName());
+        if (product.getImage() != null) {
+            Glide.with(context)
+                    .load(product.getImage().getUrl())
+                    .into(viewHolder.ivProductImage);
+        }
     }
 
 
     @Override
     public int getItemCount() {
-        return mProduct.size();
+        return mProducts.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout item_home_grid;
-        public TextView ProductName;
-        public TextView BeautName;
-        public ImageView productImage;
+        public RelativeLayout rlHomeGrid;
+        public TextView tvProductName;
+        public TextView tvBeautName;
+        public ImageView ivProductImage;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            item_home_grid = itemView.findViewById(R.id.item_home_grid);
-            ProductName = (TextView) itemView.findViewById(R.id.tvProductName);
-            BeautName = (TextView) itemView.findViewById(R.id.tvBeautName);
-            productImage = itemView.findViewById(R.id.ivProductImage);
+            rlHomeGrid = itemView.findViewById(R.id.item_home_grid);
+            tvProductName = itemView.findViewById(R.id.tvProductName);
+            tvBeautName = itemView.findViewById(R.id.tvBeautName);
+            ivProductImage = itemView.findViewById(R.id.ivProductImage);
 
 
         }

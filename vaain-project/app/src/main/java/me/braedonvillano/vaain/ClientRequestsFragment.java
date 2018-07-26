@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +19,19 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
+import me.braedonvillano.vaain.models.Request;
 
 
 public class ClientRequestsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private List<Product> products;
     private TextView selectDate;
@@ -43,6 +41,12 @@ public class ClientRequestsFragment extends Fragment {
     private TextView rService;
     private Button btnSubmit;
 
+    private Product mProduct;
+    private ParseUser mBeaut;
+
+    private DatePickerDialog.OnDateSetListener cDateSetListener;
+    private TimePickerDialog.OnTimeSetListener cTimeSetListener;
+
     public interface RequestsFragmentInterface {
         void onFragmentInteraction(Uri uri);
     }
@@ -51,23 +55,9 @@ public class ClientRequestsFragment extends Fragment {
 
     public ClientRequestsFragment() {}
 
-
-    public static RequestsFragment newInstance(String param1, String param2) {
-        RequestsFragment fragment = new RequestsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -79,15 +69,7 @@ public class ClientRequestsFragment extends Fragment {
         selectTime = view.findViewById(R.id.tvSelectTime);
         dateSelected = view.findViewById(R.id.etDateSelected);
         timeSelected = view.findViewById(R.id.etTimeSelected);
-
         rService = view.findViewById(R.id.tvRService);
-
-
-        Bundle bundle = getArguments();
-        String prodName = bundle.getString("ProductName");
-
-        rService.setText(prodName);
-
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,19 +120,9 @@ public class ClientRequestsFragment extends Fragment {
 
                 TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(final TimePicker view, final int hourOfDay, final int minute) {
-                        Toast.makeText(getContext(), "The hour is " + Integer.toString(hourOfDay), Toast.LENGTH_LONG).show();
-
-                       // @SuppressLint("SimpleDateFormat")
-
-//                        SimpleDateFormat sdt = new SimpleDateFormat("hh:mm a");
-//                        c.set(hourOfDay, minute);
-//                        String timeString = sdt.format(c.getTime());
-//
-//                        timeSelected.setText(timeString);
-                        int hour = hourOfDay % 12;
-                        timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour,
-                                minute, hourOfDay < 12 ? "am" : "pm"));
+                    public void onTimeSet(final TimePicker view, final int hr, final int min) {
+                        int hour = hr % 12;
+                        timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
 
                     }
 
@@ -169,15 +141,41 @@ public class ClientRequestsFragment extends Fragment {
         }
     }
 
+    public void makeRequest() {
+        Request newRequest = new Request();
+
+        newRequest.setClient(ParseUser.getCurrentUser());
+        newRequest.setProduct(mProduct);
+        newRequest.setBeaut(mProduct.getBeaut());
+//        newRequest.setDateTime();
+//        newRequest.setDescription();
+
+        sendRequest(newRequest);
+    }
+
+    public void sendRequest(Request request) {
+        request.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Client Request Error", "save did not work!");
+                    e.printStackTrace();
+                    return;
+                }
+                // TODO: route the user to the appointments/requests page via interface
+                Toast.makeText(getContext(), "Request Made!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void setProduct(Product product) {
+        mProduct = product;
+        mBeaut = mProduct.getBeaut();
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof RequestsFragmentInterface) {
-//            requestsInterface = (RequestsFragmentInterface) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package me.braedonvillano.vaain;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -21,7 +20,7 @@ import java.util.List;
 import me.braedonvillano.vaain.models.Product;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchProductsAdapter.Callback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,13 +39,13 @@ public class SearchFragment extends Fragment {
     private SearchFragmentInterface searchInterface;
 
     public interface SearchFragmentInterface {
-        void onFragmentInteraction(Uri uri);
+        void renderRequestFlow(Product product);
     }
 
     public SearchFragment() {
     }
 
-    // TODO: Rename and change types and number of parameters
+    // TODO: rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
@@ -77,7 +76,7 @@ public class SearchFragment extends Fragment {
         rvSearch.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rvSearch.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        searchRecyclerViewAdapter = new SearchProductsAdapter(products);
+        searchRecyclerViewAdapter = new SearchProductsAdapter(products, this);
         gridLayoutManager = new GridLayoutManager(getContext(), 3);
         rvSearch.setLayoutManager(gridLayoutManager);
         rvSearch.setAdapter(searchRecyclerViewAdapter);
@@ -86,9 +85,7 @@ public class SearchFragment extends Fragment {
     }
 
     public void loadProducts() {
-        final Product.Query prodQuery = new Product.Query();
-
-        prodQuery.include("beaut");
+        final Product.Query prodQuery = new Product.Query().withBeaut();
         prodQuery.findInBackground(new FindCallback<Product>() {
             @Override
             public void done(List<Product> objects, ParseException e) {
@@ -102,19 +99,20 @@ public class SearchFragment extends Fragment {
         });
     }
 
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (searchInterface != null) {
-            searchInterface.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onRequestProduct(Product product) {
+        searchInterface.renderRequestFlow(product);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
+        if (context instanceof SearchFragmentInterface) {
+            searchInterface = (SearchFragmentInterface) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
