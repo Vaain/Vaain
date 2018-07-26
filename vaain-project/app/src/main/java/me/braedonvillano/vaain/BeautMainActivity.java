@@ -14,7 +14,7 @@ import android.view.MenuItem;
 public class BeautMainActivity extends AppCompatActivity {
 
     // define fragments here
-    final RequestsFragment requestsFragment = new RequestsFragment();
+    final BeautsRequestsFragment beautsRequestsFragment = new BeautsRequestsFragment();
     final BusinessFragment businessFragment = new BusinessFragment();
     final Fragment beautProfileFragment = new BeautProfileFragment();
 
@@ -31,7 +31,7 @@ public class BeautMainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.beaut_frag_holder, requestsFragment).commit();
+        fragmentTransaction.replace(R.id.beaut_frag_holder, beautsRequestsFragment).commit();
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -41,7 +41,7 @@ public class BeautMainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.action_requests:
-                            changeMainFragment(requestsFragment);
+                            changeMainFragment(beautsRequestsFragment);
                             return true;
                         case R.id.action_business:
                             changeMainFragment(businessFragment);
