@@ -77,6 +77,7 @@ public class BeautSchedule extends ParseObject {
     public static class Query extends ParseQuery<BeautSchedule> {
         public Query() {
             super(BeautSchedule.class);
+            getQuery("Request");
         }
 
         public Query getTop() {
