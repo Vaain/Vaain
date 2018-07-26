@@ -1,5 +1,6 @@
 package me.braedonvillano.vaain.models;
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -10,15 +11,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 @ParseClassName("Request")
-public class Request extends ParseObject implements Serializable {
+public class Request extends ParseObject{
+    public Request() {
+    }
 
     final private static String KEY_BEAUT = "beaut";
     final private static String KEY_PRODUCT = "product";
-    final private static String KEY_DATE_TIME = "dat_time";
+    final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
 
-
-    public Request() {}
 
     public Date getDateTime(){
        return getDate(KEY_DATE_TIME);
@@ -30,6 +31,7 @@ public class Request extends ParseObject implements Serializable {
     public ParseUser getClient(){
         return getParseUser(KEY_CLIENT);
     }
+
 
     public static class Query extends ParseQuery<Request> {
         public Query() {
