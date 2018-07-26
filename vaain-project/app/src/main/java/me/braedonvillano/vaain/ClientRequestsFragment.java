@@ -1,24 +1,31 @@
 package me.braedonvillano.vaain;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
 import me.braedonvillano.vaain.models.Request;
@@ -26,8 +33,13 @@ import me.braedonvillano.vaain.models.Request;
 
 public class ClientRequestsFragment extends Fragment {
 
+    private List<Product> products;
     private TextView selectDate;
     private TextView selectTime;
+    private EditText dateSelected;
+    private EditText timeSelected;
+    private TextView rService;
+    private Button btnSubmit;
 
     private Product mProduct;
     private ParseUser mBeaut;
@@ -41,17 +53,7 @@ public class ClientRequestsFragment extends Fragment {
 
     private RequestsFragmentInterface requestsInterface;
 
-    public ClientRequestsFragment() {
-    }
-
-//    public static RequestsFragment newInstance(String param1, String param2) {
-//        RequestsFragment fragment = new RequestsFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    public ClientRequestsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,36 +63,74 @@ public class ClientRequestsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_client_requests, container, false);
-
-        mProduct = new Product();
 
         selectDate = view.findViewById(R.id.tvSelectDate);
         selectTime = view.findViewById(R.id.tvSelectTime);
+        dateSelected = view.findViewById(R.id.etDateSelected);
+        timeSelected = view.findViewById(R.id.etTimeSelected);
+        rService = view.findViewById(R.id.tvRService);
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
+                final Calendar cal = Calendar.getInstance();
+
+
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog dialog = new DatePickerDialog(getContext(), cDateSetListener, year, month, day);
-                dialog.show();
+                DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light,new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(final DatePicker view, final int year, final int month,
+                                          final int dayOfMonth) {
+
+                        @SuppressLint("SimpleDateFormat")
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                        cal.set(year, month, dayOfMonth);
+                        String dateString = sdf.format(cal.getTime());
+
+                        dateSelected.setText(dateString); // set the date
+                    }
+                }, month, day, year);
+
+                cal.set(Calendar.MONTH,Calendar.AUGUST);
+                cal.set(Calendar.DAY_OF_MONTH,1);
+                datePicker.getDatePicker().setMinDate(cal.getTimeInMillis());
+
+                cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+                cal.set(Calendar.DAY_OF_MONTH,30);
+                datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
+
+                //datePicker.getDatePicker().setCalendarViewShown(false);
+                datePicker.show();
+                //dialog.show();
             }
         });
 
-        cDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        selectTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
 
+                TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(final TimePicker view, final int hr, final int min) {
+                        int hour = hr % 12;
+                        timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
 
+                    }
+
+                }, hour, minute, DateFormat.is24HourFormat(getActivity()));
+
+                timePicker.show();
             }
-        };
-
+        });
         return view;
     }
 
@@ -143,4 +183,8 @@ public class ClientRequestsFragment extends Fragment {
         super.onDetach();
         requestsInterface = null;
     }
+
+
+
 }
+
