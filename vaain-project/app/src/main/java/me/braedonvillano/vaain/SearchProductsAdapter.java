@@ -151,8 +151,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             tvProductName = itemView.findViewById(R.id.tvProductName);
             tvBeautName = itemView.findViewById(R.id.tvBeautName);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
-
-
         }
     }
 
