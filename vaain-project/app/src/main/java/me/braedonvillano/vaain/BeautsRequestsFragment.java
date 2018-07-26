@@ -74,25 +74,14 @@ public class BeautsRequestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_beaut_requests, container, false);
-        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient();
-        requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
-        requestQuery.findInBackground(new FindCallback<Request>() {
-            @Override
-            public void done(List<Request> objects, com.parse.ParseException e) {
+        requests = new ArrayList<>();
 
-                if (e == null) {
-                    //requests = objects;
-                    int size = objects.size();
-                    rvRequests = view.findViewById(R.id.rvRequests);
-                    BeautRequestsAdapter adapter = new BeautRequestsAdapter(objects);
-                    rvRequests.setAdapter(adapter);
-                    rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
-                    Log.d("BeautsRequestsFragment", "Retrieved " + size + " requests");
-                } else {
-                    Log.d("BeautsRequestsFragment", "Error: " + e.getMessage());
-                }
-            }
-        });
+        rvRequests = view.findViewById(R.id.rvRequests);
+        BeautRequestsAdapter adapter = new BeautRequestsAdapter(requests);
+        getParseRequests(adapter);
+        rvRequests.setAdapter(adapter);
+        rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         return view;
     }
@@ -103,8 +92,25 @@ public class BeautsRequestsFragment extends Fragment {
         }
     }
 
-    void getParseRequests() {
+    void getParseRequests(final BeautRequestsAdapter adapter) {
+        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient().withProduct();
+        requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
+        requestQuery.findInBackground(new FindCallback<Request>() {
+            @Override
+            public void done(List<Request> objects, com.parse.ParseException e) {
 
+                if (e == null) {
+                    requests = objects;
+                    int size = objects.size();
+                    adapter.clear();
+                    adapter.addAll(requests);
+                    adapter.notifyItemRangeInserted(0,size);
+                    Log.d("BeautsRequestsFragment", "Retrieved " + size + " requests");
+                } else {
+                    Log.d("BeautsRequestsFragment", "Error: " + e.getMessage());
+                }
+            }
+        });
 
     }
 

@@ -79,5 +79,10 @@ public class Request extends ParseObject{
             include(KEY_CLIENT);
             return this;
         }
+
+        public Query withProduct(){
+            include(KEY_PRODUCT);
+            return this;
+        }
     }
 }
