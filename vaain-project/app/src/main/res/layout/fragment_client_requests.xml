@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRService" />
 
-        <EditText
+        <TextView
             android:id="@+id/etDateSelected"
             android:layout_width="wrap_content"
             android:layout_height="54dp"
@@ -91,7 +91,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSelectDate" />
 
-        <EditText
+        <TextView
             android:id="@+id/etTimeSelected"
             android:layout_width="wrap_content"
             android:layout_height="61dp"
