@@ -1,7 +1,6 @@
 package me.braedonvillano.vaain.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -24,11 +23,24 @@ public class Request extends ParseObject implements Serializable {
        return getDate(KEY_DATE_TIME);
     }
 
+    public void setDateTime(Date dateTime) {
+        put(KEY_DATE_TIME, dateTime);
+    }
+
     public ParseUser getBeaut(){
         return getParseUser(KEY_BEAUT);
     }
+
+    public void setBeaut(ParseUser beaut) {
+        put(KEY_BEAUT, beaut);
+    }
+
     public ParseUser getClient(){
         return getParseUser(KEY_CLIENT);
+    }
+
+    public void setClient(ParseUser client) {
+        put(KEY_CLIENT, client);
     }
 
     public static class Query extends ParseQuery<Request> {
