@@ -93,7 +93,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     @Override
                     public void onClick(View view) {
                         // Create new fragment and transaction
-                        Fragment newFragment = new RequestsFragment();
+                        Fragment newFragment = new ClientRequestsFragment();
                         FragmentTransaction transaction = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
                         // Replace whatever is in the fragment_container view with this fragment,
                         // and add the transaction to the back stack
