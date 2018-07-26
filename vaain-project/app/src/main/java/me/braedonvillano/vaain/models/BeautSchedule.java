@@ -1,15 +1,10 @@
 package me.braedonvillano.vaain.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @ParseClassName("Product")

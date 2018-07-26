@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.braedonvillano.vaain.BeautsRequestsFragment">
+    android:id="@+id/fragment_client_request"
+    tools:context="me.braedonvillano.vaain.ClientRequestsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -30,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivRProPic" />
@@ -39,115 +40,9 @@
         <Spinner
             android:id="@+id/spinTime"
             android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinDate" />
-
-        <Spinner
-            android:id="@+id/spinDate"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="52dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRService" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="52dp"
-            android:text="Please select a date:"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintHorizontal_bias="0.571"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRService" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="32dp"
-            android:text="Please select a location:"
-            app:layout_constraintEnd_toStartOf="@+id/imageView6"
-            app:layout_constraintHorizontal_bias="0.843"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="129dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:text="Please select a time:"
-            app:layout_constraintEnd_toStartOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.363"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="19dp"
-            android:layout_height="22dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="156dp"
-            android:src="@android:drawable/ic_menu_today"
-            app:layout_constraintEnd_toStartOf="@+id/spinDate"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@android:drawable/ic_lock_idle_alarm"
-            app:layout_constraintEnd_toStartOf="@+id/spinTime"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-        <Spinner
-            android:id="@+id/spinLoc"
-            android:layout_width="261dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="92dp"
-            android:layout_marginTop="28dp"
-            android:src="@android:drawable/ic_menu_mylocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinTime" />
-
-        <EditText
-            android:id="@+id/etComm"
-            android:layout_width="225dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Additional Comments?"
-            android:inputType="textMultiLine"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinLoc" />
+            tools:layout_editor_absoluteY="498dp" />
 
         <Button
             android:id="@+id/btnSubmit"
@@ -156,13 +51,28 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
             android:text="Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etComm"
-            app:layout_constraintVertical_bias="0.225" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSelectTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please select a time"
+            tools:layout_editor_absoluteX="130dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <TextView
+            android:id="@+id/tvSelectDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please select a date"
+            tools:layout_editor_absoluteX="129dp"
+            tools:layout_editor_absoluteY="135dp" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 
