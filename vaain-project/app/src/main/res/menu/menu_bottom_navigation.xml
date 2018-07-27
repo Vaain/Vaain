@@ -7,10 +7,19 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:icon="@drawable/ic_search"
     android:title="search"
     app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_requests"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_requests"
+        android:title="requests"
+        app:showAsAction="ifRoom" />
 <item
     android:id="@+id/action_profile"
     android:enabled="true"
     android:icon="@drawable/ic_profile"
     android:title="profile"
     app:showAsAction="ifRoom" />
+
+
 </menu>

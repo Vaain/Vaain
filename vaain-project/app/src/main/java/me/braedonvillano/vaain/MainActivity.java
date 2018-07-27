@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     final ProfileFragment profileFragment = new ProfileFragment();
     final SearchFragment searchFragment = new SearchFragment();
     final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
+    final ClientAccountFragment clientAccountFragment = new ClientAccountFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                                 return true;
                             case R.id.action_search:
                                 changeMainFragment(searchFragment);
+                                return true;
+                            case R.id.action_requests:
+                                changeMainFragment(clientAccountFragment);
                                 return true;
                         }
                         return false;
