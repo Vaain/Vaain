@@ -38,6 +38,7 @@ public class ClientRequestsFragment extends Fragment {
     private TextView dateSelected;
     private TextView timeSelected;
     private EditText rComments;
+
     private TextView rService;
     private Button rSubmit;
 
@@ -60,6 +61,8 @@ public class ClientRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_requests, container, false);
+
+        mProduct = new Product();
 
         selectDate = view.findViewById(R.id.tvSelectDate);
         selectTime = view.findViewById(R.id.tvSelectTime);
