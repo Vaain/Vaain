@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,6 +23,7 @@ import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
@@ -36,23 +35,20 @@ public class ClientRequestsFragment extends Fragment {
     private List<Product> products;
     private TextView selectDate;
     private TextView selectTime;
+    private TextView dateSelected;
+    private TextView timeSelected;
+    private EditText rComments;
 
-    private EditText dateSelected;
-    private EditText timeSelected;
     private TextView rService;
-    private Button btnSubmit;
+    private Button rSubmit;
 
     private Product mProduct;
     private ParseUser mBeaut;
+    private String mDate;
+    private BasicDateTime mDateTime;
 
     private DatePickerDialog.OnDateSetListener cDateSetListener;
     private TimePickerDialog.OnTimeSetListener cTimeSetListener;
-
-    public interface RequestsFragmentInterface {
-        void onFragmentInteraction(Uri uri);
-    }
-
-    private RequestsFragmentInterface requestsInterface;
 
     public ClientRequestsFragment() {}
 
@@ -72,86 +68,34 @@ public class ClientRequestsFragment extends Fragment {
         selectTime = view.findViewById(R.id.tvSelectTime);
         dateSelected = view.findViewById(R.id.etDateSelected);
         timeSelected = view.findViewById(R.id.etTimeSelected);
+        rComments = view.findViewById(R.id.mtRequestComments);
         rService = view.findViewById(R.id.tvRService);
+        rSubmit = view.findViewById(R.id.btnSubmit);
 
-        selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar cal = Calendar.getInstance();
+        mDateTime = new BasicDateTime();
 
+        selectDate.setOnClickListener(new SelectDatePickerListener());
+        selectTime.setOnClickListener(new SelectTimePickerListener());
+        rSubmit.setOnClickListener(new RequestCreateSubmit());
 
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-
-                DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light,new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(final DatePicker view, final int year, final int month,
-                                          final int dayOfMonth) {
-
-                        @SuppressLint("SimpleDateFormat")
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-                        cal.set(year, month, dayOfMonth);
-                        String dateString = sdf.format(cal.getTime());
-
-                        dateSelected.setText(dateString); // set the date
-                    }
-                }, month, day, year);
-
-                cal.set(Calendar.MONTH,Calendar.AUGUST);
-                cal.set(Calendar.DAY_OF_MONTH,1);
-                datePicker.getDatePicker().setMinDate(cal.getTimeInMillis());
-
-                cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-                cal.set(Calendar.DAY_OF_MONTH,30);
-                datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
-
-                //datePicker.getDatePicker().setCalendarViewShown(false);
-                datePicker.show();
-                //dialog.show();
-            }
-        });
-
-        selectTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                int hour = c.get(Calendar.HOUR_OF_DAY);
-                int minute = c.get(Calendar.MINUTE);
-
-                TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(final TimePicker view, final int hr, final int min) {
-                        int hour = hr % 12;
-                        timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
-
-                    }
-
-                }, hour, minute, DateFormat.is24HourFormat(getActivity()));
-
-                timePicker.show();
-            }
-        });
         return view;
     }
 
-
-    public void onButtonPressed(Uri uri) {
-        if (requestsInterface != null) {
-            requestsInterface.onFragmentInteraction(uri);
-        }
+    /* this method should be called before this fragment mounts */
+    public void setProduct(Product product) {
+        mProduct = product;
+        mBeaut = mProduct.getBeaut();
     }
 
+    /* logic for making request and pushing request to parse */
     public void makeRequest() {
         Request newRequest = new Request();
 
         newRequest.setClient(ParseUser.getCurrentUser());
         newRequest.setProduct(mProduct);
-        newRequest.setBeaut(mProduct.getBeaut());
-//        newRequest.setDateTime();
-//        newRequest.setDescription();
+        newRequest.setBeaut(mBeaut);
+        newRequest.setDateTime(mDateTime.getDateObject());
+        newRequest.setDescription(rComments.getText().toString());
 
         sendRequest(newRequest);
     }
@@ -171,11 +115,96 @@ public class ClientRequestsFragment extends Fragment {
         });
     }
 
-    public void setProduct(Product product) {
-        mProduct = product;
-        mBeaut = mProduct.getBeaut();
+    /* below are the on-click listeners for this fragment */
+    class SelectDatePickerListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final Calendar cal = Calendar.getInstance();
+
+
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light,new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(final android.widget.DatePicker view, final int year, final int month, final int dayOfMonth) {
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+                    mDateTime.setDate(year, month, dayOfMonth);
+                    cal.set(year, month, dayOfMonth);
+                    mDate = sdf.format(cal.getTime());
+
+                    dateSelected.setText(mDate); // set the date
+                }
+            }, month, day, year);
+
+            cal.set(Calendar.MONTH, Calendar.AUGUST);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            datePicker.getDatePicker().setMinDate(cal.getTimeInMillis());
+
+            cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+            cal.set(Calendar.DAY_OF_MONTH, 30);
+            datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
+
+            datePicker.show();
+        }
     }
 
+    class SelectTimePickerListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(final TimePicker view, final int hr, final int min) {
+                    mDateTime.setTime(hr, min);
+                    Toast.makeText(getContext(), Integer.toString(hr), Toast.LENGTH_LONG).show();
+                    int hour = hr % 12;
+                    timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
+                }
+
+            }, hour, minute, DateFormat.is24HourFormat(getActivity()));
+
+            timePicker.show();
+        }
+    }
+
+    class RequestCreateSubmit implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            makeRequest();
+        }
+    }
+
+    /* basic time object */
+    class BasicDateTime {
+        private int mYear, mMonth, mDay, mHour, mMinute;
+
+        public BasicDateTime() {}
+
+        public void setDate(int year, int month, int day) {
+            mYear = year - 1900;
+            mMonth = month;
+            mDay = day;
+        }
+
+        public void setTime(int hour, int minute) {
+            mHour = hour;
+            mMinute = minute;
+        }
+
+        public Date getDateObject() {
+            return new Date(mYear, mMonth, mDay, mHour, mMinute);
+        }
+    }
+
+    /* unused boilerplate methods */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -184,7 +213,6 @@ public class ClientRequestsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        requestsInterface = null;
     }
 
 
