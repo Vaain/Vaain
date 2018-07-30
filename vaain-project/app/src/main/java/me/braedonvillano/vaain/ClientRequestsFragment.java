@@ -23,6 +23,7 @@ import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
@@ -43,7 +44,7 @@ public class ClientRequestsFragment extends Fragment {
     private Product mProduct;
     private ParseUser mBeaut;
     private String mDate;
-    private String mTime;
+    private BasicDateTime mDateTime;
 
     private DatePickerDialog.OnDateSetListener cDateSetListener;
     private TimePickerDialog.OnTimeSetListener cTimeSetListener;
@@ -68,6 +69,8 @@ public class ClientRequestsFragment extends Fragment {
         rService = view.findViewById(R.id.tvRService);
         rSubmit = view.findViewById(R.id.btnSubmit);
 
+        mDateTime = new BasicDateTime();
+
         selectDate.setOnClickListener(new SelectDatePickerListener());
         selectTime.setOnClickListener(new SelectTimePickerListener());
         rSubmit.setOnClickListener(new RequestCreateSubmit());
@@ -88,7 +91,7 @@ public class ClientRequestsFragment extends Fragment {
         newRequest.setClient(ParseUser.getCurrentUser());
         newRequest.setProduct(mProduct);
         newRequest.setBeaut(mBeaut);
-//        newRequest.setDateTime();
+        newRequest.setDateTime(mDateTime.getDateObject());
         newRequest.setDescription(rComments.getText().toString());
 
         sendRequest(newRequest);
@@ -125,8 +128,9 @@ public class ClientRequestsFragment extends Fragment {
                 @Override
                 public void onDateSet(final android.widget.DatePicker view, final int year, final int month, final int dayOfMonth) {
                     @SuppressLint("SimpleDateFormat")
-
                     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+                    mDateTime.setDate(year, month, dayOfMonth);
                     cal.set(year, month, dayOfMonth);
                     mDate = sdf.format(cal.getTime());
 
@@ -134,18 +138,15 @@ public class ClientRequestsFragment extends Fragment {
                 }
             }, month, day, year);
 
-            cal.set(Calendar.MONTH,Calendar.AUGUST);
-            cal.set(Calendar.DAY_OF_MONTH,1);
+            cal.set(Calendar.MONTH, Calendar.AUGUST);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
             datePicker.getDatePicker().setMinDate(cal.getTimeInMillis());
 
             cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-            cal.set(Calendar.DAY_OF_MONTH,30);
+            cal.set(Calendar.DAY_OF_MONTH, 30);
             datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
 
-            //datePicker.getDatePicker().setCalendarViewShown(false);
-//                datePicker.setGravity(Gravity.CENTER, 0, 0);
             datePicker.show();
-            //dialog.show();
         }
     }
 
@@ -159,10 +160,10 @@ public class ClientRequestsFragment extends Fragment {
             TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(final TimePicker view, final int hr, final int min) {
+                    mDateTime.setTime(hr, min);
+                    Toast.makeText(getContext(), Integer.toString(hr), Toast.LENGTH_LONG).show();
                     int hour = hr % 12;
-                    mTime = String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm");
-                    timeSelected.setText(mTime);
-
+                    timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
                 }
 
             }, hour, minute, DateFormat.is24HourFormat(getActivity()));
@@ -178,6 +179,27 @@ public class ClientRequestsFragment extends Fragment {
         }
     }
 
+    /* basic time object */
+    class BasicDateTime {
+        private int mYear, mMonth, mDay, mHour, mMinute;
+
+        public BasicDateTime() {}
+
+        public void setDate(int year, int month, int day) {
+            mYear = year - 1900;
+            mMonth = month;
+            mDay = day;
+        }
+
+        public void setTime(int hour, int minute) {
+            mHour = hour;
+            mMinute = minute;
+        }
+
+        public Date getDateObject() {
+            return new Date(mYear, mMonth, mDay, mHour, mMinute);
+        }
+    }
 
     /* unused boilerplate methods */
     @Override
