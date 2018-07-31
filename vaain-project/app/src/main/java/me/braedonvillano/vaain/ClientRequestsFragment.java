@@ -17,15 +17,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import me.braedonvillano.vaain.models.Product;
 import me.braedonvillano.vaain.models.Request;
 
@@ -41,6 +47,8 @@ public class ClientRequestsFragment extends Fragment {
 
     private TextView rService;
     private Button rSubmit;
+
+    private VaainClient client;
 
     private Product mProduct;
     private ParseUser mBeaut;
@@ -61,6 +69,8 @@ public class ClientRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_requests, container, false);
+
+        client = new VaainClient(getContext());
 
         mProduct = new Product();
 
@@ -178,8 +188,72 @@ public class ClientRequestsFragment extends Fragment {
     class RequestCreateSubmit implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            makeRequest();
+//            makeRequest();
+//            testClient();
+            getHelp();
         }
+    }
+
+    public void testClient() {
+        Log.d("*********", "even worse");
+        try {
+            client.testData("hello braedon ;)", new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d("********", "i made it here");
+                    String name = null;
+                    try {
+                        name = response.getString("name");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("********", name);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                    Log.d("*********", "im depressed");
+
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void getHelp() {
+        Log.d("*********", "even worse");
+        try {
+            client.help(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d("********", "i made it here");
+//                    String name = null;
+//                    try {
+//                        name = response.getString("name");
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Log.d("********", name);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                    Log.d("*********", "im depressed");
+
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /* basic time object */

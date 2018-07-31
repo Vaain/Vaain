@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
             public void done(List<Product> objects, ParseException e) {
                 if (e != null) return;
                 for (int i = 0; i < objects.size(); i++) {
-                    Log.d("***********", objects.get(i).toString());
+//                    Log.d("***********", objects.get(i).toString());
                     products.add(objects.get(i));
                     searchRecyclerViewAdapter.notifyItemInserted(products.size() - 1);
                 }
