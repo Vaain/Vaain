@@ -122,6 +122,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Product product = mProducts.get(position);
 
+
         viewHolder.tvBeautName.setText(product.getBeaut().getUsername());
         viewHolder.tvProductName.setText(product.getName());
         if (product.getImage() != null) {

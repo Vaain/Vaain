@@ -75,9 +75,11 @@ public class ProfileFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         btnLogout = view.findViewById(R.id.btnLogout);
+        tvName = view.findViewById(R.id.tvName);
 
         //assign values to views
         tvEmail.setText(user.getEmail());
+        tvName.setText(user.getString("Name"));
         //assign profileImage
         if(user.get("profileImage") != null){
             ParseFile file = user.getParseFile("profileImage");

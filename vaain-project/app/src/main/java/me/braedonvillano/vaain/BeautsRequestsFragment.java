@@ -26,27 +26,28 @@ import java.util.List;
 import me.braedonvillano.vaain.models.Request;
 
 
-public class BeautsRequestsFragment extends Fragment {
+public class BeautsRequestsFragment extends Fragment implements  BeautRequestsAdapter.Callback, BeautRequestDetail.OnFragmentInteractionListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
 
     RecyclerView rvRequests;
     List<Request> requests;
 
+    private RequestsFragmentInterface requestsInterface;
 
-
-    public interface RequestsFragmentInterface {
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onFragmentInteraction(Request request, int code) {
+        onDetail(request,code);
     }
 
-    private RequestsFragmentInterface requestsInterface;
+    public interface RequestsFragmentInterface {
+        void onFragmentInteraction(Request request, int code);
+    }
+
+
 
     public BeautsRequestsFragment() {
     }
@@ -63,10 +64,7 @@ public class BeautsRequestsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -74,37 +72,44 @@ public class BeautsRequestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_beaut_requests, container, false);
-        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient();
+        requests = new ArrayList<>();
+
+        rvRequests = view.findViewById(R.id.rvRequests);
+        BeautRequestsAdapter adapter = new BeautRequestsAdapter(requests, this);
+        getParseRequests(adapter);
+        rvRequests.setAdapter(adapter);
+        rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        return view;
+    }
+
+    @Override
+    public void onDetail(Request request, int code) {
+        if (requestsInterface != null) {
+            requestsInterface.onFragmentInteraction(request, code );
+        }
+    }
+
+    void getParseRequests(final BeautRequestsAdapter adapter) {
+        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient().withProduct();
         requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
         requestQuery.findInBackground(new FindCallback<Request>() {
             @Override
             public void done(List<Request> objects, com.parse.ParseException e) {
 
                 if (e == null) {
-                    //requests = objects;
+                    requests = objects;
                     int size = objects.size();
-                    rvRequests = view.findViewById(R.id.rvRequests);
-                    BeautRequestsAdapter adapter = new BeautRequestsAdapter(objects);
-                    rvRequests.setAdapter(adapter);
-                    rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
+                    adapter.clear();
+                    adapter.addAll(requests);
+                    adapter.notifyItemRangeInserted(0,size);
                     Log.d("BeautsRequestsFragment", "Retrieved " + size + " requests");
                 } else {
                     Log.d("BeautsRequestsFragment", "Error: " + e.getMessage());
                 }
             }
         });
-
-        return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (requestsInterface != null) {
-            requestsInterface.onFragmentInteraction(uri);
-        }
-    }
-
-    void getParseRequests() {
-
 
     }
 
@@ -122,12 +127,12 @@ public class BeautsRequestsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof RequestsFragmentInterface) {
-//            requestsInterface = (RequestsFragmentInterface) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        if (context instanceof RequestsFragmentInterface) {
+            requestsInterface = (RequestsFragmentInterface) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
