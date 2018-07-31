@@ -12,84 +12,80 @@
         android:id="@+id/rvProducts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tvProductsLabel" />
 
     <TextView
         android:id="@+id/tvProductsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Products"
-        app:layout_constraintBottom_toTopOf="@+id/rvProducts"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
         android:id="@+id/tvSchedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Schedule"
-        app:layout_constraintBottom_toTopOf="@+id/swSun"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
     <TextView
         android:id="@+id/tvLocLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Location"
-        app:layout_constraintBottom_toTopOf="@+id/etStreet"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
 
     <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginBottom="8dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/tvProductsLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSun" />
 
 
     <Button
         android:id="@+id/btnMon"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="M"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toStartOf="@+id/btnTues"
-        app:layout_constraintStart_toEndOf="@+id/btnSun" />
+        app:layout_constraintEnd_toStartOf="@+id/btnWed"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnWed"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="W"
@@ -102,24 +98,24 @@
         android:id="@+id/btnTues"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="T"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toStartOf="@+id/btnWed"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnMon" />
 
     <Button
         android:id="@+id/btnThurs"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="Th"
@@ -133,9 +129,9 @@
         android:id="@+id/btnSat"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="Sa"
@@ -149,29 +145,31 @@
         android:id="@+id/btnFri"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="F"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toStartOf="@+id/btnSat"
-        app:layout_constraintStart_toEndOf="@+id/btnThurs" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnWed" />
 
     <Button
         android:id="@+id/btnSun"
         android:layout_width="50dp"
         android:layout_height="87dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_button_grey"
         android:gravity="top|center"
         android:text="S"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toStartOf="@+id/btnMon"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swSun" />
 
     <EditText
         android:id="@+id/etSunStart"
@@ -547,50 +545,50 @@
         android:id="@+id/divider3"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/tvSchedLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddress" />
 
     <EditText
-        android:id="@+id/etStreet"
-        android:layout_width="wrap_content"
+        android:id="@+id/etAddress"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:ems="10"
         android:hint="Street"
         android:inputType="textPostalAddress"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/etCity"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLocLabel" />
 
     <View
         android:id="@+id/divider4"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/tvLocLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/swSun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSun"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/btnSun"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
     <Switch
         android:id="@+id/swMon"
@@ -656,19 +654,15 @@
         app:layout_constraintEnd_toEndOf="@+id/btnSat"
         app:layout_constraintStart_toStartOf="@+id/btnSat" />
 
-    <EditText
-        android:id="@+id/etCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:background="@null"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="textPostalAddress"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider3"
-        app:layout_constraintStart_toStartOf="parent" />
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
 
 
 </android.support.constraint.ConstraintLayout>

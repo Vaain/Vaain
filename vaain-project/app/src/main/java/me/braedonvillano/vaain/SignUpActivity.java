@@ -19,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText password;
     EditText email;
     EditText phonenum;
+    EditText name;
     Button register;
     ParseUser user;
 
@@ -31,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.etEnterEmail);
         phonenum = (EditText) findViewById(R.id.etEnterPhone);
         register = (Button) findViewById(R.id.btnSignUp);
+        name = (EditText) findViewById(R.id.etEnterName);
         user = new ParseUser();
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setPassword(password.getText().toString());
                 user.setEmail(email.getText().toString());
                 user.setUsername(email.getText().toString());
+                user.put("Name",name.getText().toString());
                 // Set custom properties
                 user.put("phone", phonenum.getText().toString());
 

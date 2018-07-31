@@ -2,12 +2,15 @@ package me.braedonvillano.vaain;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.parse.Parse;
@@ -27,8 +30,18 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
     List<Request> requests;
 
 
-    public BeautRequestsAdapter(List<Request> requestArray){
+    public static final int REQUEST_CODE = 100;
+
+    static Callback callback;
+
+    public interface Callback{
+        void onDetail(Request request, int code);
+    }
+
+
+    public BeautRequestsAdapter(List<Request> requestArray, final Callback callback){
         requests = requestArray;
+        this.callback = callback;
     }
 
     @NonNull
@@ -51,10 +64,7 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
             String clientName = request.getClient().getUsername();
             viewHolder.tvClientName.setText(clientName);
             ParseFile productImage = request.getProduct().getImage();
-            Date apptDateTime = request.getDateTime();
-            DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy h:m");
-            String strDateTime = dateFormat.format(apptDateTime);
-            viewHolder.tvDate.setText(strDateTime);
+            viewHolder.tvDate.setText(request.getStrDateTime());
             viewHolder.tvProName.setText(request.getProduct().getName());
             if(productImage != null)Glide.with(viewHolder.itemView).load(productImage.getUrl()).into(viewHolder.ivProImage);
 
@@ -73,7 +83,7 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
         return requests.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView tvClientName;
         public TextView tvProName;
@@ -88,6 +98,19 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
             tvProName = itemView.findViewById(R.id.tvProName);
             tvDate = itemView.findViewById(R.id.tvDate);
             ivProImage = itemView.findViewById(R.id.ivProImage);
+            itemView.setOnClickListener(this);
+
+
+        }
+
+        // Handles the row being being clicked
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Request request = requests.get(position);
+                callback.onDetail(request,REQUEST_CODE);
+            }
         }
     }
 }
