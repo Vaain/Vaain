@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.parse.Parse;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
@@ -30,6 +31,7 @@ public class BeautProfileFragment extends Fragment {
     TextView tvName;
     TextView tvEmail;
     Button btnLogout;
+    ParseUser user;
 
     public BeautProfileFragment() {
         // Required empty public constructor
@@ -47,7 +49,7 @@ public class BeautProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_beaut_profile, container, false);
 
-        ParseUser user = ParseUser.getCurrentUser();
+        user = ParseUser.getCurrentUser();
 
         //attach views variables
         tvEmail = view.findViewById(R.id.tvEmail);

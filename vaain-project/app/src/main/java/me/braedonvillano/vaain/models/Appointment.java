@@ -62,6 +62,8 @@ public class Appointment extends ParseObject {
     public Boolean getStatus(){
         return getBoolean(KEY_STATUS);
     }
+
+
     public void setStatus(Boolean status){
         put(KEY_STATUS,status);
     }
