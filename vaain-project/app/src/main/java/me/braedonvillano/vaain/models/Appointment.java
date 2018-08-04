@@ -7,9 +7,9 @@ import com.parse.ParseUser;
 
 import java.util.Date;
 
-@ParseClassName("Request")
-public class Request extends ParseObject{
-    public Request() {
+@ParseClassName("Appointment")
+public class Appointment extends ParseObject {
+    public Appointment() {
     }
 
     final private static String KEY_BEAUT = "beaut";
@@ -21,7 +21,7 @@ public class Request extends ParseObject{
     final private static String KEY_LENGTH = "length";
 
     public Date getDateTime(){
-       return getDate(KEY_DATE_TIME);
+        return getDate(KEY_DATE_TIME);
     }
 
     public void setDateTime(Date dateTime) {
@@ -76,9 +76,9 @@ public class Request extends ParseObject{
         put(KEY_PRODUCT, product);
     }
 
-    public static class Query extends ParseQuery<Request> {
+    public static class Query extends ParseQuery<Appointment> {
         public Query() {
-            super(Request.class);
+            super(Appointment.class);
         }
 
         public Query getTop() {
