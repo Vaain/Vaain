@@ -37,6 +37,11 @@ public class ClientFollowAdapter extends RecyclerView.Adapter<ClientFollowAdapte
         callback = callback1;
     }
 
+    public ClientFollowAdapter(List<ParseUser> beautArray){
+        beauts = new ArrayList<>();
+        beauts.addAll(beautArray);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
