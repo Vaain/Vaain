@@ -1,12 +1,10 @@
 package me.braedonvillano.vaain.models;
 
-import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +18,8 @@ public class Request extends ParseObject{
     final private static String KEY_PRODUCT = "product";
     final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
+    final private static String KEY_SEAT = "seat";
+    final private static String KEY_LENGTH = "length";
     final private static String KEY_COMMENT = "description";
 
     public Date getDateTime(){
@@ -42,6 +42,22 @@ public class Request extends ParseObject{
 
     public void setBeaut(ParseUser beaut) {
         put(KEY_BEAUT, beaut);
+    }
+
+    public Number getSeat() {
+        return getNumber(KEY_SEAT);
+    }
+
+    public void setSeat(Number seat) {
+        put(KEY_SEAT, seat);
+    }
+
+    public Number getLength() {
+        return getNumber(KEY_LENGTH);
+    }
+
+    public void setLength(Number length) {
+        put(KEY_LENGTH, length);
     }
 
     public ParseUser getClient(){

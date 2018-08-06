@@ -109,6 +109,7 @@ public class ProfileFragment extends Fragment{
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ClientFollowingFragment(), "Following");
         adapter.addFragment(new ClientHistoryFragment(), "History");
+        adapter.addFragment(new ClientSettingsFragment(), "Settings");
         viewPager.setAdapter(adapter);
 
     }

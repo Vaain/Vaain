@@ -71,7 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         product.fetchInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                Log.d("********", "they have been updated");
+//                Log.d("********", "they have been updated");
                 holder.tvProductDescription.setText(product.getDescription());
                 holder.tvProductPrice.setText("$" + product.getPrice().toString());
                 holder.tvProductName.setText(product.getName());
