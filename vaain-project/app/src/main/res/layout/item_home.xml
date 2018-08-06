@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_home"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray">
 
     <ImageView
         android:id="@+id/ivDProfilePic"
@@ -55,12 +56,12 @@
     <TextView
         android:id="@+id/tvDiaBeautName"
         android:layout_width="285dp"
-        android:layout_height="23dp"
+        android:layout_height="27dp"
         android:layout_below="@+id/ivDProfilePic"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:text="Name"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/tvDLoc"
@@ -76,7 +77,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:text="Location"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/tvDProName"
@@ -90,12 +91,11 @@
         android:layout_alignBottom="@+id/tvDDescript"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/btnDRequest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="441dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvDDescript"
@@ -106,7 +106,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/tvDPrice"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +121,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/background_light"
+        android:background="@android:color/transparent"
         android:text="ProName"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/ivDProduct"

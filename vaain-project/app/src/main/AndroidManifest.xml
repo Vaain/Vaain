@@ -26,15 +26,18 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+                  android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivity"
+                  android:windowSoftInputMode="stateVisible|adjustPan"/>
+        <activity android:name=".MainActivity"
+                  android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".BeautMainActivity" />
 
         <meta-data

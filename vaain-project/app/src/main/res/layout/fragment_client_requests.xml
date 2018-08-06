@@ -33,6 +33,7 @@
             android:layout_marginStart="8dp"
             android:text="TextView"
             android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivRProPic" />
@@ -59,6 +60,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Please select a time"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +74,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="72dp"
             android:text="Please select a date"
+            android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRService" />
@@ -86,6 +89,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
