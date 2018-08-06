@@ -18,6 +18,9 @@ public class Appointment extends ParseObject {
     final private static String KEY_PRODUCT = "product";
     final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
+    final private static String KEY_DESCRIPTION = "description";
+    final private static String KEY_SEAT = "seat";
+    final private static String KEY_LENGTH = "length";
     final private static String KEY_COMMENT = "comment";
     final private static String KEY_STATUS = "isComplete";
 
@@ -43,6 +46,22 @@ public class Appointment extends ParseObject {
         put(KEY_BEAUT, beaut);
     }
 
+    public Number getSeat() {
+        return getNumber(KEY_SEAT);
+    }
+
+    public void setSeat(Number seat) {
+        put(KEY_SEAT, seat);
+    }
+
+    public Number getLength() {
+        return getNumber(KEY_LENGTH);
+    }
+
+    public void setLength(Number length) {
+        put(KEY_LENGTH, length);
+    }
+
     public ParseUser getClient(){
         return getParseUser(KEY_CLIENT);
     }
@@ -52,7 +71,7 @@ public class Appointment extends ParseObject {
     }
 
     public String getDescription() {
-        return getString(KEY_COMMENT);
+        return getString(KEY_DESCRIPTION);
     }
 
     public void setDescription(String description) {
@@ -91,14 +110,15 @@ public class Appointment extends ParseObject {
             return this;
         }
 
-        public Query withClient(){
+        public Query withClient() {
             include(KEY_CLIENT);
             return this;
         }
 
-        public Query withProduct(){
+        public Query withProduct() {
             include(KEY_PRODUCT);
             return this;
         }
     }
 }
+
