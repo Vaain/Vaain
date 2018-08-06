@@ -37,9 +37,8 @@ public class ClientRequestsFragment extends Fragment {
     private TextView dateSelected;
     private TextView timeSelected;
     private EditText rComments;
-    private TextView rService;
+    public TextView rService;
     private Button rSubmit;
-
     private Product mProduct;
     private ParseUser mBeaut;
     private String mDate;
@@ -114,8 +113,6 @@ public class ClientRequestsFragment extends Fragment {
         @Override
         public void onClick(View view) {
             final Calendar cal = Calendar.getInstance();
-
-
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -145,7 +142,6 @@ public class ClientRequestsFragment extends Fragment {
             //datePicker.getDatePicker().setCalendarViewShown(false);
 //                datePicker.setGravity(Gravity.CENTER, 0, 0);
             datePicker.show();
-            //dialog.show();
         }
     }
 
