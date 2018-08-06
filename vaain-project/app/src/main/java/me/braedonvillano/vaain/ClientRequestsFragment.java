@@ -41,13 +41,13 @@ public class ClientRequestsFragment extends Fragment {
     private TextView dateSelected;
     private TextView timeSelected;
     private EditText rComments;
-
     private TextView rService;
     private Button rSubmit;
 
     private Product mProduct;
     private ParseUser mBeaut;
     private String mDate;
+    private String mTime;
     private BasicDateTime mDateTime;
     public List<Appointment> appointments;
 
@@ -98,6 +98,7 @@ public class ClientRequestsFragment extends Fragment {
         newRequest.setClient(ParseUser.getCurrentUser());
         newRequest.setProduct(mProduct);
         newRequest.setBeaut(mBeaut);
+
         newRequest.setDateTime(mDateTime.getDateObject());
         newRequest.setDescription(rComments.getText().toString());
 
@@ -125,16 +126,15 @@ public class ClientRequestsFragment extends Fragment {
         public void onClick(View view) {
             final Calendar cal = Calendar.getInstance();
 
-
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
-
-            DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light,new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_DeviceDefault_Light,new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(final android.widget.DatePicker view, final int year, final int month, final int dayOfMonth) {
                     @SuppressLint("SimpleDateFormat")
+
                     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
                     mDateTime.setDate(year, month, dayOfMonth);
@@ -185,7 +185,48 @@ public class ClientRequestsFragment extends Fragment {
 //            makeRequest();
 //            makeCalendarGarbage();
             getAppointments();
+<<<<<<< HEAD
+=======
         }
+    }
+
+    public void getAppointments() {
+        final Appointment.Query appQuery = new Appointment.Query();
+        appQuery.findInBackground(new FindCallback<Appointment>() {
+            @Override
+            public void done(List<Appointment> objects, ParseException e) {
+                appointments = objects;
+                makeCalendarGarbage();
+            }
+        });
+    }
+
+    public void makeCalendarGarbage() {
+        LocationSchedule locSched = new LocationSchedule("14701 Madison Place", 1);
+        Boolean prefs[] = { false, true, false, true, false, true, false };
+        locSched.removeOffDays(prefs);
+
+        locSched.removeAppointmentList(appointments);
+
+        ArrayList<LocationSchedule.PotentialAppointment> potApps;
+        potApps = locSched.generateAppointments(1);
+
+        for (LocationSchedule.PotentialAppointment app : potApps) {
+            Log.d("*******", "date -> " + app.appDate.get(Calendar.MONTH) + ", " + app.appDate.get(Calendar.DAY_OF_MONTH));
+            Log.d("*******", "seatid -> " + app.seatId);
+            Log.d("*******", "start -> " + app.startTime);
+>>>>>>> faf1ffae7c71a5a0daee7166278b438497eb1ef9
+        }
+
+//        for (LocationSchedule.Day day : locSched.workDays) {
+//            Log.d("*******","day of week: " + Integer.toString(day.day.get(Calendar.DAY_OF_WEEK)));
+//
+//            for (LocationSchedule.Seat seat : day.seats) {
+//                Log.d("*******","-- seatid: " + seat.seatId);
+//            }
+//        }
+
+        Toast.makeText(getContext(), "Calendar Function!", Toast.LENGTH_LONG).show();
     }
 
     public void getAppointments() {
