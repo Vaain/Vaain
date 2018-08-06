@@ -93,7 +93,7 @@ public class BeautProfileFragment extends Fragment {
 
         ProfileFragment.Adapter adapter = new ProfileFragment.Adapter(getChildFragmentManager());
         //TODO create the actual frags and change to these
-        adapter.addFragment(new ClientHistoryFragment(), "Payment");
+        adapter.addFragment(new BeautsFollowersFragment(), "Followers");
         adapter.addFragment(new ClientHistoryFragment(), "History");
         viewPager.setAdapter(adapter);
 

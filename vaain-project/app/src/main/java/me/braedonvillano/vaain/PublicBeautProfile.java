@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
@@ -158,10 +159,12 @@ public class PublicBeautProfile extends Fragment implements BeautsProductsAdapte
                     }
                 });
             }
+
         });
 
         return view;
     }
+
 
     public void loadProducts() {
         final Product.Query prodQuery = new Product.Query().withBeaut();
