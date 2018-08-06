@@ -14,7 +14,7 @@
         android:layout_height="227dp"
         android:cropToPadding="false"
         android:scaleType="fitXY"
-        android:src="@drawable/purple_gradient"
+        android:src="@drawable/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

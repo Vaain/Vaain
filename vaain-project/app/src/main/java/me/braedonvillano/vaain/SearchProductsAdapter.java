@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,11 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     private Dialog myDialog;
     private CardView cardView;
     static Callback callback;
+    public static final int REQUEST_CODE = 300;
+    public static final int PROFILE_CODE = 400;
 
     public interface Callback {
-        void onRequestProduct(Product product);
+        void onRequestProduct(Product product, int code);
     }
 
 
@@ -105,11 +108,20 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     @Override
                     public void onClick(View view) {
                             Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                            callback.onRequestProduct(curProd);
+                            callback.onRequestProduct(curProd,REQUEST_CODE);
                             myDialog.dismiss();
                         }
                     });
                     myDialog.show();
+                    dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                            callback.onRequestProduct(curProd,PROFILE_CODE);
+                            myDialog.dismiss();
+                            Log.d("request","beaut clicked");
+                        }
+                    });
                 }
         });
 
@@ -152,6 +164,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         }
 
         viewHolder.tvBeautName.setText(product.getBeaut().getString("Name"));
+
         viewHolder.tvProductName.setText(product.getName());
         if (product.getImage() != null) {
             Glide.with(context)

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,7 +35,7 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener listener;
 
     ParseImageView ivProfileImage;
     TextView tvName;
@@ -71,13 +71,16 @@ public class ProfileFragment extends Fragment {
         
         ParseUser user = ParseUser.getCurrentUser();
 
+
         //attach views variables
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         btnLogout = view.findViewById(R.id.btnLogout);
+        tvName = view.findViewById(R.id.tvName);
 
         //assign values to views
         tvEmail.setText(user.getEmail());
+        tvName.setText(user.getString("Name"));
         //assign profileImage
         if(user.get("profileImage") != null){
             ParseFile file = user.getParseFile("profileImage");
@@ -109,6 +112,7 @@ public class ProfileFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
     }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -149,25 +153,20 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(ParseUser beaut, int code);
     }
 }

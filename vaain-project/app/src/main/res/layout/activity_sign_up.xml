@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="97dp"
+        android:layout_marginTop="134dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="Enter a email"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="163dp"
+        android:layout_marginTop="180dp"
         android:background="@drawable/border"
         android:ems="10"
         android:hint="Enter a password"
@@ -106,5 +106,19 @@
         android:layout_marginEnd="10dp"
         android:onClick="onCheckboxClicked"
         android:text="Beaut"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/etEnterName"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="Enter full name"
+        android:textColorHint="@android:color/background_light"
+        android:inputType="textPersonName"
         android:textColor="@android:color/white" />
 </RelativeLayout>

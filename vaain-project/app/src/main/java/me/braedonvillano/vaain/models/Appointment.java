@@ -9,21 +9,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ParseClassName("Request")
-public class Request extends ParseObject{
-    public Request() {
+@ParseClassName("Appointment")
+public class Appointment extends ParseObject {
+    public Appointment() {
     }
 
     final private static String KEY_BEAUT = "beaut";
     final private static String KEY_PRODUCT = "product";
     final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
+    final private static String KEY_DESCRIPTION = "description";
     final private static String KEY_SEAT = "seat";
     final private static String KEY_LENGTH = "length";
-    final private static String KEY_COMMENT = "description";
+    final private static String KEY_COMMENT = "comment";
+    final private static String KEY_STATUS = "isComplete";
 
     public Date getDateTime(){
-       return getDate(KEY_DATE_TIME);
+        return getDate(KEY_DATE_TIME);
     }
 
     public String getStrDateTime(){
@@ -69,11 +71,20 @@ public class Request extends ParseObject{
     }
 
     public String getDescription() {
-        return getString(KEY_COMMENT);
+        return getString(KEY_DESCRIPTION);
     }
 
     public void setDescription(String description) {
         put(KEY_COMMENT, description);
+    }
+
+    public Boolean getStatus(){
+        return getBoolean(KEY_STATUS);
+    }
+
+
+    public void setStatus(Boolean status){
+        put(KEY_STATUS,status);
     }
 
     public Product getProduct() {
@@ -84,9 +95,9 @@ public class Request extends ParseObject{
         put(KEY_PRODUCT, product);
     }
 
-    public static class Query extends ParseQuery<Request> {
+    public static class Query extends ParseQuery<Appointment> {
         public Query() {
-            super(Request.class);
+            super(Appointment.class);
         }
 
         public Query getTop() {
@@ -99,14 +110,15 @@ public class Request extends ParseObject{
             return this;
         }
 
-        public Query withClient(){
+        public Query withClient() {
             include(KEY_CLIENT);
             return this;
         }
 
-        public Query withProduct(){
+        public Query withProduct() {
             include(KEY_PRODUCT);
             return this;
         }
     }
 }
+

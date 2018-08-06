@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.parse.ParseUser;
+
 import me.braedonvillano.vaain.models.Product;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface {
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface,ClientFollowingFragment.FollowingFragmentInterface,PublicBeautProfile.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     final SearchFragment searchFragment = new SearchFragment();
     final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
     final ClientAccountFragment clientAccountFragment = new ClientAccountFragment();
+    final PublicBeautProfile beautProfile2 = new PublicBeautProfile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +69,25 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     }
 
     @Override
-    public void renderRequestFlow(Product product) {
-        requestFragment.setProduct(product);
-        changeMainFragment(requestFragment);
+    public void renderRequestFlow(Product product, int code) {
+        if(code == SearchProductsAdapter.REQUEST_CODE) {
+            requestFragment.setProduct(product);
+            changeMainFragment(requestFragment);
+        }else if(code == SearchProductsAdapter.PROFILE_CODE){
+            beautProfile2.setUser(product.getBeaut());
+            changeMainFragment(beautProfile2);
+        }
+    }
+
+
+    @Override
+    public void publicProfileCallback(ParseUser beaut, int code) {
+        beautProfile2.setUser(beaut);
+        changeMainFragment(beautProfile2);
+    }
+
+    @Override
+    public void onProductClick(Product product, int code) {
+        renderRequestFlow(product,code);
     }
 }
