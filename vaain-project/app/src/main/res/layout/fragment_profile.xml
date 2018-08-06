@@ -80,7 +80,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             app:tabIndicatorColor="@android:color/black"
-            app:tabMode="scrollable"
             app:tabSelectedTextColor="@android:color/holo_purple"
             app:tabTextColor="@android:color/black" />
     </android.support.design.widget.AppBarLayout>

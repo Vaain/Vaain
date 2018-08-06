@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
+        loadInitialFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -49,6 +50,14 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                     }
 
                 });
+    }
+
+    private void loadInitialFragment()
+    {
+        Fragment initialFragment = searchFragment;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frag_placeholder, initialFragment);
+        fragmentTransaction.commit();
     }
 
     public void changeMainFragment(Fragment fragment) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +17,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
 
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
-    static List<Product> mProducts;
+    List<Product> mProducts;
+    List<Product> mCopyProducts;
     public Context context;
     private Dialog myDialog;
+    private CardView cardView;
     static Callback callback;
 
     public interface Callback {
@@ -35,7 +40,9 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     public SearchProductsAdapter(List<Product> products, @NonNull final Callback callback) {
         mProducts = products;
+        mCopyProducts = products;
         this.callback = callback;
+
     }
 
     public void clear() {
@@ -49,12 +56,12 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         notifyDataSetChanged();
     }
 
-    public void add(Product product) {
+    public void add(List<Product> product) {
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int b) {
+    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int b) {
         context = viewGroup.getContext();
         LayoutInflater i = LayoutInflater.from(context);
         View view = i.inflate(R.layout.item_home_grid, viewGroup, false);
@@ -62,12 +69,9 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
         final ViewHolder vHolder = new ViewHolder(view);
 
-        // Dialog ini
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.item_home);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
 
         vHolder.rlHomeGrid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,15 +84,13 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                 TextView dlgDescription = myDialog.findViewById(R.id.tvDDescript);
                 ImageView dlgProductPic = myDialog.findViewById(R.id.ivDProduct);
                 Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
-                final TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
+                TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
 
-
-                dlgBeautName.setText(curProd.getBeaut().getUsername());
+                dlgBeautName.setText(curProd.getBeaut().getString("Name"));
                 dlgPrice.setText(curProd.getPrice().toString());
                 dlgDescription.setText(curProd.getDescription());
                 dlgProductName.setText(curProd.getName());
 
-                // add profile and product pic to modal
                 Glide.with(context)
                         .load(curProd.getImage()
                         .getUrl())
@@ -106,20 +108,50 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                             callback.onRequestProduct(curProd);
                             myDialog.dismiss();
                         }
-
                     });
                     myDialog.show();
                 }
         });
 
+        vHolder.rlHomeGrid.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Product likeProd = mProducts.get(vHolder.getAdapterPosition());
+                int current = vHolder.cv.getCardBackgroundColor().getDefaultColor();
+                String currentStr = Integer.toHexString(current);
+                if (currentStr.compareTo("ff484848") == 0) {
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#FF4081"));
+                    ParseUser user = ParseUser.getCurrentUser();
+                    likeProd.add("usherLike", user.getObjectId());
+                    likeProd.saveInBackground();
+
+                } else {
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#484848"));
+                    ParseUser user = ParseUser.getCurrentUser();
+                    ArrayList list = new ArrayList();
+                    list.add(user.getObjectId());
+                    likeProd.removeAll("usherLike", list);
+                    likeProd.saveInBackground();
+                }
+                return true;
+            }
+        });
         return vHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Product product = mProducts.get(position);
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        List<String> likees = (List<String>) product.get("usherLike");
 
-        viewHolder.tvBeautName.setText(product.getBeaut().getUsername());
+        if (likees != null) {
+            if (likees.contains(parseUser.getObjectId())) {
+                viewHolder.cv.setCardBackgroundColor(Color.parseColor("#FF4081"));
+            }
+        }
+
+        viewHolder.tvBeautName.setText(product.getBeaut().getString("Name"));
         viewHolder.tvProductName.setText(product.getName());
         if (product.getImage() != null) {
             Glide.with(context)
@@ -128,13 +160,13 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         }
     }
 
-
     @Override
     public int getItemCount() {
         return mProducts.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public CardView cv;
         public RelativeLayout rlHomeGrid;
         public TextView tvProductName;
         public TextView tvBeautName;
@@ -143,15 +175,11 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            cv = itemView.findViewById(R.id.cv);
             rlHomeGrid = itemView.findViewById(R.id.item_home_grid);
             tvProductName = itemView.findViewById(R.id.tvProductName);
             tvBeautName = itemView.findViewById(R.id.tvBeautName);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
-
-
         }
     }
-
-
 }

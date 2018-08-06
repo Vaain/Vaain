@@ -4,9 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.parse.FindCallback;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
+import me.braedonvillano.vaain.models.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,7 @@ import android.view.ViewGroup;
  * Use the {@link ClientAcctReqFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class ClientAcctReqFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,11 +36,14 @@ public class ClientAcctReqFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    List<Request> requests;
+    RecyclerView rvReq;
+    ClientAccountAdapter clientAccountAdapter;
+
     private OnFragmentInteractionListener mListener;
 
-    public ClientAcctReqFragment() {
-        // Required empty public constructor
-    }
+
+    public ClientAcctReqFragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -62,9 +75,31 @@ public class ClientAcctReqFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_acct_req, container, false);
+
+        final View view = inflater.inflate(R.layout.fragment_client_acct_req, container, false);
+
+        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient();
+        //requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
+        requestQuery.include("product");
+        requestQuery.include("beaut");
+        requestQuery.findInBackground(new FindCallback<Request>() {
+            @Override
+            public void done(List<Request> objects, com.parse.ParseException e) {
+
+                if (e == null) {
+                    //requests = objects;
+                    int size = objects.size();
+                    rvReq = view.findViewById(R.id.rvAcct);
+                    ClientAccountAdapter adapter = new ClientAccountAdapter(objects);
+                    rvReq.setAdapter(adapter);
+                    rvReq.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                } else {}
+            }
+        });
+        return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -76,7 +111,7 @@ public class ClientAcctReqFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-            mListener = null;
+        mListener = null;
     }
 
     @Override
@@ -85,16 +120,6 @@ public class ClientAcctReqFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

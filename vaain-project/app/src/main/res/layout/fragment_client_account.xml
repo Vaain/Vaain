@@ -24,18 +24,17 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@android:color/white"
-                app:tabBackground="@android:color/background_light"
-                app:tabMode="scrollable">
-            </android.support.design.widget.TabLayout>
+                app:tabBackground="@android:color/background_light"></android.support.design.widget.TabLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/v_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:background="@android:color/background_light" />
 
         </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/v_pager"
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

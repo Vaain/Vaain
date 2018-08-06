@@ -121,7 +121,7 @@ public class ClientRequestsFragment extends Fragment {
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light,new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_DeviceDefault_Light,new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(final android.widget.DatePicker view, final int year, final int month, final int dayOfMonth) {
                     @SuppressLint("SimpleDateFormat")

@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Request;
@@ -20,6 +16,7 @@ import me.braedonvillano.vaain.models.Request;
 public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdapter.ViewHolder> {
 
     List<Request> requests;
+
 
 
     public BeautRequestsAdapter(List<Request> requestArray){

@@ -4,9 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.parse.FindCallback;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
+import me.braedonvillano.vaain.models.Request;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +34,9 @@ public class ClientAcctConReqFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    List<Request> requests;
+    RecyclerView rvReqCon;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,7 +75,28 @@ public class ClientAcctConReqFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_acct_con_req, container, false);
+       final View view = inflater.inflate(R.layout.fragment_client_acct_con_req, container, false);
+
+        ParseQuery<Request> requestQuery = new Request.Query().withBeaut().withClient();
+        //requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
+        requestQuery.include("product");
+        requestQuery.include("beaut");
+        requestQuery.findInBackground(new FindCallback<Request>() {
+            @Override
+            public void done(List<Request> objects, com.parse.ParseException e) {
+
+                if (e == null) {
+                    //requests = objects;
+                    int size = objects.size();
+                    rvReqCon = view.findViewById(R.id.rvReqCon);
+                    ClientAccountAdapter adapter = new ClientAccountAdapter(objects);
+                    rvReqCon.setAdapter(adapter);
+                    rvReqCon.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                } else {}
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
