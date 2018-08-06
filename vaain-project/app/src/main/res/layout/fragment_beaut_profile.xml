@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rvBeautsProducts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
@@ -24,10 +25,9 @@
         android:id="@+id/ivProfileImage"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="76dp"
         android:src="@drawable/ic_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,13 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="Name"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/ivProfileImage"
-        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
 
@@ -105,8 +104,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:text="Email"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivBackdrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

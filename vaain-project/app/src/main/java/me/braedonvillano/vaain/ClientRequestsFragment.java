@@ -45,8 +45,6 @@ public class ClientRequestsFragment extends Fragment {
     private TextView rService;
     private Button rSubmit;
 
-    private VaainClient client;
-
     private Product mProduct;
     private ParseUser mBeaut;
     private String mDate;
@@ -67,8 +65,6 @@ public class ClientRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_requests, container, false);
-
-        client = new VaainClient(getContext());
 
         mProduct = new Product();
 

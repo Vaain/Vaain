@@ -20,6 +20,7 @@ public class ParseApp extends Application {
 //        ParseObject.registerSubclass(BeautSchedule.class);
         ParseObject.registerSubclass(Location.class);
         ParseObject.registerSubclass(Request.class);
+        ParseObject.registerSubclass(Appointment.class);
         // ParseObject.registerSubclass(Post.class);
         final Parse.Configuration configuration = new Parse.Configuration.Builder(this)
                 .applicationId("vaain-beauty")

@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
     private SearchFragmentInterface searchInterface;
 
     public interface SearchFragmentInterface {
-        void renderRequestFlow(Product product);
+        void renderRequestFlow(Product product, int code);
     }
 
     public SearchFragment() {
@@ -100,8 +100,8 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
     }
 
     @Override
-    public void onRequestProduct(Product product) {
-        searchInterface.renderRequestFlow(product);
+    public void onRequestProduct(Product product, int code) {
+        searchInterface.renderRequestFlow(product, code);
     }
 
     @Override

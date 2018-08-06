@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,11 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     public Context context;
     private Dialog myDialog;
     static Callback callback;
+    public static final int REQUEST_CODE = 300;
+    public static final int PROFILE_CODE = 400;
 
     public interface Callback {
-        void onRequestProduct(Product product);
+        void onRequestProduct(Product product, int code);
     }
 
 
@@ -91,6 +94,8 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                 dlgDescription.setText(curProd.getDescription());
                 dlgProductName.setText(curProd.getName());
 
+
+
                 // add profile and product pic to modal
                 Glide.with(context)
                         .load(curProd.getImage()
@@ -106,12 +111,21 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     @Override
                     public void onClick(View view) {
                             Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                            callback.onRequestProduct(curProd);
+                            callback.onRequestProduct(curProd,REQUEST_CODE);
                             myDialog.dismiss();
                         }
 
                     });
                     myDialog.show();
+                    dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                            callback.onRequestProduct(curProd,PROFILE_CODE);
+                            myDialog.dismiss();
+                            Log.d("request","beaut clicked");
+                        }
+                    });
                 }
         });
 
@@ -121,6 +135,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Product product = mProducts.get(position);
+
 
         viewHolder.tvBeautName.setText(product.getBeaut().getUsername());
         viewHolder.tvProductName.setText(product.getName());

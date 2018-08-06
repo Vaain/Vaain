@@ -5,6 +5,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ParseClassName("Request")
@@ -16,12 +18,18 @@ public class Request extends ParseObject{
     final private static String KEY_PRODUCT = "product";
     final private static String KEY_DATE_TIME = "date_time";
     final private static String KEY_CLIENT = "client";
-    final private static String KEY_DESCRIPTION = "description";
     final private static String KEY_SEAT = "seat";
     final private static String KEY_LENGTH = "length";
+    final private static String KEY_COMMENT = "description";
 
     public Date getDateTime(){
        return getDate(KEY_DATE_TIME);
+    }
+
+    public String getStrDateTime(){
+        Date date = getDateTime();
+        DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy h:m");
+        return dateFormat.format(date);
     }
 
     public void setDateTime(Date dateTime) {
@@ -61,11 +69,11 @@ public class Request extends ParseObject{
     }
 
     public String getDescription() {
-        return getString(KEY_DESCRIPTION);
+        return getString(KEY_COMMENT);
     }
 
     public void setDescription(String description) {
-        put(KEY_DESCRIPTION, description);
+        put(KEY_COMMENT, description);
     }
 
     public Product getProduct() {
@@ -93,6 +101,11 @@ public class Request extends ParseObject{
 
         public Query withClient(){
             include(KEY_CLIENT);
+            return this;
+        }
+
+        public Query withProduct(){
+            include(KEY_PRODUCT);
             return this;
         }
     }

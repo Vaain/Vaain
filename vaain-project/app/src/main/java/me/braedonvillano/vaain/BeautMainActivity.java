@@ -11,12 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-public class BeautMainActivity extends AppCompatActivity {
+import me.braedonvillano.vaain.models.Request;
+
+public class BeautMainActivity extends AppCompatActivity implements BeautsRequestsFragment.RequestsFragmentInterface ,BeautRequestDetail.OnFragmentInteractionListener{
 
     // define fragments here
     final BeautsRequestsFragment beautsRequestsFragment = new BeautsRequestsFragment();
     final BusinessFragment businessFragment = new BusinessFragment();
     final Fragment beautProfileFragment = new BeautProfileFragment();
+    final BeautRequestDetail beautRequestDetail = new BeautRequestDetail();
+    final LocationDialogFragment alertDialog = LocationDialogFragment.newInstance("Location");
 
     private FragmentManager fragmentManager;
 
@@ -74,6 +78,8 @@ public class BeautMainActivity extends AppCompatActivity {
         startActivityForResult(intent, ADD_PRODUCT_ACTIVITY);
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
@@ -91,4 +97,19 @@ public class BeautMainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    public void onFragmentInteraction(Request request, int code) {
+        if(code == BeautRequestsAdapter.REQUEST_CODE) {
+            beautRequestDetail.setRequest(request);
+            changeMainFragment(beautRequestDetail);
+        }else if(code == BeautRequestDetail.LOCATION_CODE){
+//            alertDialog.setRequest(request);
+//            alertDialog.show(fragmentManager, "fragment_alert");
+             changeMainFragment(beautsRequestsFragment);
+
+
+        }
+    }
+
 }

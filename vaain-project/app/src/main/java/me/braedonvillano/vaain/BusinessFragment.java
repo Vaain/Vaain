@@ -6,14 +6,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +56,8 @@ public class BusinessFragment extends Fragment {
     Button btnThurs;
     Button btnFri;
     Button btnSat;
+
+    EditText etAddress;
 
 
 
@@ -117,6 +124,18 @@ public class BusinessFragment extends Fragment {
         btnFri = view.findViewById(R.id.btnFri);
         btnSat = view.findViewById(R.id.btnSat);
 
+        etAddress = view.findViewById(R.id.etAddress);
+
+        String location = user.getString("location");
+        if( location != null) etAddress.setText(location);
+
+        etAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.put("location",etAddress.getText().toString());
+                user.saveInBackground();
+            }
+        });
 
         swSun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
