@@ -187,7 +187,7 @@ public class ClientRequestsFragment extends Fragment {
               getAppointments();
         }
     }
-    
+
     public void getAppointments() {
         final Appointment.Query appQuery = new Appointment.Query();
         appQuery.findInBackground(new FindCallback<Appointment>() {
