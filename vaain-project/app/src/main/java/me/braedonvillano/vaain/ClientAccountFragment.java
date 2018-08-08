@@ -47,6 +47,7 @@ public class ClientAccountFragment extends Fragment {
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ClientAcctReqFragment(), "Requests");
         adapter.addFragment(new ClientAcctConReqFragment(), "Confirmed");
+        adapter.addFragment(new ClientAcctPastReqFragment(), "Past");
         viewPager.setAdapter(adapter);
     }
 

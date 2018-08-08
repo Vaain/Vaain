@@ -61,7 +61,7 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
     }
 
     public void loadProducts() {
-        final Product.Query prodQuery = new Product.Query().getTop().withBeaut();
+        final Product.Query prodQuery = new Product.Query().withBeaut();
         prodQuery.include("Name");
         prodQuery.include("beaut");
         prodQuery.findInBackground(new FindCallback<Product>() {

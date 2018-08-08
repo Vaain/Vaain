@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -13,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -29,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Appointment;
+import me.braedonvillano.vaain.models.Location;
 import me.braedonvillano.vaain.models.Product;
 import me.braedonvillano.vaain.models.Request;
 
@@ -50,6 +55,14 @@ public class ClientRequestsFragment extends Fragment {
     private String mTime;
     private BasicDateTime mDateTime;
     public List<Appointment> appointments;
+    public RadioButton btnloc1;
+    public RadioButton btnloc2;
+    public RadioButton btnloc3;
+    public TextView app1;
+    public TextView app2;
+    public TextView app3;
+    public TextView app4;
+    public TextView app5;
 
     private DatePickerDialog.OnDateSetListener cDateSetListener;
     private TimePickerDialog.OnTimeSetListener cTimeSetListener;
@@ -75,12 +88,52 @@ public class ClientRequestsFragment extends Fragment {
         rComments = view.findViewById(R.id.mtRequestComments);
         rService = view.findViewById(R.id.tvRService);
         rSubmit = view.findViewById(R.id.btnSubmit);
-
         mDateTime = new BasicDateTime();
+//        selectDate.setOnClickListener(new SelectDatePickerListener());
+        btnloc1 = view.findViewById(R.id.rbtn1);
+        btnloc2 = view.findViewById(R.id.rbtn2);
+        btnloc3 = view.findViewById(R.id.rbtn3);
 
-        selectDate.setOnClickListener(new SelectDatePickerListener());
+        btnloc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRadioButtonClicked(view);
+            }
+        });
+        app1 = view.findViewById(R.id.tvApp1);
+        app2 = view.findViewById(R.id.tvApp2);
+        app3 = view.findViewById(R.id.tvApp3);
+        app4 = view.findViewById(R.id.tvApp4);
+        app5 = view.findViewById(R.id.tvApp5);
+
+        selectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
         selectTime.setOnClickListener(new SelectTimePickerListener());
         rSubmit.setOnClickListener(new RequestCreateSubmit());
+
+        app1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                app1.setBackgroundColor(Color.parseColor("#000000"));
+                Toast.makeText(getContext(), "You Choose this appointment", Toast.LENGTH_SHORT).show();
+            }
+        });
+        app1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (app1.getBackground().toString().compareTo("#000000") == 0) {
+                    app1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+                return true;
+            }
+        });
+
+
 
         return view;
     }
@@ -89,6 +142,56 @@ public class ClientRequestsFragment extends Fragment {
     public void setProduct(Product product) {
         mProduct = product;
         mBeaut = mProduct.getBeaut();
+    }
+
+    public void onRadioButtonClicked(View view) {
+        ParseUser user = null;
+        ParseQuery<ParseUser> userParseQuery = ParseUser.getQuery();
+        userParseQuery.include("loc1");
+        userParseQuery.include("loc2");
+        userParseQuery.include("loc3");
+        try {
+            user = userParseQuery.get(ParseUser.getCurrentUser().getObjectId());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.rbtn1:
+                if (checked) {
+                    Location loc1 = (Location) user.get("loc1");
+                    String addy = loc1.getString("address");
+                    LocationSchedule locationSchedule = new LocationSchedule(addy, 1);
+                    ArrayList arrayList = locationSchedule.generateAppointments(6);
+                    LocationSchedule.PotentialAppointment app = (LocationSchedule.PotentialAppointment) arrayList.get(0);
+
+                    String app11 = app.appDate.toString();
+                    app1.setText(app11);
+                    // need generate appoints to generate a date and time slot avalible seems to generate a date but fails to generate a time slot.
+                    String app22 = arrayList.get(1).toString();
+                    app2.setText(app22);
+                    String app33 = arrayList.get(2).toString();
+                    app3.setText(app33);
+                    String app44 = arrayList.get(3).toString();
+                    app4.setText(app44);
+                    String app55 = arrayList.get(4).toString();
+                    app5.setText(app55);
+
+                }
+                    break;
+            case R.id.rbtn2:
+                if (checked)
+                    // Ninjas rule
+                    break;
+            case R.id.rbtn3:
+                if (checked)
+                    //
+                    break;
+        }
     }
 
     /* logic for making request and pushing request to parse */
@@ -119,6 +222,15 @@ public class ClientRequestsFragment extends Fragment {
             }
         });
     }
+//
+//    private class SelectDate implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            CalendarView cal = view.findViewById(R.id.calendarViewReq);
+//        }
+//    }
+
+
 
     /* below are the on-click listeners for this fragment */
     class SelectDatePickerListener implements View.OnClickListener {
@@ -152,6 +264,8 @@ public class ClientRequestsFragment extends Fragment {
             cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
             cal.set(Calendar.DAY_OF_MONTH, 30);
             datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
+
+
 
             datePicker.show();
         }
@@ -199,6 +313,7 @@ public class ClientRequestsFragment extends Fragment {
         });
     }
 
+
     public void makeCalendarGarbage() {
         LocationSchedule locSched = new LocationSchedule("14701 Madison Place", 1);
         Boolean prefs[] = { false, true, false, true, false, true, false };
@@ -214,6 +329,7 @@ public class ClientRequestsFragment extends Fragment {
             Log.d("*******", "seatid -> " + app.seatId);
             Log.d("*******", "start -> " + app.startTime);
         }
+
 
 //        for (LocationSchedule.Day day : locSched.workDays) {
 //            Log.d("*******","day of week: " + Integer.toString(day.day.get(Calendar.DAY_OF_WEEK)));
@@ -248,6 +364,9 @@ public class ClientRequestsFragment extends Fragment {
         }
     }
 
+
+
+
     /* unused boilerplate methods */
     @Override
     public void onAttach(Context context) {
@@ -258,8 +377,6 @@ public class ClientRequestsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-
 
 }
 

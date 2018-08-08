@@ -137,6 +137,8 @@ public class LocationSchedule {
         return appTimes;
     }
 
+
+
     public void removeAppointmentList(List<Appointment> appointments) {
         for (Appointment apmnt : appointments) {
             Calendar datetime = Calendar.getInstance();
