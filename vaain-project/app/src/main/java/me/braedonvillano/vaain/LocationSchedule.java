@@ -90,11 +90,18 @@ public class LocationSchedule {
     public class PotentialAppointment {
         public int seatId;
         public int startTime;
+        public String start;
         public Calendar appDate;
 
         public PotentialAppointment(int seatId, int start, Calendar date) {
             this.seatId = seatId;
             this.startTime = start;
+            this.appDate = date;
+        }
+
+        public PotentialAppointment(int seatId, String start, Calendar date) {
+            this.seatId = seatId;
+            this.start = start;
             this.appDate = date;
         }
     }
@@ -139,6 +146,7 @@ public class LocationSchedule {
 
     public ArrayList<ArrayList<PotentialAppointment>> generateAppointmentsDaily(int length) {
         Boolean isAppointment = false;
+        String[] timeMap = WorkSchedules.getPrimaryMap();
         ArrayList<ArrayList<PotentialAppointment>> appDays = new ArrayList<>(MAX_DAYS_TO_CHECK);
 
         // check all possible appointments in object
@@ -155,7 +163,7 @@ public class LocationSchedule {
                     }
                     if (isAppointment) {
                         isAppointment = false;
-                        appTimes.add(new PotentialAppointment(seat.seatId, i, workday.day));
+                        appTimes.add(new PotentialAppointment(seat.seatId, timeMap[i], workday.day));
                     }
                 }
             }
