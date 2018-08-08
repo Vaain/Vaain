@@ -137,6 +137,35 @@ public class LocationSchedule {
         return appTimes;
     }
 
+    public ArrayList<ArrayList<PotentialAppointment>> generateAppointmentsDaily(int length) {
+        Boolean isAppointment = false;
+        ArrayList<ArrayList<PotentialAppointment>> appDays = new ArrayList<>(MAX_DAYS_TO_CHECK);
+
+        // check all possible appointments in object
+        for (Day workday : workDays) {
+            ArrayList<PotentialAppointment> appTimes = new ArrayList<>();
+            for (Seat seat : workday.seats) {
+                for (int i = 0; i < MAX_SLOTS_IN_DAY; i++) {
+                    if (!seat.slots[i]) { continue; }
+                    for (int j = i; j < i + length && j < MAX_SLOTS_IN_DAY; j++) {
+                        if (!seat.slots[j]) { i = j; break; }
+                        if (seat.slots[j] && j - i == length - 1) {
+                            isAppointment = true;
+                        }
+                    }
+                    if (isAppointment) {
+                        isAppointment = false;
+                        appTimes.add(new PotentialAppointment(seat.seatId, i, workday.day));
+                    }
+                }
+            }
+            if (appTimes.size() != 0) {
+                appDays.add(appTimes);
+            }
+        }
+        return appDays;
+    }
+
     public void removeAppointmentList(List<Appointment> appointments) {
         for (Appointment apmnt : appointments) {
             Calendar datetime = Calendar.getInstance();
