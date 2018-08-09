@@ -89,8 +89,8 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
                 context.startActivity(intent);
                 // get it to return back to the app after the call is over
             }
-
         });
+
 
     }
 

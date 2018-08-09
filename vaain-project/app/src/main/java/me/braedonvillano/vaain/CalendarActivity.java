@@ -37,6 +37,5 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView.setMinDate(1533106800000L);
         calendarView.setMaxDate(1538290800000L);
 
-
     }
 }

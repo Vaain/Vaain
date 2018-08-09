@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -28,9 +25,11 @@ import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import me.braedonvillano.vaain.models.Appointment;
 import me.braedonvillano.vaain.models.Location;
@@ -44,7 +43,6 @@ public class ClientRequestsFragment extends Fragment {
     private TextView selectDate;
     private TextView selectTime;
     private TextView dateSelected;
-    private TextView timeSelected;
     private EditText rComments;
     private TextView rService;
     private Button rSubmit;
@@ -63,6 +61,7 @@ public class ClientRequestsFragment extends Fragment {
     public TextView app3;
     public TextView app4;
     public TextView app5;
+    private int numCLicks;
 
     private DatePickerDialog.OnDateSetListener cDateSetListener;
     private TimePickerDialog.OnTimeSetListener cTimeSetListener;
@@ -79,26 +78,34 @@ public class ClientRequestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_requests, container, false);
 
+        numCLicks = 0;
         mProduct = new Product();
-
         selectDate = view.findViewById(R.id.tvSelectDate);
         selectTime = view.findViewById(R.id.tvSelectTime);
         dateSelected = view.findViewById(R.id.etDateSelected);
-        timeSelected = view.findViewById(R.id.etTimeSelected);
         rComments = view.findViewById(R.id.mtRequestComments);
         rService = view.findViewById(R.id.tvRService);
         rSubmit = view.findViewById(R.id.btnSubmit);
         mDateTime = new BasicDateTime();
-//        selectDate.setOnClickListener(new SelectDatePickerListener());
+        selectDate.setOnClickListener(new SelectDatePickerListener());
         btnloc1 = view.findViewById(R.id.rbtn1);
         btnloc2 = view.findViewById(R.id.rbtn2);
         btnloc3 = view.findViewById(R.id.rbtn3);
 
+        // add callback so service and propic can be retrieved from dialog or search fragment
+       // rService.setText();
+
         btnloc1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                onRadioButtonClicked(view);
-            }
+            public void onClick(View view) { onRadioButtonClicked(view); }
+        });
+        btnloc2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { onRadioButtonClicked(view); }
+        });
+        btnloc3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { onRadioButtonClicked(view); }
         });
         app1 = view.findViewById(R.id.tvApp1);
         app2 = view.findViewById(R.id.tvApp2);
@@ -106,36 +113,52 @@ public class ClientRequestsFragment extends Fragment {
         app4 = view.findViewById(R.id.tvApp4);
         app5 = view.findViewById(R.id.tvApp5);
 
-        selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
-        selectTime.setOnClickListener(new SelectTimePickerListener());
+//        selectDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+//        selectTime.setOnClickListener(new SelectTimePickerListener());
         rSubmit.setOnClickListener(new RequestCreateSubmit());
 
         app1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                app1.setBackgroundColor(Color.parseColor("#000000"));
-                Toast.makeText(getContext(), "You Choose this appointment", Toast.LENGTH_SHORT).show();
-            }
+            public void onClick(View view) { onSlotClick((TextView) view); }
         });
-        app1.setOnLongClickListener(new View.OnLongClickListener() {
+        app2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                if (app1.getBackground().toString().compareTo("#000000") == 0) {
-                    app1.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                }
-                return true;
-            }
+            public void onClick(View view) { onSlotClick((TextView) view); }
         });
-
-
-
+        app3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { onSlotClick((TextView) view); }
+        });
+        app4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { onSlotClick((TextView) view); }
+        });
+        app5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { onSlotClick((TextView) view); }
+        });
         return view;
+    }
+
+    public void onSlotClick(TextView view) {
+        numCLicks++;
+        if (numCLicks % 2 == 0 ) {
+            view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            Toast.makeText(getContext(), "You deselected this appointment", Toast.LENGTH_SHORT).show();
+        } else {
+            view.setBackground(getResources().getDrawable(R.drawable.border_slot));
+            Toast.makeText(getContext(), "You selected this appointment", Toast.LENGTH_SHORT).show();
+            if (view.getText().length() == 0) {
+                Toast.makeText(getContext(), "Please choose a location first", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     /* this method should be called before this fragment mounts */
@@ -158,7 +181,6 @@ public class ClientRequestsFragment extends Fragment {
 
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.rbtn1:
@@ -166,30 +188,95 @@ public class ClientRequestsFragment extends Fragment {
                     Location loc1 = (Location) user.get("loc1");
                     String addy = loc1.getString("address");
                     LocationSchedule locationSchedule = new LocationSchedule(addy, 1);
-                    ArrayList arrayList = locationSchedule.generateAppointments(6);
-                    LocationSchedule.PotentialAppointment app = (LocationSchedule.PotentialAppointment) arrayList.get(0);
+                    ArrayList arrayList = locationSchedule.generateAppointmentsDaily(6);
+                    Integer day = Integer.valueOf(mDate.substring(4,6));
+                    ArrayList arrayList1 = (ArrayList) arrayList.get(day-1);
+                    LocationSchedule.PotentialAppointment app = null;
+                    String app11 = null;
 
-                    String app11 = app.appDate.toString();
-                    app1.setText(app11);
-                    // need generate appoints to generate a date and time slot avalible seems to generate a date but fails to generate a time slot.
-                    String app22 = arrayList.get(1).toString();
-                    app2.setText(app22);
-                    String app33 = arrayList.get(2).toString();
-                    app3.setText(app33);
-                    String app44 = arrayList.get(3).toString();
-                    app4.setText(app44);
-                    String app55 = arrayList.get(4).toString();
-                    app5.setText(app55);
+                    Integer[] array = new Integer[5];
+                    String[] strings = new String[5];
+                    for (int i = 0; i < 5; i++) {
+                        final int random = new Random().nextInt(10); // [0, 11]
+                        if (Arrays.asList(array).contains(random) == false) {
+                            array[i] = random;
+                        } else { array[i] = random + 1; }
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        app = (LocationSchedule.PotentialAppointment) arrayList1.get(Integer.valueOf(array[i]));
+                        app11 = app.start.toString();
+                        strings[i] = app11;
+                    }
 
+                    app1.setText(mDate + " at " + strings[0]);
+                    app2.setText(mDate + " at " + strings[1]);
+                    app3.setText(mDate + " at " + strings[2]);
+                    app4.setText(mDate + " at " + strings[3]);
+                    app5.setText(mDate + " at " + strings[4]);
                 }
                     break;
             case R.id.rbtn2:
-                if (checked)
-                    // Ninjas rule
+                if (checked) {
+                    Location loc2 = (Location) user.get("loc2");
+                    String addy = loc2.getString("address");
+                    LocationSchedule locationSchedule = new LocationSchedule(addy, 1);
+                    ArrayList arrayList = locationSchedule.generateAppointmentsDaily(6);
+                    Integer day = Integer.valueOf(mDate.substring(4,6));
+                    ArrayList arrayList1 = (ArrayList) arrayList.get(day-1);
+                    LocationSchedule.PotentialAppointment app = null;
+                    String app11 = null;
+                    Integer[] array1 = new Integer[5];
+                    String[] strings1 = new String[5];
+
+                    for (int i = 0; i < 5; i++) {
+                        final int random = new Random().nextInt(10); // [0, 11]
+                        if (Arrays.asList(array1).contains(random) == false) {
+                            array1[i] = random;
+                        } else { array1[i] = random + 1; }
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        app = (LocationSchedule.PotentialAppointment) arrayList1.get(Integer.valueOf(array1[i]));
+                        app11 = app.start.toString();
+                        strings1[i] = app11;
+                    }
+
+                    app1.setText(mDate + " at " + strings1[0]);
+                    app2.setText(mDate + " at " + strings1[1]);
+                    app3.setText(mDate + " at " + strings1[2]);
+                    app4.setText(mDate + " at " + strings1[3]);
+                    app5.setText(mDate + " at " + strings1[4]);
+                }
                     break;
             case R.id.rbtn3:
-                if (checked)
-                    //
+                if (checked) {
+                    Location loc3 = (Location) user.get("loc3");
+                    String addy = loc3.getString("address");
+                    LocationSchedule locationSchedule = new LocationSchedule(addy, 1);
+                    ArrayList arrayList = locationSchedule.generateAppointmentsDaily(6);
+                    Integer day = Integer.valueOf(mDate.substring(4,6));
+                    ArrayList arrayList1 = (ArrayList) arrayList.get(day-1);
+                    LocationSchedule.PotentialAppointment app = null;
+                    String app11 = null;
+                    Integer[] array2 = new Integer[5];
+                    String[] strings2 = new String[5];
+
+                    for (int i = 0; i < 5; i++) {
+                        final int random = new Random().nextInt(10); // [0, 11]
+                        if (Arrays.asList(array2).contains(random) == false) {
+                            array2[i] = random;
+                        } else { array2[i] = random + 1; }
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        app = (LocationSchedule.PotentialAppointment) arrayList1.get(Integer.valueOf(array2[i]));
+                        app11 = app.start.toString();
+                        strings2[i] = app11;
+                    }
+                    app1.setText(mDate + " at " + strings2[0]);
+                    app2.setText(mDate + " at " + strings2[1]);
+                    app3.setText(mDate + " at " + strings2[2]);
+                    app4.setText(mDate + " at " + strings2[3]);
+                    app5.setText(mDate + " at " + strings2[4]);
+                }
                     break;
         }
     }
@@ -231,7 +318,6 @@ public class ClientRequestsFragment extends Fragment {
 //    }
 
 
-
     /* below are the on-click listeners for this fragment */
     class SelectDatePickerListener implements View.OnClickListener {
         @Override
@@ -242,18 +328,21 @@ public class ClientRequestsFragment extends Fragment {
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
+            //Theme_DeviceDefault_Light
+
             DatePickerDialog datePicker = new DatePickerDialog(getContext(), android.R.style.Theme_DeviceDefault_Light,new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(final android.widget.DatePicker view, final int year, final int month, final int dayOfMonth) {
                     @SuppressLint("SimpleDateFormat")
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy ");
+
 
                     mDateTime.setDate(year, month, dayOfMonth);
                     cal.set(year, month, dayOfMonth);
                     mDate = sdf.format(cal.getTime());
-
                     dateSelected.setText(mDate); // set the date
+
                 }
             }, month, day, year);
 
@@ -265,33 +354,32 @@ public class ClientRequestsFragment extends Fragment {
             cal.set(Calendar.DAY_OF_MONTH, 30);
             datePicker.getDatePicker().setMaxDate(cal.getTimeInMillis());
 
-
-
             datePicker.show();
         }
     }
 
-    class SelectTimePickerListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(final TimePicker view, final int hr, final int min) {
-                    mDateTime.setTime(hr, min);
-                    Toast.makeText(getContext(), Integer.toString(hr), Toast.LENGTH_LONG).show();
-                    int hour = hr % 12;
-                    timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
-                }
-
-            }, hour, minute, DateFormat.is24HourFormat(getActivity()));
-
-            timePicker.show();
-        }
-    }
+//    class SelectTimePickerListener implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            final Calendar c = Calendar.getInstance();
+//            int hour = c.get(Calendar.HOUR_OF_DAY);
+//            int minute = c.get(Calendar.MINUTE);
+//
+//
+//            TimePickerDialog timePicker = new TimePickerDialog(getContext(), android.R.style.Theme_Holo_Light, new TimePickerDialog.OnTimeSetListener() {
+//                @Override
+//                public void onTimeSet(final TimePicker view, final int hr, final int min) {
+//                    mDateTime.setTime(hr, min);
+//                    Toast.makeText(getContext(), Integer.toString(hr), Toast.LENGTH_LONG).show();
+//                    int hour = hr % 12;
+//                    timeSelected.setText(String.format("%02d:%02d %s", hour == 0 ? 12 : hour, min, hr < 12 ? "am" : "pm"));
+//                }
+//
+//            }, hour, minute, DateFormat.is24HourFormat(getActivity()));
+//
+//            timePicker.show();
+//        }
+//    }
 
     class RequestCreateSubmit implements View.OnClickListener {
         @Override
@@ -312,7 +400,6 @@ public class ClientRequestsFragment extends Fragment {
             }
         });
     }
-
 
     public void makeCalendarGarbage() {
         LocationSchedule locSched = new LocationSchedule("14701 Madison Place", 1);
@@ -363,9 +450,6 @@ public class ClientRequestsFragment extends Fragment {
             return new Date(mYear, mMonth, mDay, mHour, mMinute);
         }
     }
-
-
-
 
     /* unused boilerplate methods */
     @Override
