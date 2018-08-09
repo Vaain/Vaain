@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,16 +28,21 @@ import java.util.List;
 
 public class BeautProfileFragment extends Fragment {
 
-    ParseImageView ivProfileImage;
-    TextView tvName;
-    TextView tvEmail;
-    Button btnLogout;
-    ParseUser user;
+    private ParseImageView ivProfileImage;
+    private TextView tvName;
+    private TextView tvEmail;
+    private ParseUser user;
+    private ImageButton btnSettings;
+
+    Callback callback;
 
     public BeautProfileFragment() {
         // Required empty public constructor
     }
 
+    public interface Callback {
+        void settingsCallback();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +60,8 @@ public class BeautProfileFragment extends Fragment {
         //attach views variables
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
-        btnLogout = view.findViewById(R.id.btnLogout);
         tvName = view.findViewById(R.id.tvName);
-
-
-
-
+        btnSettings  =view.findViewById(R.id.btnSettings);
 
         //assign values to views
         tvEmail.setText(user.getEmail());
@@ -70,10 +72,11 @@ public class BeautProfileFragment extends Fragment {
             Glide.with(this).load(file.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfileImage);
             ivProfileImage.loadInBackground();
         }
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                callback.settingsCallback();
             }
         });
 
@@ -84,7 +87,6 @@ public class BeautProfileFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
         return view;
     }
 
@@ -93,7 +95,7 @@ public class BeautProfileFragment extends Fragment {
 
         ProfileFragment.Adapter adapter = new ProfileFragment.Adapter(getChildFragmentManager());
         adapter.addFragment(new BeautsFollowersFragment(), "Followers");
-        adapter.addFragment(new ClientHistoryFragment(), "History");
+        adapter.addFragment(new BusinessFragment(), "Business");
         viewPager.setAdapter(adapter);
 
     }
@@ -127,18 +129,17 @@ public class BeautProfileFragment extends Fragment {
         }
     }
 
-    private void logout() {
-        ParseUser.logOut();
-        assert(ParseUser.getCurrentUser() == null);
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof Callback) {
+            callback = (Callback) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
 
     }
 

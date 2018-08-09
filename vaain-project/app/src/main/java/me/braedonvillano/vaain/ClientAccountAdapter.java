@@ -44,8 +44,11 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Request request = mrequests.get(i);
 
-        String prodName = request.getProduct().getName();
-        viewHolder.service.setText(prodName);
+        if(request.getProduct().getName() != null) {
+            String prodName = request.getProduct().getName();
+            viewHolder.service.setText(prodName);
+        }
+
 
         String price = request.getProduct().getPrice().toString();
         viewHolder.price.setText(price);

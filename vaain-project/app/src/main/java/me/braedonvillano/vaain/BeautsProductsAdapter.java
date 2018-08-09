@@ -83,6 +83,7 @@ public class BeautsProductsAdapter extends RecyclerView.Adapter<BeautsProductsAd
             myDialog = new Dialog(context);
             myDialog.setContentView(R.layout.item_home);
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
             DisplayMetrics displayMetrics = new DisplayMetrics();
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;

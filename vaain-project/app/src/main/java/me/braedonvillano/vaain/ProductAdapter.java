@@ -1,8 +1,11 @@
 package me.braedonvillano.vaain;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +25,7 @@ import me.braedonvillano.vaain.models.Product;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     static List<Product> mProducts;
-    Context context;
+    static Context context;
     static Callback callback;
 
     public interface Callback {
@@ -71,16 +74,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         product.fetchInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-//                Log.d("********", "they have been updated");
-                holder.tvProductDescription.setText(product.getDescription());
-                holder.tvProductPrice.setText("$" + product.getPrice().toString());
-                holder.tvProductName.setText(product.getName());
+//               Log.d("********", "they have been updated");
+                if(e == null) {
+                    holder.tvProductName.setText(product.getName());
 
-                if (product.getImage() != null) {
-                    Glide.with(context)
-                            .load(product.getImage().getUrl())
-                            .into(holder.ivProductImage);
+                    if (product.getImage() != null) {
+                        Glide.with(context)
+                                .load(product.getImage().getUrl())
+                                .into(holder.ivProductImage);
+                    }
+                }else {
+                    e.printStackTrace();
                 }
+
             }
         });
     }
@@ -100,9 +106,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             super(itemView);
 
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
-            tvProductDescription = itemView.findViewById(R.id.tvProductDescription);
-            tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
             tvProductName = itemView.findViewById(R.id.tvProductName);
+
 
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
