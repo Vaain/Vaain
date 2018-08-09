@@ -24,4 +24,27 @@ public class WorkSchedules {
 
         return slotMapping;
     }
+
+    public static String[] getPrimaryMap() {
+        String[] times = {
+              "9:0",
+              "9:30",
+              "10:0",
+              "10:30",
+              "11:0",
+              "11:30",
+              "12:0",
+              "12:30",
+              "13:0",
+              "13:30",
+              "14:0",
+              "14:30",
+              "15:0",
+              "15:30",
+              "16:0",
+              "16:30"
+        };
+
+        return times;
+    }
 }

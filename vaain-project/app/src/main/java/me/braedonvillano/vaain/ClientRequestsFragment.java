@@ -184,7 +184,7 @@ public class ClientRequestsFragment extends Fragment {
         public void onClick(View view) {
 //            makeRequest();
 //            makeCalendarGarbage();
-            getAppointments();
+              getAppointments();
         }
     }
 
