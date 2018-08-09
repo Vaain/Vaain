@@ -47,4 +47,68 @@ public class WorkSchedules {
 
         return times;
     }
+
+    public static String[] getAllTags() {
+        String[] tags = {
+                "acrylics",
+                "french manicure",
+                "fade",
+                "caesar",
+                "blowout",
+                "male",
+                "female",
+                "near",
+                "middle-distance",
+                "far",
+                "expensive",
+                "middle-price",
+                "cheap",
+                "nails",
+                "hair",
+                "tattoo",
+                "makeup",
+                "eyebrows"
+        };
+
+        return tags;
+    }
+
+    public static String[] getLogisticsTags() {
+        String[] logTags = {
+                "male",
+                "female",
+                "near",
+                "middle-distance",
+                "far",
+                "expensive",
+                "middle-price",
+                "cheap"
+        };
+
+        return logTags;
+    }
+
+    public static String[] getMainTags() {
+        String[] mainTags = {
+                "nails",
+                "hair",
+                "tattoo",
+                "makeup",
+                "eyebrows"
+        };
+
+        return mainTags;
+    }
+
+    public static String[] getOtherTags() {
+        String[] tags = {
+            "acrylics",
+            "french manicure",
+            "fade",
+            "caesar",
+            "blowout",
+        };
+
+        return tags;
+    }
 }

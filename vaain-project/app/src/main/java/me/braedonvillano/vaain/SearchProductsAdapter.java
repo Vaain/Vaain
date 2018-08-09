@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import me.braedonvillano.vaain.models.Product;
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
     List<Product> mProducts;
+    List<Product> filteredProducts;
     List<Product> mCopyProducts;
     public static Context context;
     private Dialog myDialog;
@@ -114,17 +116,17 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                             myDialog.dismiss();
                         }
                     });
-                    myDialog.show();
-                    dlgProfilePic.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                            callback.onRequestProduct(curProd,PROFILE_CODE);
-                            myDialog.dismiss();
-                            Log.d("request","beaut clicked");
-                        }
-                    });
-                }
+                dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                        callback.onRequestProduct(curProd,PROFILE_CODE);
+                        myDialog.dismiss();
+                        Log.d("request","beaut clicked");
+                    }
+                });
+                myDialog.show();
+            }
         });
 
         vHolder.rlHomeGrid.setOnLongClickListener(new View.OnLongClickListener() {
@@ -172,6 +174,40 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     .load(product.getImage().getUrl())
                     .into(viewHolder.ivProductImage);
         }
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    filteredProducts = mCopyProducts;
+                } else {
+                    List<Product> filteredList = new ArrayList<>();
+                    for (Product row : mProducts) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    filteredProducts = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredProducts;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mProducts = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     @Override
