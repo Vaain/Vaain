@@ -2,25 +2,16 @@ package me.braedonvillano.vaain;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.parse.Parse;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Request;
@@ -37,7 +28,6 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
     public interface Callback{
         void onDetail(Request request, int code);
     }
-
 
     public BeautRequestsAdapter(List<Request> requestArray, final Callback callback){
         requests = requestArray;
