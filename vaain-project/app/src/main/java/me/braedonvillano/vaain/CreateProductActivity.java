@@ -13,8 +13,11 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +29,12 @@ import com.parse.SaveCallback;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.braedonvillano.vaain.models.Product;
+
+import static me.braedonvillano.vaain.WorkSchedules.getAllTags;
 
 public class CreateProductActivity extends AppCompatActivity {
 
@@ -36,11 +43,17 @@ public class CreateProductActivity extends AppCompatActivity {
     private TextView name;
     private TextView price;
     private TextView description;
+    private ListView lvTags;
+    private ListView lvSetTags;
 
     private ParseUser user;
     private Product newProduct;
     private File photoFile;
     private ParseFile parseImage;
+    private ArrayList<String> allTags;
+    private ArrayList<String> setTags;
+    ArrayAdapter<String> tagsAdapter;
+    ArrayAdapter<String> setTagsAdapter;
 
     public final String APP_TAG = "Vaain";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -59,12 +72,55 @@ public class CreateProductActivity extends AppCompatActivity {
         price = findViewById(R.id.tvProductPrice);
         image = findViewById(R.id.ivProductImage);
         button = findViewById(R.id.btnCreateProduct);
+        lvTags = findViewById(R.id.lvTags);
+        lvSetTags = findViewById(R.id.lvSetTags);
         description = findViewById(R.id.mtProductDescription);
+
+        setTags = new ArrayList<>();
+        allTags = new ArrayList<>();
+        allTags.addAll(Arrays.asList(getAllTags()));
+
+        tagsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, allTags);
+        setTagsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, setTags);
+        lvTags.setAdapter(tagsAdapter);
+        lvSetTags.setAdapter(setTagsAdapter);
+        setupAllTagsListener();
+        setupSetTagsListener();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createProduct();
+            }
+        });
+    }
+
+    private void setupAllTagsListener() {
+        lvTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                // should be adding the tags to the product
+                String tag = String.valueOf(parent.getItemAtPosition(i));
+                setTags.add(tag);
+                setTagsAdapter.notifyDataSetChanged();
+
+                allTags.remove(i);
+                tagsAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void setupSetTagsListener() {
+        lvSetTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                // should be adding the tags to the product
+                String tag = String.valueOf(parent.getItemAtPosition(i));
+                allTags.add(tag);
+                tagsAdapter.notifyDataSetChanged();
+
+                setTags.remove(i);
+                setTagsAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -105,7 +161,7 @@ public class CreateProductActivity extends AppCompatActivity {
         prod.setPrice(Float.parseFloat(price.getText().toString()));
         prod.setImage(parseImage);
         prod.setBeaut(user);
-
+        prod.addAll("tagList", setTags);
         newProduct = prod;
 
         saveProduct();

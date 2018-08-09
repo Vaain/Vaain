@@ -41,7 +41,7 @@
 
     <EditText
         android:id="@+id/tvProductPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivProductImage"
         android:layout_alignStart="@+id/tvProductName"
@@ -53,9 +53,49 @@
         android:id="@+id/btnCreateProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="215dp"
+        android:layout_marginBottom="26dp"
         android:text="SUBMIT" />
+
+    <ListView
+        android:id="@+id/lvTags"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="208dp" />
+
+    <ListView
+        android:id="@+id/lvSetTags"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="88dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvSetTags"
+        android:layout_alignParentStart="true"
+        android:text="Added Tags" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvTags"
+        android:layout_alignParentStart="true"
+        android:text="All Tags" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:entries="@array/durations"
+        android:layout_alignEnd="@+id/tvProductName"
+        android:layout_alignTop="@+id/tvProductPrice" />
 
 </RelativeLayout>
