@@ -13,14 +13,14 @@ import android.view.MenuItem;
 
 import me.braedonvillano.vaain.models.Request;
 
-public class BeautMainActivity extends AppCompatActivity implements BeautsRequestsFragment.RequestsFragmentInterface ,BeautRequestDetail.OnFragmentInteractionListener{
+public class BeautMainActivity extends AppCompatActivity implements BeautsRequestsFragment.RequestsFragmentInterface ,BeautRequestDetail.OnFragmentInteractionListener,BeautProfileFragment.Callback{
 
     // define fragments here
-    final BeautsRequestsFragment beautsRequestsFragment = new BeautsRequestsFragment();
+    final BeautApptRequestFragment beautApptRequestFragment = new BeautApptRequestFragment();
     final BusinessFragment businessFragment = new BusinessFragment();
     final Fragment beautProfileFragment = new BeautProfileFragment();
     final BeautRequestDetail beautRequestDetail = new BeautRequestDetail();
-    final LocationDialogFragment alertDialog = LocationDialogFragment.newInstance("Location");
+    final ClientSettingsFragment beautSettingsFragment = new ClientSettingsFragment();
 
     private FragmentManager fragmentManager;
 
@@ -35,7 +35,7 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.beaut_frag_holder, beautsRequestsFragment).commit();
+        fragmentTransaction.replace(R.id.beaut_frag_holder, beautApptRequestFragment).commit();
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -45,15 +45,9 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
 
                     switch (item.getItemId()) {
                         case R.id.action_requests:
-                            changeMainFragment(beautsRequestsFragment);
-                            return true;
-                        case R.id.action_business:
-                            changeMainFragment(businessFragment);
+                            changeMainFragment(beautApptRequestFragment);
                             return true;
                         case R.id.action_profile:
-                            changeMainFragment(beautProfileFragment);
-                            return true;
-                        case R.id.action_schedule:
                             changeMainFragment(beautProfileFragment);
                             return true;
                         case R.id.action_add:
@@ -106,10 +100,14 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
         }else if(code == BeautRequestDetail.LOCATION_CODE){
 //            alertDialog.setRequest(request);
 //            alertDialog.show(fragmentManager, "fragment_alert");
-             changeMainFragment(beautsRequestsFragment);
+             changeMainFragment(beautApptRequestFragment);
 
 
         }
     }
 
+    @Override
+    public void settingsCallback() {
+        changeMainFragment(beautSettingsFragment);
+    }
 }

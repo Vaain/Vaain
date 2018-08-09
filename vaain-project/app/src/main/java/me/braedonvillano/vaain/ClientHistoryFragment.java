@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -59,6 +60,7 @@ public class ClientHistoryFragment extends Fragment {
 
     }
 
+
     void getParseHistory(final BeautHistoryAdapter adapter) {
         ParseQuery<Appointment> apptQuery = new Appointment.Query().withBeaut().withClient().withProduct();
         if(ParseUser.getCurrentUser().getBoolean("isClient")){
@@ -69,7 +71,7 @@ public class ClientHistoryFragment extends Fragment {
         apptQuery.whereEqualTo("isComplete",true);
         apptQuery.findInBackground(new FindCallback<Appointment>() {
             @Override
-            public void done(List<Appointment> objects, com.parse.ParseException e) {
+            public void done(List<Appointment> objects, ParseException e) {
 
                 if (e == null) {
                     pastAppts = objects;

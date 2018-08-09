@@ -10,19 +10,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.braedonvillano.vaain.models.Location;
 import me.braedonvillano.vaain.models.Product;
 
 
@@ -57,7 +62,13 @@ public class BusinessFragment extends Fragment {
     Button btnFri;
     Button btnSat;
 
-    EditText etAddress;
+    private List<Location> locations;
+    private List<String> locNames;
+    private Spinner spLocation1;
+    private Spinner spLocation2;
+    private Spinner spLocation3;
+    ArrayAdapter<String> adapter;
+
 
 
 
@@ -124,18 +135,8 @@ public class BusinessFragment extends Fragment {
         btnFri = view.findViewById(R.id.btnFri);
         btnSat = view.findViewById(R.id.btnSat);
 
-        etAddress = view.findViewById(R.id.etAddress);
 
-        String location = user.getString("location");
-        if( location != null) etAddress.setText(location);
 
-        etAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                user.put("location",etAddress.getText().toString());
-                user.saveInBackground();
-            }
-        });
 
         swSun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -186,6 +187,23 @@ public class BusinessFragment extends Fragment {
                 switchChange(btnSat, b);
             }
         });
+
+        locations = new ArrayList<>();
+        locNames = new ArrayList<>();
+        locNames.add("");
+
+
+
+        ParseQuery<ParseUser> query2 = ParseUser.getQuery();
+        query2.include("loc1");
+        query2.include("loc2");
+        query2.include("loc3");
+        try {
+            user = query2.get(ParseUser.getCurrentUser().getObjectId());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return view;
     }
 
@@ -215,6 +233,12 @@ public class BusinessFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         businessInterface = null;
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Log.d("Settings","preferences updates");
+            }
+        });
     }
 
     /* this will be used when the CreateProductActivity TODOs are completed  */
