@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 
 import me.braedonvillano.vaain.models.Product;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface,ClientFollowingFragment.FollowingFragmentInterface,PublicBeautProfile.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface,ClientFollowingFragment.FollowingFragmentInterface,PublicBeautProfile.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
 
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
     final ClientAccountFragment clientAccountFragment = new ClientAccountFragment();
     final PublicBeautProfile beautProfile2 = new PublicBeautProfile();
+    final ClientSettingsFragment clientSettingsFragment = new ClientSettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +83,21 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
 
     @Override
     public void publicProfileCallback(ParseUser beaut, int code) {
-        beautProfile2.setUser(beaut);
-        changeMainFragment(beautProfile2);
+            beautProfile2.setUser(beaut);
+            changeMainFragment(beautProfile2);
+
+
     }
+
 
     @Override
     public void onProductClick(Product product, int code) {
         renderRequestFlow(product,code);
+    }
+
+    @Override
+    public void onFragmentInteraction(ParseUser beaut, int code) {
+        changeMainFragment(clientSettingsFragment);
+
     }
 }

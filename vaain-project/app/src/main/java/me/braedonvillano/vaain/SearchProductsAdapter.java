@@ -1,5 +1,6 @@
 package me.braedonvillano.vaain;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     List<Product> mProducts;
     List<Product> mCopyProducts;
-    public Context context;
+    public static Context context;
     private Dialog myDialog;
     private CardView cardView;
     static Callback callback;
@@ -163,7 +165,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             }
         }
 
-        viewHolder.tvBeautName.setText(product.getBeaut().getString("Name"));
 
         viewHolder.tvProductName.setText(product.getName());
         if (product.getImage() != null) {
@@ -182,7 +183,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         public CardView cv;
         public RelativeLayout rlHomeGrid;
         public TextView tvProductName;
-        public TextView tvBeautName;
         public ImageView ivProductImage;
 
 
@@ -191,8 +191,17 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             cv = itemView.findViewById(R.id.cv);
             rlHomeGrid = itemView.findViewById(R.id.item_home_grid);
             tvProductName = itemView.findViewById(R.id.tvProductName);
-            tvBeautName = itemView.findViewById(R.id.tvBeautName);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
+
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+
+            ivProductImage.setMaxWidth(width/3);
+            ivProductImage.setMaxHeight(width/3);
+            ivProductImage.setMinimumHeight(width/3);
+            ivProductImage.setMinimumWidth(width/3);
         }
     }
 }
