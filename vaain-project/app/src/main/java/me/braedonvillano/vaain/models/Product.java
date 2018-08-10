@@ -7,6 +7,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -18,6 +19,7 @@ public class Product extends ParseObject implements Serializable {
     private static final String KEY_PRICE = "price";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_BEAUT = "beaut";
+    private static final String KEY_TAGS = "tagList";
 
     public Product() {}
 
@@ -65,6 +67,10 @@ public class Product extends ParseObject implements Serializable {
         put(KEY_BEAUT, user);
     }
 
+    public ArrayList<String> getTags() {
+        return (ArrayList<String>) get(KEY_TAGS);
+    }
+
     public static class Query extends ParseQuery<Product> {
         public Query() {
             super(Product.class);
@@ -77,6 +83,11 @@ public class Product extends ParseObject implements Serializable {
 
         public Query withBeaut() {
             include(KEY_BEAUT);
+            return this;
+        }
+
+        public Query withTags() {
+            include(KEY_TAGS);
             return this;
         }
     }

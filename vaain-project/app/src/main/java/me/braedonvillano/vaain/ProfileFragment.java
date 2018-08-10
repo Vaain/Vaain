@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,10 +38,12 @@ public class ProfileFragment extends Fragment{
 
     private OnFragmentInteractionListener listener;
 
-    ParseImageView ivProfileImage;
-    TextView tvName;
-    TextView tvEmail;
-    Button btnLogout;
+    private ParseImageView ivProfileImage;
+    private TextView tvName;
+    private TextView tvEmail;
+    private ImageButton btnSettings;
+
+    public static final int SETTINGS_CODE = 500;
 
     public ProfileFragment() {
     }
@@ -69,14 +72,14 @@ public class ProfileFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         
-        ParseUser user = ParseUser.getCurrentUser();
+        final ParseUser user = ParseUser.getCurrentUser();
 
 
         //attach views variables
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
-        btnLogout = view.findViewById(R.id.btnLogout);
         tvName = view.findViewById(R.id.tvName);
+        btnSettings = view.findViewById(R.id.btnSettings);
 
         //assign values to views
         tvEmail.setText(user.getEmail());
@@ -87,14 +90,14 @@ public class ProfileFragment extends Fragment{
             Glide.with(this).load(file.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfileImage);
             ivProfileImage.loadInBackground();
         }
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                listener.onFragmentInteraction(user,SETTINGS_CODE);
             }
         });
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
@@ -105,10 +108,8 @@ public class ProfileFragment extends Fragment{
 
     private void setupViewPager(ViewPager viewPager) {
 
-
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ClientFollowingFragment(), "Following");
-        adapter.addFragment(new ClientHistoryFragment(), "History");
         viewPager.setAdapter(adapter);
 
     }
@@ -157,6 +158,12 @@ public class ProfileFragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            listener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
 
     }
 

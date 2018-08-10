@@ -4,4 +4,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">Search</string>
+
+    <string-array name="durations">
+        <item>30 m</item>
+        <item>60 m</item>
+        <item>90 m</item>
+    </string-array>
+
 </resources>

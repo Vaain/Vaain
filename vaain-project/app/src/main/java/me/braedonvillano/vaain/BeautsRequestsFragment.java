@@ -3,7 +3,9 @@ package me.braedonvillano.vaain;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -81,8 +83,10 @@ public class BeautsRequestsFragment extends Fragment implements  BeautRequestsAd
         rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+
         return view;
     }
+
 
     @Override
     public void onDetail(Request request, int code) {

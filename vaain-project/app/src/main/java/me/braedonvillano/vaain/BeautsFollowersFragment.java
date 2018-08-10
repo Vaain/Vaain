@@ -103,9 +103,11 @@ public class BeautsFollowersFragment extends Fragment {
                         final ParseUser client = clients.get(i);
                         List<ParseUser> clientsFollowing = (List<ParseUser>) client.get("follow");
                         ParseUser beaut = ParseUser.getCurrentUser();
+                        //if(clientsFollowing != null && clientsFollowing.contains(beaut.toString()))beautsFollowers.add(beautsFollowers.size(),client);
+                        //TODO: Make this not ugly
                         if(clientsFollowing != null){
                             for(int j = 0; j < clientsFollowing.size();j++){
-                                if(clientsFollowing.get(j).getUsername() == beaut.getUsername())beautsFollowers.add(beautsFollowers.size(),client);
+                                if(clientsFollowing.get(j).getUsername().compareTo(beaut.getUsername()) == 0)beautsFollowers.add(beautsFollowers.size(),client);
                             }
                         }
                     }

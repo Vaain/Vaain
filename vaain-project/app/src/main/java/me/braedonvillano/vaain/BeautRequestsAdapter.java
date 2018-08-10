@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseFile;
+import com.parse.ParseImageView;
 
 import java.util.List;
 
@@ -51,12 +53,16 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             Request request = requests.get(i);
-            String clientName = request.getClient().getUsername();
+            String clientName = request.getClient().getString("Name");
             viewHolder.tvClientName.setText(clientName);
-            ParseFile productImage = request.getProduct().getImage();
+            ParseFile clientImage = request.getClient().getParseFile("profileImage");
             viewHolder.tvDate.setText(request.getStrDateTime());
             viewHolder.tvProName.setText(request.getProduct().getName());
-            if(productImage != null)Glide.with(viewHolder.itemView).load(productImage.getUrl()).into(viewHolder.ivProImage);
+            viewHolder.tvPrice.setText("$ " + request.getProduct().getPrice().toString());
+            if(clientImage != null) {
+                Glide.with(viewHolder.itemView).load(clientImage.getUrl()).apply(RequestOptions.circleCropTransform()).into(viewHolder.ivProImage);
+                viewHolder.ivProImage.loadInBackground();
+            }
 
     }
 
@@ -78,8 +84,9 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
         public TextView tvClientName;
         public TextView tvProName;
         public TextView tvDate;
+        public TextView tvPrice;
 
-        public ImageView ivProImage;
+        public ParseImageView ivProImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +95,7 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
             tvProName = itemView.findViewById(R.id.tvProName);
             tvDate = itemView.findViewById(R.id.tvDate);
             ivProImage = itemView.findViewById(R.id.ivProImage);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
             itemView.setOnClickListener(this);
 
 

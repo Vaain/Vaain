@@ -1,5 +1,6 @@
 package me.braedonvillano.vaain;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -7,11 +8,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,8 +31,9 @@ import me.braedonvillano.vaain.models.Product;
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
     List<Product> mProducts;
+    List<Product> filteredProducts;
     List<Product> mCopyProducts;
-    public Context context;
+    public static Context context;
     private Dialog myDialog;
     private CardView cardView;
     static Callback callback;
@@ -112,17 +116,17 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                             myDialog.dismiss();
                         }
                     });
-                    myDialog.show();
-                    dlgProfilePic.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                            callback.onRequestProduct(curProd,PROFILE_CODE);
-                            myDialog.dismiss();
-                            Log.d("request","beaut clicked");
-                        }
-                    });
-                }
+                dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                        callback.onRequestProduct(curProd,PROFILE_CODE);
+                        myDialog.dismiss();
+                        Log.d("request","beaut clicked");
+                    }
+                });
+                myDialog.show();
+            }
         });
 
         vHolder.rlHomeGrid.setOnLongClickListener(new View.OnLongClickListener() {
@@ -163,7 +167,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             }
         }
 
-        viewHolder.tvBeautName.setText(product.getBeaut().getString("Name"));
 
         viewHolder.tvProductName.setText(product.getName());
         if (product.getImage() != null) {
@@ -171,6 +174,40 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     .load(product.getImage().getUrl())
                     .into(viewHolder.ivProductImage);
         }
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    filteredProducts = mCopyProducts;
+                } else {
+                    List<Product> filteredList = new ArrayList<>();
+                    for (Product row : mProducts) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    filteredProducts = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredProducts;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mProducts = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     @Override
@@ -182,7 +219,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         public CardView cv;
         public RelativeLayout rlHomeGrid;
         public TextView tvProductName;
-        public TextView tvBeautName;
         public ImageView ivProductImage;
 
 
@@ -191,8 +227,17 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             cv = itemView.findViewById(R.id.cv);
             rlHomeGrid = itemView.findViewById(R.id.item_home_grid);
             tvProductName = itemView.findViewById(R.id.tvProductName);
-            tvBeautName = itemView.findViewById(R.id.tvBeautName);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
+
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+
+            ivProductImage.setMaxWidth(width/3);
+            ivProductImage.setMaxHeight(width/3);
+            ivProductImage.setMinimumHeight(width/3);
+            ivProductImage.setMinimumWidth(width/3);
         }
     }
 }
