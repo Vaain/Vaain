@@ -25,6 +25,7 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
     private FragmentManager fragmentManager;
 
     public final static int ADD_PRODUCT_ACTIVITY = 1234;
+    public final static int ADD_POST_ACTIVITY = 2345;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,9 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
                     switch (item.getItemId()) {
                         case R.id.action_requests:
                             changeMainFragment(beautApptRequestFragment);
+                            return true;
+                        case R.id.action_post:
+                            openAddPostActivity();
                             return true;
                         case R.id.action_profile:
                             changeMainFragment(beautProfileFragment);
@@ -70,6 +74,11 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
         // TODO: consider adding the dialogue fragment back here to clean up create flow -- a bit choppy
         Intent intent = new Intent(BeautMainActivity.this, CreateProductActivity.class);
         startActivityForResult(intent, ADD_PRODUCT_ACTIVITY);
+    }
+
+    public void openAddPostActivity() {
+        Intent intent = new Intent(BeautMainActivity.this, CreatePostActivity.class);
+        startActivityForResult(intent, ADD_POST_ACTIVITY);
     }
 
 

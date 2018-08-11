@@ -26,18 +26,21 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".LoginActivity"
-                  android:windowSoftInputMode="stateVisible|adjustPan">
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-                  android:windowSoftInputMode="stateVisible|adjustPan"/>
-        <activity android:name=".MainActivity"
-                  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".BeautMainActivity" />
 
         <meta-data
@@ -45,6 +48,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".CreateProductActivity" />
+        <activity android:name=".CreatePostActivity"></activity>
     </application>
 
 </manifest>

@@ -44,7 +44,7 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Request request = mrequests.get(i);
 
-        if(request.getProduct().getName() != null) {
+        if (request.getProduct().getName() != null) {
             String prodName = request.getProduct().getName();
             viewHolder.service.setText(prodName);
         }
@@ -53,10 +53,10 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
         String price = request.getProduct().getPrice().toString();
         viewHolder.price.setText(price);
 
-        String date = request.getDateTime().toString().substring(0,10);
+        String date = request.getDateTime().toString().substring(0, 10);
         viewHolder.date.setText(date);
 
-        String time = request.getDateTime().toString().substring(11,16);
+        String time = request.getDateTime().toString().substring(11, 16);
         viewHolder.time.setText(time);
 
             Glide.with(context)

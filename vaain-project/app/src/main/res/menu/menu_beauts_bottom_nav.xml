@@ -9,6 +9,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_post"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_add"
         android:enabled="true"
         android:icon="@drawable/ic_add_black_24dp"

@@ -3,16 +3,13 @@ package me.braedonvillano.vaain;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.parse.Parse;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
@@ -62,7 +59,7 @@ public class ClientFollowAdapter extends RecyclerView.Adapter<ClientFollowAdapte
             viewHolder.tvBeautName.setText(beaut.getString("Name"));
             viewHolder.tvEmail.setText(beaut.getUsername());
 
-        if(beaut.get("profileImage") != null){
+        if (beaut.get("profileImage") != null){
             ParseFile file = beaut.getParseFile("profileImage");
             Glide.with(context).load(file.getUrl()).apply(RequestOptions.circleCropTransform()).into(viewHolder.ivBeautImage);
             viewHolder.ivBeautImage.loadInBackground();
