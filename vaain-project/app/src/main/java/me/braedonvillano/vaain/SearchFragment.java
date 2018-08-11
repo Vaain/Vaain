@@ -178,6 +178,13 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
         }
     }
 
+    // call this function to clear the filter
+    public void clearFilter() {
+        // TODO: reset filter fields once cleared
+        searchRecyclerViewAdapter.clear();
+        searchRecyclerViewAdapter.addAll(mProducts);
+    }
+
     public void applyFilter(ArrayList<Product> filtProd, ArrayList<String> filtTags) {
         boolean addToList = true;
         for (Product product : mProducts) {

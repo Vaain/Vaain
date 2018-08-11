@@ -4,16 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="0dp">
+    android:layout_marginBottom="2dp"
+    android:layout_marginRight="2dp">
 
-    <ImageView
-        android:id="@+id/ivProductImage"
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
-        app:srcCompat="@android:color/darker_gray"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivProductImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvProName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@drawable/product_name_textview"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Product Name"
+                android:textColor="@android:color/black"
+                android:visibility="visible" />
+
+
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+
 </RelativeLayout>
