@@ -5,10 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/lvFilter"
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="91dp"
+        android:text="Distance" />
+
+    <SeekBar
+        android:id="@+id/sbPrice2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="335dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="187dp"
+        android:max="2"
+        android:progress="3" />
+
+    <co.ceryle.radiorealbutton.RadioRealButtonGroup
+        android:id="@+id/genderGroup"
         android:layout_width="match_parent"
-        android:layout_height="483dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:rrbg_animateDrawables_enter="overshoot"
+        app:rrbg_animateTexts_enter="overshoot"
+        app:rrbg_dividerColor="@color/vaain_black"
+        app:rrbg_dividerSize="1dp"
+        app:rrbg_radius="10dp"
+        app:rrbg_selectorColor="@color/vaain_red"
+        app:rrbg_selectorSize="6dp">
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawableHeight="36dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="36dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/vaain_black"
+            app:rrb_text="ALL"
+            app:rrb_textColor="@color/vaain_black"/>
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/men"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawableGravity="right"
+            app:rrb_drawableHeight="36dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="36dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/vaain_black"
+            app:rrb_text="MEN"
+            app:rrb_textColor="@color/vaain_black"/>
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/women"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawableGravity="right"
+            app:rrb_drawableHeight="36dp"
+            app:rrb_drawablePadding="8dp"
+            app:rrb_drawableWidth="36dp"
+            app:rrb_ripple="true"
+            app:rrb_rippleColor="@color/vaain_black"
+            app:rrb_text="WOMEN"
+            app:rrb_textColor="@color/vaain_black"/>
+    </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
     <Button
         android:id="@+id/btnApplyFilter"
@@ -19,4 +87,28 @@
         android:background="@drawable/rounded_button_purple"
         android:text="Filter"
         android:textAllCaps="false" />
+
+    <ListView
+        android:id="@+id/lvFilter"
+        android:layout_width="match_parent"
+        android:layout_height="246dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sbPrice2" />
+
+    <SeekBar
+        android:id="@+id/sbDistance"
+        android:layout_width="335dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/textView16"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sbPrice2"
+        android:layout_alignStart="@+id/sbPrice2"
+        android:layout_marginBottom="-187dp"
+        android:text="Price" />
+
 </RelativeLayout>
