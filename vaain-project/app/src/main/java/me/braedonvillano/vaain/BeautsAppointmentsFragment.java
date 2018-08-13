@@ -76,7 +76,7 @@ public class BeautsAppointmentsFragment extends Fragment {
 
 
     void getAppointments(final BeautHistoryAdapter adapter){
-        ParseQuery<Appointment> query1 = new Appointment.Query().withBeaut().withClient().withProduct();
+        ParseQuery<Appointment> query1 = new Appointment.Query().withBeaut().withClient().withProduct().withLocation();
         query1.whereEqualTo("isComplete",false);
         query1.findInBackground(new FindCallback<Appointment>() {
             @Override

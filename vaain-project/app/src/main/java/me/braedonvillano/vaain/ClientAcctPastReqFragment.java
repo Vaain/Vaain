@@ -28,10 +28,8 @@ public class ClientAcctPastReqFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_client_acct_past_req, container, false);
 
-        ParseQuery<Appointment> appointmentParseQuery = new Appointment.Query().withBeaut().withClient();
+        ParseQuery<Appointment> appointmentParseQuery = new Appointment.Query().withBeaut().withClient().withProduct().withLocation();
         //requestQuery.whereEqualTo("beaut", ParseUser.getCurrentUser());
-        appointmentParseQuery.include("product");
-        appointmentParseQuery.include("beaut");
         appointmentParseQuery.whereEqualTo("isComplete", true);
         appointmentParseQuery.findInBackground(new FindCallback<Appointment>() {
             @Override

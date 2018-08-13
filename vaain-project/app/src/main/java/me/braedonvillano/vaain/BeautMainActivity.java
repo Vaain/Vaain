@@ -1,6 +1,8 @@
 package me.braedonvillano.vaain;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +12,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 
 import me.braedonvillano.vaain.models.Request;
 
@@ -59,6 +65,7 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
                 }
 
             });
+
     }
 
     public void changeMainFragment(Fragment fragment) {

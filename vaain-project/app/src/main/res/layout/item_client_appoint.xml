@@ -42,7 +42,7 @@
             android:layout_marginTop="16dp"
             android:text="service"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toStartOf="@+id/textView13"
+            app:layout_constraintEnd_toStartOf="@+id/tvDate"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -99,7 +99,7 @@
             app:srcCompat="@android:drawable/sym_action_call" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tvDate"
             android:layout_width="14dp"
             android:layout_height="23dp"
             android:layout_marginBottom="8dp"

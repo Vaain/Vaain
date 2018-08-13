@@ -46,27 +46,30 @@ public class BusinessFragment extends Fragment {
     private List<Product> productIds;
     private List<Product> products;
 
-    Switch swSun;
-    Switch swMon;
-    Switch swTues;
-    Switch swWed;
-    Switch swThurs;
-    Switch swFri;
-    Switch swSat;
+    private Switch swSun;
+    private Switch swMon;
+    private Switch swTues;
+    private Switch swWed;
+    private Switch swThurs;
+    private Switch swFri;
+    private Switch swSat;
 
-    Button btnSun;
-    Button btnMon;
-    Button btnTues;
-    Button btnWed;
-    Button btnThurs;
-    Button btnFri;
-    Button btnSat;
+    private Button btnSun;
+    private Button btnMon;
+    private Button btnTues;
+    private Button btnWed;
+    private Button btnThurs;
+    private Button btnFri;
+    private Button btnSat;
 
-    private List<Location> locations;
-    private List<String> locNames;
-    private Spinner spLocation1;
-    private Spinner spLocation2;
-    private Spinner spLocation3;
+    private int mClickNum;
+    private int sClickNum;
+    private int tClickNum;
+    private int wClickNum;
+    private int thClickNum;
+    private int fClickNum;
+    private int saClickNum;
+
     ArrayAdapter<String> adapter;
 
 
@@ -118,15 +121,6 @@ public class BusinessFragment extends Fragment {
         productAdapter = new ProductAdapter(productIds);
         rvProducts.setAdapter(productAdapter);
 
-        // initialize other views
-        swSun = view.findViewById(R.id.swSun);
-        swMon = view.findViewById(R.id.swMon);
-        swTues = view.findViewById(R.id.swTues);
-        swWed = view.findViewById(R.id.swWed);
-        swThurs = view.findViewById(R.id.swThurs);
-        swFri = view.findViewById(R.id.swFri);
-        swSat = view.findViewById(R.id.swSat);
-
         btnSun = view.findViewById(R.id.btnSun);
         btnMon = view.findViewById(R.id.btnMon);
         btnTues = view.findViewById(R.id.btnTues);
@@ -137,62 +131,63 @@ public class BusinessFragment extends Fragment {
 
 
 
+        saClickNum = 0;
+        mClickNum = 0;
+        sClickNum = 0;
+        tClickNum = 0;
+        thClickNum = 0;
+        wClickNum = 0;
+        fClickNum = 0;
 
-        swSun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnSun.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnSun, b);
+            public void onClick(View view) {
+                sClickNum++;
+                switchChange(btnSun,sClickNum);
             }
         });
-
-        swMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnMon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnMon, b);
+            public void onClick(View view) {
+                mClickNum++;
+                switchChange(btnMon,mClickNum);
             }
         });
-        swTues.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnTues.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnTues, b);
+            public void onClick(View view) {
+                tClickNum++;
+                switchChange(btnTues,tClickNum);
             }
         });
-        swWed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnWed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnWed, b);
+            public void onClick(View view) {
+                wClickNum++;
+                switchChange(btnWed,wClickNum);
             }
         });
-        swThurs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnThurs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnThurs, b);
+            public void onClick(View view) {
+                thClickNum++;
+                switchChange(btnThurs,thClickNum);
             }
         });
-        swFri.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnFri.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnFri, b);
+            public void onClick(View view) {
+                fClickNum++;
+                switchChange(btnFri,fClickNum);
             }
         });
-        swFri.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        btnSat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnFri, b);
+            public void onClick(View view) {
+                saClickNum++;
+                switchChange(btnSat,saClickNum);
             }
         });
-        swSat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switchChange(btnSat, b);
-            }
-        });
-
-        locations = new ArrayList<>();
-        locNames = new ArrayList<>();
-        locNames.add("");
-
-
 
         ParseQuery<ParseUser> query2 = ParseUser.getQuery();
         query2.include("loc1");
@@ -207,13 +202,14 @@ public class BusinessFragment extends Fragment {
         return view;
     }
 
-    private void switchChange(Button button, boolean state){
+    private void switchChange(Button button, int numClicks){
         Drawable buttonPurple = getResources().getDrawable(R.drawable.rounded_button_purple);
-        if(state){
-          button.setBackground(buttonPurple);
+        Drawable buttonGrey = getResources().getDrawable(R.drawable.rounded_button_grey);
+        if(numClicks % 2 == 0){
+          button.setBackground(buttonGrey);
         }else{
-            Drawable buttonGrey = getResources().getDrawable(R.drawable.rounded_button_grey);
-            button.setBackground(buttonGrey);
+
+            button.setBackground(buttonPurple);
         }
     }
 
