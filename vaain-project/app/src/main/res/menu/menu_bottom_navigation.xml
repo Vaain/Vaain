@@ -2,11 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_feed"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_search"
         android:enabled="true"
         android:icon="@drawable/ic_search"
         app:itemIconTint="@color/menu_icon_colors"
         app:showAsAction="always" />
+
 
     <item
         android:id="@+id/action_requests"

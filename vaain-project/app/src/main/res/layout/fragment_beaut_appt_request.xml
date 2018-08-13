@@ -37,8 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@android:color/black"
-        app:tabSelectedTextColor="@android:color/holo_purple"
-        app:tabTextColor="@android:color/black" />
+        app:tabIndicatorColor="@color/vaain_red"
+        app:tabTextColor="@android:color/background_light" />
 
 </android.support.constraint.ConstraintLayout>

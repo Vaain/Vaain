@@ -38,82 +38,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
                         android:text="Schedule"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <Switch
-                        android:id="@+id/swSun"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnSun"
-                        app:layout_constraintHorizontal_bias="0.666"
+                        android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swMon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnMon"
-                        app:layout_constraintStart_toStartOf="@+id/btnMon"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swTues"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnTues"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swWed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnWed"
-                        app:layout_constraintStart_toStartOf="@+id/btnWed"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swThurs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toStartOf="@+id/btnThurs"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swFri"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnFri"
-                        app:layout_constraintStart_toStartOf="@+id/btnFri"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
-
-                    <Switch
-                        android:id="@+id/swSat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@+id/btnSat"
-                        app:layout_constraintStart_toStartOf="@+id/btnSat"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
+                        tools:layout_editor_absoluteY="8dp" />
 
                     <Button
                         android:id="@+id/btnMon"
@@ -128,7 +56,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toStartOf="@+id/btnWed"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/swMon" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnWed"
@@ -143,7 +71,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/swWed" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnThurs"
@@ -159,7 +87,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toStartOf="@+id/btnFri"
                         app:layout_constraintStart_toEndOf="@+id/btnWed"
-                        app:layout_constraintTop_toBottomOf="@+id/swThurs" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnTues"
@@ -174,7 +102,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toStartOf="@+id/btnWed"
                         app:layout_constraintStart_toEndOf="@+id/btnMon"
-                        app:layout_constraintTop_toBottomOf="@+id/swTues" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnFri"
@@ -189,7 +117,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/btnWed"
-                        app:layout_constraintTop_toBottomOf="@+id/swFri" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnSat"
@@ -205,7 +133,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/btnFri"
-                        app:layout_constraintTop_toBottomOf="@+id/swSat" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
 
                     <Button
                         android:id="@+id/btnSun"
@@ -220,7 +148,7 @@
                         android:textSize="36sp"
                         app:layout_constraintEnd_toStartOf="@+id/btnMon"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/swSun" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSchedLabel" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
@@ -244,6 +172,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="Products"
+                        android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

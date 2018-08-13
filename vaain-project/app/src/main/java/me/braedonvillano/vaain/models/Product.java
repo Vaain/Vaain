@@ -6,10 +6,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-
 
 @ParseClassName("Product")
 public class Product extends ParseObject implements Serializable {

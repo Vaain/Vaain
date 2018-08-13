@@ -2,12 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.braedonvillano.vaain">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
+    <permission
+        android:name="me.braedonvillano.vaain.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="me.braedonvillano.vaain.permission.MAPS_RECEIVE"/>
 
     <application
         android:name=".ParseApp"
@@ -17,6 +33,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBaksUUkDsjDXbGmo1sCWTl0P-kOxLYuHw"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="me.vaain.fileprovider"
@@ -27,18 +47,21 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".LoginActivity"
-                  android:windowSoftInputMode="stateVisible|adjustPan">
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-                  android:windowSoftInputMode="stateVisible|adjustPan"/>
-        <activity android:name=".MainActivity"
-                  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".BeautMainActivity" />
 
         <meta-data
@@ -46,8 +69,15 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".CreateProductActivity" />
+        <activity android:name=".CreatePostActivity"></activity>
+
+        <activity
+            android:name=".ReqApptDetailActivity"
+            android:label="@string/title_activity_req_appt_detail"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".CalendarActivity"/>
 
     </application>
+
 
 </manifest>

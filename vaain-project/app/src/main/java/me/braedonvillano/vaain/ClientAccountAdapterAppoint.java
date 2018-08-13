@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +19,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Appointment;
+import me.braedonvillano.vaain.models.Appointments2;
 
 
 public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAccountAdapterAppoint.ViewHolder> {
@@ -117,7 +121,7 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
     @Override
     public int getItemCount() { return mappointments.size(); }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView serviceApp;
         private TextView dateApp;
@@ -138,6 +142,19 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
             phoneApp = itemView.findViewById(R.id.ibtnPhone);
             beautApp = itemView.findViewById(R.id.tvBeautName);
 
+            itemView.setOnClickListener(this);
+
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            Appointment appt = mappointments.get(position);
+            Appointments2 appt2 = new Appointments2(appt);
+            Intent intent = new Intent(context,ReqApptDetailActivity.class);
+            intent.putExtra("appt",Parcels.wrap(appt2));
+            context.startActivity(intent);
 
         }
     }

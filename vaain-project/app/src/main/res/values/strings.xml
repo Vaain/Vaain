@@ -10,5 +10,7 @@
         <item>60 m</item>
         <item>90 m</item>
     </string-array>
+    <string name="title_activity_req_appt">ReqApptActivity</string>
+    <string name="title_activity_req_appt_detail">ReqApptDetailActivity</string>
 
 </resources>

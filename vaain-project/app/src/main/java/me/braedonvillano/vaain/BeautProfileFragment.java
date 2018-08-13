@@ -2,6 +2,11 @@ package me.braedonvillano.vaain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,8 +27,14 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
 
+import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 public class BeautProfileFragment extends Fragment {
@@ -61,7 +72,7 @@ public class BeautProfileFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         tvName = view.findViewById(R.id.tvName);
-        btnSettings  =view.findViewById(R.id.btnSettings);
+        btnSettings = view.findViewById(R.id.btnSettings);
 
         //assign values to views
         tvEmail.setText(user.getEmail());
@@ -69,9 +80,12 @@ public class BeautProfileFragment extends Fragment {
         //assign profileImage
         if(user.get("profileImage") != null){
             ParseFile file = user.getParseFile("profileImage");
+
             Glide.with(this).load(file.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfileImage);
             ivProfileImage.loadInBackground();
         }
+
+
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +103,8 @@ public class BeautProfileFragment extends Fragment {
 
         return view;
     }
+
+
 
     private void setupViewPager(ViewPager viewPager) {
 

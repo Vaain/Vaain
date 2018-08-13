@@ -1,6 +1,9 @@
 package me.braedonvillano.vaain;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +13,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import me.braedonvillano.vaain.models.Request;
 
@@ -23,8 +28,10 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
     final ClientSettingsFragment beautSettingsFragment = new ClientSettingsFragment();
 
     private FragmentManager fragmentManager;
+    private Dialog createDialog;
 
     public final static int ADD_PRODUCT_ACTIVITY = 1234;
+    public final static int ADD_POST_ACTIVITY = 2345;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +58,7 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
                             changeMainFragment(beautProfileFragment);
                             return true;
                         case R.id.action_add:
-                            openAddProductActivity();
+                            openPostProductDialog();
                             return true;
                         default:
                             return false;
@@ -59,17 +66,63 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
                 }
 
             });
+
     }
 
     public void changeMainFragment(Fragment fragment) {
+        // TODO: make sure that the bottom nav has the right fragment always (switch statement?)
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.beaut_frag_holder, fragment).commit();
+    }
+
+    public void openPostProductDialog() {
+        createDialog = new Dialog(this);
+        createDialog.setContentView(R.layout.create_content_dialog);
+        createDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button openPost =  createDialog.findViewById(R.id.btnModalPost);
+        Button openProduct =  createDialog.findViewById(R.id.btnModalProduct);
+        Button closeModal = createDialog.findViewById(R.id.btnCloseModal);
+
+        openPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+                openAddPostActivity();
+            }
+        });
+
+        openProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+                openAddProductActivity();
+            }
+        });
+
+        closeModal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+            }
+        });
+
+        createDialog.show();
+    }
+
+    public void openPictureVideoModal(String postType) {
+        // TODO: handle this function if video is added
     }
 
     public void openAddProductActivity() {
         // TODO: consider adding the dialogue fragment back here to clean up create flow -- a bit choppy
         Intent intent = new Intent(BeautMainActivity.this, CreateProductActivity.class);
         startActivityForResult(intent, ADD_PRODUCT_ACTIVITY);
+    }
+
+    public void openAddPostActivity() {
+        Intent intent = new Intent(BeautMainActivity.this, CreatePostActivity.class);
+        startActivityForResult(intent, ADD_POST_ACTIVITY);
     }
 
 
