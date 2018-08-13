@@ -129,6 +129,7 @@ public class CreatePostActivity extends AppCompatActivity {
             return;
         }
 
+        post.setBeaut(user);
         post.setDescription(description.getText().toString());
         post.setProduct(productAdapter.selectedProduct);
         post.setImage(parseImage);
@@ -143,6 +144,7 @@ public class CreatePostActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(CreatePostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
+                    productAdapter.selectedProduct = null;
                     finish();
                 } else {
                     e.printStackTrace();

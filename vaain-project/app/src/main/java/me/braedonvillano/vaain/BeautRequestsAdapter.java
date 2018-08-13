@@ -51,17 +51,18 @@ public class BeautRequestsAdapter extends RecyclerView.Adapter<BeautRequestsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            Request request = requests.get(i);
-            String clientName = request.getClient().getString("Name");
-            viewHolder.tvClientName.setText(clientName);
-            ParseFile clientImage = request.getClient().getParseFile("profileImage");
-            viewHolder.tvDate.setText(request.getStrDateTime());
-            viewHolder.tvProName.setText(request.getProduct().getName());
-            viewHolder.tvPrice.setText("$ " + request.getProduct().getPrice().toString());
-            if (clientImage != null) {
-                Glide.with(viewHolder.itemView).load(clientImage.getUrl()).apply(RequestOptions.circleCropTransform()).into(viewHolder.ivProImage);
-                viewHolder.ivProImage.loadInBackground();
-            }
+        // TODO: really need to do form validation all over
+        Request request = requests.get(i);
+        String clientName = request.getClient().getString("Name");
+        viewHolder.tvClientName.setText(clientName);
+        ParseFile clientImage = request.getClient().getParseFile("profileImage");
+        viewHolder.tvDate.setText(request.getStrDateTime());
+        viewHolder.tvProName.setText(request.getProduct().getName());
+        viewHolder.tvPrice.setText("$ " + request.getProduct().getPrice().toString());
+        if (clientImage != null) {
+            Glide.with(viewHolder.itemView).load(clientImage.getUrl()).apply(RequestOptions.circleCropTransform()).into(viewHolder.ivProImage);
+            viewHolder.ivProImage.loadInBackground();
+        }
 
     }
 

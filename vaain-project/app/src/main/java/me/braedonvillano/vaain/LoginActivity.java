@@ -23,8 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        ActionBar actionBar = getActionBar();
-//        actionBar.hide();
 
         emailInput = findViewById(R.id.etEmail);
         passwordInput = findViewById(R.id.etPassword);
@@ -46,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                final String username = "b@b.com";
+                final String username = "w@w.com";
                 final String password = "pass";
 
                 login(username, password);

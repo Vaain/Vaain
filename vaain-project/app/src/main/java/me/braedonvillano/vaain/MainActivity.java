@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
 
     final ProfileFragment profileFragment = new ProfileFragment();
     final SearchFragment searchFragment = new SearchFragment();
+    final FeedFragment feedFragment = new FeedFragment();
     final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
     final ClientAccountFragment clientAccountFragment = new ClientAccountFragment();
     final PublicBeautProfile beautProfile2 = new PublicBeautProfile();
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-        loadInitialFragment();
+        changeMainFragment(feedFragment);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                             case R.id.action_profile:
                                 changeMainFragment(profileFragment);
                                 return true;
+                            case R.id.action_feed:
+                                changeMainFragment(feedFragment);
+                                return true;
                             case R.id.action_search:
                                 changeMainFragment(searchFragment);
                                 return true;
@@ -54,14 +58,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                     }
 
                 });
-    }
-
-    private void loadInitialFragment()
-    {
-        Fragment initialFragment = searchFragment;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frag_placeholder, initialFragment);
-        fragmentTransaction.commit();
     }
 
     public void changeMainFragment(Fragment fragment) {
