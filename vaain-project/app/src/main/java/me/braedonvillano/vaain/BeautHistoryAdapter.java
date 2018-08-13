@@ -1,6 +1,7 @@
 package me.braedonvillano.vaain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,14 +16,18 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Appointment;
+import me.braedonvillano.vaain.models.Appointments2;
 
 public class BeautHistoryAdapter extends RecyclerView.Adapter<BeautHistoryAdapter.ViewHolder> {
 
     List<Appointment> pastAppts;
+    Context context;
 
     public BeautHistoryAdapter(List<Appointment> newPastAppts) {
         pastAppts = new ArrayList<>();
@@ -32,7 +37,7 @@ public class BeautHistoryAdapter extends RecyclerView.Adapter<BeautHistoryAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        Context context = viewGroup.getContext();
+        context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
@@ -76,7 +81,7 @@ public class BeautHistoryAdapter extends RecyclerView.Adapter<BeautHistoryAdapte
         pastAppts.addAll(newRequests);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView tvClientName;
         public TextView tvProName;
@@ -93,9 +98,19 @@ public class BeautHistoryAdapter extends RecyclerView.Adapter<BeautHistoryAdapte
             tvDate = itemView.findViewById(R.id.tvDate);
             ivProImage = itemView.findViewById(R.id.ivProImage);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            itemView.setOnClickListener(this);
 
 
         }
 
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            Appointment appt = pastAppts.get(position);
+            Appointments2 appt2 = new Appointments2(appt);
+            Intent intent = new Intent(context,ReqApptDetailActivity.class);
+            intent.putExtra("appt", Parcels.wrap(appt2));
+            context.startActivity(intent);
+        }
     }
 }

@@ -34,7 +34,6 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.blurry.Blurry;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
