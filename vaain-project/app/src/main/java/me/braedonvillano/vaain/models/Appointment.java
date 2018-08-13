@@ -1,18 +1,22 @@
 package me.braedonvillano.vaain.models;
 
+import android.os.Parcelable;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 @ParseClassName("Appointment")
-public class Appointment extends ParseObject {
-    public Appointment() {
-    }
+public class Appointment extends ParseObject{
+    public Appointment() {}
 
     final private static String KEY_BEAUT = "beaut";
     final private static String KEY_PRODUCT = "product";
@@ -23,6 +27,7 @@ public class Appointment extends ParseObject {
     final private static String KEY_LENGTH = "length";
     final private static String KEY_COMMENT = "comment";
     final private static String KEY_STATUS = "isComplete";
+    final private static String KEY_LOC = "location";
 
     public Date getDateTime(){
         return getDate(KEY_DATE_TIME);
@@ -30,8 +35,8 @@ public class Appointment extends ParseObject {
 
     public String getStrDateTime(){
         Date date = getDateTime();
-        DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy h:m");
-        return dateFormat.format(date);
+        DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy h:mm ");
+        return dateFormat.format(date) ;
     }
 
     public void setDateTime(Date dateTime) {
@@ -58,6 +63,9 @@ public class Appointment extends ParseObject {
         return getNumber(KEY_LENGTH);
     }
 
+    public Location getLocation(){
+        return (Location)get("location");
+    }
     public void setLength(Number length) {
         put(KEY_LENGTH, length);
     }
@@ -81,7 +89,6 @@ public class Appointment extends ParseObject {
     public Boolean getStatus(){
         return getBoolean(KEY_STATUS);
     }
-
 
     public void setStatus(Boolean status){
         put(KEY_STATUS,status);
@@ -112,6 +119,11 @@ public class Appointment extends ParseObject {
 
         public Query withClient() {
             include(KEY_CLIENT);
+            return this;
+        }
+
+        public Query withLocation(){
+            include(KEY_LOC);
             return this;
         }
 

@@ -66,6 +66,7 @@ public class BeautMainActivity extends AppCompatActivity implements BeautsReques
                 }
 
             });
+
     }
 
     public void changeMainFragment(Fragment fragment) {

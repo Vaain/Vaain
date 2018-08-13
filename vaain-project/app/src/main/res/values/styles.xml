@@ -9,11 +9,14 @@
     </style>
 
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Lobster');
-    </style>
+        @import url('https://fonts.googleapis.com/css?family=Lobster');</style>
 
     <style name="TwoWayView">
         <item name="android:orientation">horizontal</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

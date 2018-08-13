@@ -65,6 +65,8 @@ public class BeautsProductsAdapter extends RecyclerView.Adapter<BeautsProductsAd
 
         if(product.getImage() != null)Glide.with(context).load(product.getImage().getUrl()).into(viewHolder.ivProductImage);
 
+        viewHolder.tvProName.setText(product.getName());
+
     }
 
     @Override
@@ -75,10 +77,12 @@ public class BeautsProductsAdapter extends RecyclerView.Adapter<BeautsProductsAd
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView ivProductImage;
         Dialog myDialog;
+        TextView tvProName;
 
         public ViewHolder(View productView) {
             super(productView);
             ivProductImage = productView.findViewById(R.id.ivProductImage);
+            tvProName = productView.findViewById(R.id.tvProName);
             // Dialog ini
             myDialog = new Dialog(context);
             myDialog.setContentView(R.layout.item_home);

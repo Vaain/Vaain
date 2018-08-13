@@ -21,6 +21,7 @@ public class Request extends ParseObject{
     final private static String KEY_SEAT = "seat";
     final private static String KEY_LENGTH = "length";
     final private static String KEY_COMMENT = "description";
+    final private static String KEY_LOC = "location";
 
     public Date getDateTime(){
        return getDate(KEY_DATE_TIME);
@@ -67,6 +68,7 @@ public class Request extends ParseObject{
     public void setClient(ParseUser client) {
         put(KEY_CLIENT, client);
     }
+
 
     public String getDescription() {
         return getString(KEY_COMMENT);
