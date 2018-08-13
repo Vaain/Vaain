@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".ParseApp"
@@ -49,7 +50,12 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".CreateProductActivity" />
+<<<<<<< HEAD
         <activity android:name=".CreatePostActivity"></activity>
+=======
+        <activity android:name=".CalendarActivity"/>
+
+>>>>>>> f55ee5a81960a54ba80a2472f3d12a591449ba98
     </application>
 
 </manifest>
