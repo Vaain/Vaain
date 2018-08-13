@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     private Dialog myDialog;
     private CardView cardView;
     static Callback callback;
+    private ParseUser user;
     public static final int REQUEST_CODE = 300;
     public static final int PROFILE_CODE = 400;
 
@@ -92,9 +96,14 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                 ImageView dlgProductPic = myDialog.findViewById(R.id.ivDProduct);
                 Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
                 TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
+                TextView dlgCategory = myDialog.findViewById(R.id.tvGen);
+                TextView dlgLoc = myDialog.findViewById(R.id.tvLoc);
 
+                dlgLoc.setText(curProd.getBeaut().getString("location"));
+                dlgCategory.setText(curProd.getString("category"));
                 dlgBeautName.setText(curProd.getBeaut().getString("Name"));
-                dlgPrice.setText(curProd.getPrice().toString());
+                String price = curProd.getPrice().toString();
+                dlgPrice.setText("$ " + price);
                 dlgDescription.setText(curProd.getDescription());
                 dlgProductName.setText(curProd.getName());
 
@@ -112,7 +121,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     @Override
                     public void onClick(View view) {
                             Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                            callback.onRequestProduct(curProd,REQUEST_CODE);
+                            callback.onRequestProduct(curProd, REQUEST_CODE);
                             myDialog.dismiss();
                         }
                     });
@@ -120,7 +129,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                     @Override
                     public void onClick(View view) {
                         Product curProd = mProducts.get(vHolder.getAdapterPosition());
-                        callback.onRequestProduct(curProd,PROFILE_CODE);
+                        callback.onRequestProduct(curProd, PROFILE_CODE);
                         myDialog.dismiss();
                         Log.d("request","beaut clicked");
                     }
@@ -133,20 +142,19 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             @Override
             public boolean onLongClick(View view) {
                 Product likeProd = mProducts.get(vHolder.getAdapterPosition());
+                ParseUser user = ParseUser.getCurrentUser();
                 int current = vHolder.cv.getCardBackgroundColor().getDefaultColor();
                 String currentStr = Integer.toHexString(current);
-                if (currentStr.compareTo("ff484848") == 0) {
-                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#FF4081"));
-                    ParseUser user = ParseUser.getCurrentUser();
-                    likeProd.add("usherLike", user.getObjectId());
-                    likeProd.saveInBackground();
+                if (currentStr.compareTo("0") == 0) {
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#eb5e55"));
+                    user.add("likedProduct", likeProd);
+                    user.saveInBackground();
 
                 } else {
-                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#484848"));
-                    ParseUser user = ParseUser.getCurrentUser();
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#00000000"));
                     ArrayList list = new ArrayList();
-                    list.add(user.getObjectId());
-                    likeProd.removeAll("usherLike", list);
+                    list.add(likeProd);
+                    likeProd.removeAll("likedProduct", list);
                     likeProd.saveInBackground();
                 }
                 return true;
@@ -158,14 +166,27 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Product product = mProducts.get(position);
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        List<String> likees = (List<String>) product.get("usherLike");
+        ParseQuery<ParseUser> query = ParseUser.getQuery().include("likedProduct");
+        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                if (e == null) {
+                    user = objects.get(0);
+                    List<Product> likees = (List<Product>) user.get("likedProduct");
+                    if (likees != null) {
+                        for (int i = 0; i<likees.size(); i++) {
+                            if (likees.get(i).getObjectId().compareTo(product.getObjectId()) == 0) {
+                                viewHolder.cv.setCardBackgroundColor(Color.parseColor("#eb5e55"));
+                            }
 
-        if (likees != null) {
-            if (likees.contains(parseUser.getObjectId())) {
-                viewHolder.cv.setCardBackgroundColor(Color.parseColor("#FF4081"));
+                        }
+                    }
+                }
             }
-        }
+        });
+//        List<String> likees = (List<String>) parseUser.get("likedProduct");
+
 
 
         viewHolder.tvProductName.setText(product.getName());

@@ -19,6 +19,7 @@ public class Product extends ParseObject implements Serializable {
     private static final String KEY_PRICE = "price";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_BEAUT = "beaut";
+    private static final String KEY_LENGTH = "length";
     private static final String KEY_TAGS = "tagList";
 
     public Product() {}
@@ -65,6 +66,14 @@ public class Product extends ParseObject implements Serializable {
 
     public void setBeaut(ParseUser user) {
         put(KEY_BEAUT, user);
+    }
+
+    public Number getLength() {
+        return (Number) get(KEY_LENGTH);
+    }
+
+    public void setLength(Number length) {
+        put(KEY_LENGTH, length);
     }
 
     public ArrayList<String> getTags() {

@@ -14,98 +14,112 @@
 
         <TextView
             android:id="@+id/tvApp4"
-            android:layout_width="212dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
+            android:onClick="onSlotClick"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvApp5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvApp3" />
+            app:layout_constraintTop_toBottomOf="@+id/tvApp2" />
 
         <ImageView
             android:id="@+id/ivRProPic"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="96dp"
+            android:layout_height="88dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_account_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintEnd_toStartOf="@+id/tvRService"
+            app:layout_constraintHorizontal_bias="0.117"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvRService"
-            android:layout_width="214dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="160dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivRProPic" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Submit"
+            android:background="#515050"
+            android:text="Book"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mtRequestComments"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/tvSelectTime"
-            android:layout_width="171dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Please select a time slot"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/etDateSelected" />
 
         <TextView
             android:id="@+id/tvSelectDate"
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_width="174dp"
+            android:layout_height="27dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/border_slot"
             android:text="Please select a date"
-            android:textColor="@android:color/background_dark"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRService" />
+            app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
         <TextView
             android:id="@+id/etDateSelected"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="28dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,151 +131,101 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Additional Comments?"
             android:inputType="textMultiLine"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textColorHint="#363434"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="#bdffffff"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvApp5" />
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:layout_editor_absoluteX="0dp">
-
-            <RadioButton
-                android:id="@+id/rbtn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@android:color/black"
-                android:onClick="onRadioButtonClicked"
-                android:textAlignment="center"
-                tools:layout_editor_absoluteX="176dp"
-                tools:layout_editor_absoluteY="119dp" />
-
-            <RadioButton
-                android:id="@+id/rbtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:buttonTint="@android:color/black"
-                android:onClick="onRadioButtonClicked"
-                tools:layout_editor_absoluteX="267dp"
-                tools:layout_editor_absoluteY="119dp" />
-
-            <RadioButton
-                android:id="@+id/rbtn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:buttonTint="@android:color/black"
-                android:onClick="onRadioButtonClicked"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="119dp" />
-        </RadioGroup>
-
         <TextView
             android:id="@+id/tvApp2"
-            android:layout_width="212dp"
-            android:layout_height="32dp"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvApp1" />
-
-        <TextView
-            android:id="@+id/tvApp3"
-            android:layout_width="212dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvApp2" />
-
-        <TextView
-            android:id="@+id/tvApp1"
-            android:layout_width="212dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
             android:onClick="onSlotClick"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvApp3"
+            app:layout_constraintHorizontal_bias="0.859"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectTime" />
+
+        <TextView
+            android:id="@+id/tvApp3"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:onClick="onSlotClick"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectTime" />
+
+        <TextView
+            android:id="@+id/tvApp1"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:onClick="onSlotClick"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvApp2"
+            app:layout_constraintHorizontal_bias="0.382"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSelectTime" />
 
         <TextView
             android:id="@+id/tvApp5"
-            android:layout_width="212dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
+            android:layout_marginEnd="84dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
+            android:onClick="onSlotClick"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvApp4" />
+            app:layout_constraintTop_toBottomOf="@+id/tvApp2" />
 
-        <TextView
-            android:id="@+id/textView9"
+        <RatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
-            android:layout_marginTop="12dp"
-            android:text="Location 3"
-            android:textColor="@android:color/background_dark"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDateSelected" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRService" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="12dp"
-            android:text="Location 2"
-            android:textColor="@android:color/background_dark"
-            app:layout_constraintEnd_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/etDateSelected" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:text="Location 1"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            app:layout_constraintEnd_toStartOf="@+id/textView11"
-            app:layout_constraintHorizontal_bias="0.594"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDateSelected" />
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/background_light"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:layout_editor_absoluteX="2dp" />
 
 
     </android.support.constraint.ConstraintLayout>
