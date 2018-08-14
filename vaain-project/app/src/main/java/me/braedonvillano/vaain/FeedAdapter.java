@@ -1,10 +1,13 @@
 package me.braedonvillano.vaain;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
-import android.os.Vibrator;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -24,11 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Post;
+import me.braedonvillano.vaain.models.Product;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public List<Post> mPosts;
     static Context context;
-    private Vibrator myVib;
+    private Dialog myDialog;
 
     public FeedAdapter(List<Post> posts) {
         mPosts = new ArrayList<>();
@@ -60,7 +64,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder( final ViewHolder holder, int position) {
         final Post post = mPosts.get(position);
-        ParseUser beaut = post.getBeaut();
+        final ParseUser beaut = post.getBeaut();
+        final Product curProd = post.getProduct();
+
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.item_home);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         holder.tvPostDescription.setText(post.getDescription());
         holder.tvPostUsername.setText(beaut.getString("Name"));
@@ -82,7 +91,48 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.btnViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Start New Activity", Toast.LENGTH_LONG).show();
+                ImageView dlgProfilePic = myDialog.findViewById(R.id.ivDProfilePic);
+                TextView dlgBeautName = myDialog.findViewById(R.id.tvDiaBeautName);
+                TextView dlgPrice = myDialog.findViewById(R.id.tvDPrice);
+                TextView dlgDescription = myDialog.findViewById(R.id.tvDDescript);
+                ImageView dlgProductPic = myDialog.findViewById(R.id.ivDProduct);
+                Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
+                TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
+                TextView dlgCategory = myDialog.findViewById(R.id.tvGen);
+                TextView dlgLoc = myDialog.findViewById(R.id.tvLoc);
+
+                dlgLoc.setText(beaut.getString("location"));
+                dlgCategory.setText(curProd.getString("category"));
+                dlgBeautName.setText(beaut.getString("Name"));
+                String price = curProd.getPrice().toString();
+                dlgPrice.setText("$ " + price);
+                dlgDescription.setText(curProd.getDescription());
+                dlgProductName.setText(curProd.getName());
+
+                Glide.with(context)
+                        .load(curProd.getImage()
+                                .getUrl())
+                        .into(dlgProductPic);
+                Glide.with(context)
+                        .load(beaut.getParseFile("profileImage")
+                                .getUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(dlgProfilePic);
+
+                dlgRequest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialog.dismiss();
+                    }
+                });
+                dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialog.dismiss();
+                        Log.d("request","beaut clicked");
+                    }
+                });
+                myDialog.show();;
             }
         });
 

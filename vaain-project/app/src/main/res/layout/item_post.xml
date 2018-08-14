@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="3dp">
+    android:layout_margin="5dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:cardBackgroundColor="@android:color/background_light"
+        app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +43,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Description"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/ivPostImage"
                 app:layout_constraintStart_toStartOf="@id/ivPostImage"
@@ -52,14 +55,14 @@
                 android:layout_height="40dp"
                 android:layout_alignBottom="@+id/ivPostImage"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/border_button_posts"
                 android:text="View Product"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/ivPostImage"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.923"
+                app:layout_constraintHorizontal_bias="0.962"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
@@ -82,6 +85,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Beautician Name"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/ivPostImage"
                 app:layout_constraintStart_toEndOf="@+id/ivPostProfile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -89,11 +93,11 @@
             <View
                 android:id="@+id/divider3"
                 android:layout_width="0dp"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
-                android:background="?android:attr/listDivider"
+                android:background="@color/common_signin_btn_light_text_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button7" />
@@ -122,5 +126,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivPostImage" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+    >>>>>>> 0b689a3031fc34660224c0663ef65eb19ce7239c
 
 </android.support.constraint.ConstraintLayout>
