@@ -13,12 +13,13 @@ import com.parse.ParseUser;
 
 import me.braedonvillano.vaain.models.Product;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface,ClientFollowingFragment.FollowingFragmentInterface,PublicBeautProfile.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface, ClientFollowingFragment.FollowingFragmentInterface, PublicBeautProfile.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
 
     final ProfileFragment profileFragment = new ProfileFragment();
     final SearchFragment searchFragment = new SearchFragment();
+    final FeedFragment feedFragment = new FeedFragment();
     final ClientRequestsFragment requestFragment = new ClientRequestsFragment();
     final ClientAccountFragment clientAccountFragment = new ClientAccountFragment();
     final PublicBeautProfile beautProfile2 = new PublicBeautProfile();
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-        loadInitialFragment();
+        changeMainFragment(feedFragment);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                         switch (item.getItemId()) {
                             case R.id.action_profile:
                                 changeMainFragment(profileFragment);
+                                return true;
+                            case R.id.action_feed:
+                                changeMainFragment(feedFragment);
                                 return true;
                             case R.id.action_search:
                                 changeMainFragment(searchFragment);
@@ -56,14 +60,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
                 });
     }
 
-    private void loadInitialFragment()
-    {
-        Fragment initialFragment = searchFragment;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frag_placeholder, initialFragment);
-        fragmentTransaction.commit();
-    }
-
     public void changeMainFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frag_placeholder, fragment).commit();
@@ -71,10 +67,10 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
 
     @Override
     public void renderRequestFlow(Product product, int code) {
-        if(code == SearchProductsAdapter.REQUEST_CODE) {
+        if (code == SearchProductsAdapter.REQUEST_CODE) {
             requestFragment.setProduct(product);
             changeMainFragment(requestFragment);
-        }else if(code == SearchProductsAdapter.PROFILE_CODE){
+        } else if (code == SearchProductsAdapter.PROFILE_CODE) {
             beautProfile2.setUser(product.getBeaut());
             changeMainFragment(beautProfile2);
         }
@@ -85,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     public void publicProfileCallback(ParseUser beaut, int code) {
             beautProfile2.setUser(beaut);
             changeMainFragment(beautProfile2);
-
-
     }
 
 

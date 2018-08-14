@@ -87,7 +87,7 @@ public class LocationSchedule {
         }
     }
 
-    public class PotentialAppointment {
+    public static class PotentialAppointment {
         public int seatId;
         public int startTime;
         public String start;

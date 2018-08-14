@@ -6,24 +6,18 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.parceler.Parcel;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
-@ParseClassName("Product")
-public class Product extends ParseObject implements Serializable {
+
+@ParseClassName("Post")
+public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CREATED_AT = "createdAt";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PRICE = "price";
-    private static final String KEY_IMAGE = "image";
+    private static final String KEY_PRODUCT = "product";
+    private static final String KEY_IMAGE = "media";
     private static final String KEY_BEAUT = "beaut";
-    private static final String KEY_LENGTH = "length";
-    private static final String KEY_TAGS = "tagList";
 
-    public Product() {}
+    public Post() {}
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -31,14 +25,6 @@ public class Product extends ParseObject implements Serializable {
 
     public void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
-    }
-
-    public String getName() {
-        return getString(KEY_NAME);
-    }
-
-    public void setName(String description) {
-        put(KEY_NAME, description);
     }
 
     public ParseFile getImage() {
@@ -49,12 +35,12 @@ public class Product extends ParseObject implements Serializable {
         put(KEY_IMAGE, image);
     }
 
-    public Number getPrice() {
-        return getNumber(KEY_PRICE);
+    public Product getProduct() {
+        return (Product) get(KEY_PRODUCT);
     }
 
-    public void setPrice(Number price) {
-        put(KEY_PRICE, price);
+    public void setProduct(Product product) {
+        put(KEY_PRODUCT, product);
     }
 
     public Date getCreatedAt() {
@@ -69,21 +55,9 @@ public class Product extends ParseObject implements Serializable {
         put(KEY_BEAUT, user);
     }
 
-    public Number getLength() {
-        return (Number) get(KEY_LENGTH);
-    }
-
-    public void setLength(Number length) {
-        put(KEY_LENGTH, length);
-    }
-
-    public ArrayList<String> getTags() {
-        return (ArrayList<String>) get(KEY_TAGS);
-    }
-
-    public static class Query extends ParseQuery<Product> {
+    public static class Query extends ParseQuery<Post> {
         public Query() {
-            super(Product.class);
+            super(Post.class);
         }
 
         public Query getTop() {
@@ -96,8 +70,8 @@ public class Product extends ParseObject implements Serializable {
             return this;
         }
 
-        public Query withTags() {
-            include(KEY_TAGS);
+        public Query withProduct() {
+            include(KEY_PRODUCT);
             return this;
         }
     }

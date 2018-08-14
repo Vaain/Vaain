@@ -1,131 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_home"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/darker_gray">
+    android:gravity="center_vertical|center_horizontal">
 
-    <ImageView
-        android:id="@+id/ivDProfilePic"
-        android:layout_width="91dp"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDiaBeautName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
-    <ImageView
-        android:id="@+id/ivDProduct"
-        android:layout_width="285dp"
-        android:layout_height="242dp"
-        android:layout_above="@+id/tvDDescript"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/tvDDescript"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:color/black" />
-
-    <Button
-        android:id="@+id/btnDRequest"
-        android:layout_width="85dp"
-        android:layout_height="36dp"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_home"
+        android:layout_width="242dp"
+        android:layout_height="422dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Request"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp"
+        android:background="@android:color/darker_gray">
+
+        <ImageView
+            android:id="@+id/ivDProfilePic"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp" />
+
+        <ImageView
+            android:id="@+id/ivDProduct"
+            android:layout_width="242dp"
+            android:layout_height="242dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ivDProfilePic"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY" />
+
+        <Button
+            android:id="@+id/btnDRequest"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/vaain_red"
+            android:text="Request" />
+
+        <TextView
+            android:id="@+id/tvDiaBeautName"
+            android:layout_width="123dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="19dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDPrice"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tvDProName"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="109dp"
+            android:background="@drawable/product_name_textview"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvDDescript"
+            android:layout_width="285dp"
+            android:layout_height="51dp"
+            android:layout_above="@+id/btnDRequest"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvDProName"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivDProfilePic"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            android:background="@android:color/transparent"
+            android:text="ProName"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_below="@+id/tvDiaBeautName"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@+id/tvLoc"
+            app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvLoc"
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tvDiaBeautName"
+            android:layout_marginEnd="33dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
+            android:textAlignment="center" />
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tvDiaBeautName"
-        android:layout_width="285dp"
-        android:layout_height="27dp"
-        android:layout_below="@+id/ivDProfilePic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:text="Name"
+        android:id="@+id/tvGen"
+        android:layout_width="242dp"
+        android:layout_height="41dp"
+        android:layout_above="@+id/item_home"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="-23dp"
+        android:background="#f2eb5e55"
+        android:gravity="center_vertical"
+        android:text="NAILS"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/tvDLoc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tvDLoc"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDiaBeautName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:text="Location"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/tvDProName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDPrice"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvDDescript"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnDRequest"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDDescript"
-        android:layout_width="285dp"
-        android:layout_height="51dp"
-        android:layout_above="@+id/btnDRequest"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/tvDPrice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDProName"
-        android:layout_width="285dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ivDProduct"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:text="ProName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/ivDProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

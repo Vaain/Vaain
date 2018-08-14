@@ -66,11 +66,14 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final Appointment appointment = mappointments.get(i);
 
+        String beautName = appointment.getBeaut().getString("Name");
+        viewHolder.beautApp.setText(beautName);
+
         String prodName = appointment.getProduct().getName();
         viewHolder.serviceApp.setText(prodName);
 
         String price = appointment.getProduct().getPrice().toString();
-        viewHolder.priceApp.setText(price);
+        viewHolder.priceApp.setText("$ "+ price);
 
         String date = appointment.getDateTime().toString().substring(0, 10);
         viewHolder.dateApp.setText(date);
@@ -94,9 +97,7 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
         viewHolder.phoneApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Appointment appointment1 = mappointments.get(viewHolder.getAdapterPosition());
-//                mcallback.onRequestAppointment(appointment1, ClientAccountAdapterAppoint.PHONE_CODE);
-                String phoneNum = appointment.getBeaut().get("phoneNumber").toString();
+                String phoneNum = appointment.getBeaut().get("phone").toString();
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -128,6 +129,7 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
         private TextView priceApp;
         private ImageView profilePicApp;
         private ImageButton phoneApp;
+        private TextView beautApp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -138,12 +140,12 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
             timeApp = itemView.findViewById(R.id.tvTime);
             priceApp = itemView.findViewById(R.id.tvPrice);
             phoneApp = itemView.findViewById(R.id.ibtnPhone);
+            beautApp = itemView.findViewById(R.id.tvBeautName);
 
             itemView.setOnClickListener(this);
 
 
         }
-
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

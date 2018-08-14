@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#eaeb5e55</color>
+    <color name="colorPrimaryDark">#eaeb5e55</color>
     <color name="colorAccent">#FF4081</color>
     <color name="ig_yellow">#ffd521</color>
     <color name="greyed_out">#8492a6</color>
@@ -9,4 +9,6 @@
     <color name="vaain_pink">#E679D2</color>
     <color name="vaain_blue">#2C9BB3</color>
     <color name="vaain_red">#eb5e55</color>
+    <color name="whatisthis">#ff484848</color>
+    <color name="vaain_black">#000000</color>
 </resources>
