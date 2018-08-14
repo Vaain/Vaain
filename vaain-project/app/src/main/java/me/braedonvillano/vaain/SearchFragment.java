@@ -152,9 +152,9 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
             filterDialog.setContentView(R.layout.filter_dialog);
             filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
-            final RadioRealButton btnAll = filterDialog.findViewById(R.id.all);
-            final RadioRealButton btnMen = filterDialog.findViewById(R.id.men);
-            final RadioRealButton btnWomen = filterDialog.findViewById(R.id.women);
+//            final RadioRealButton btnAll = filterDialog.findViewById(R.id.all);
+//            final RadioRealButton btnMen = filterDialog.findViewById(R.id.men);
+//            final RadioRealButton btnWomen = filterDialog.findViewById(R.id.women);
             RadioRealButtonGroup genderGroup = filterDialog.findViewById(R.id.genderGroup);
             Button applyFilter =  filterDialog.findViewById(R.id.btnApplyFilter);
             ListView lvFilterTags = filterDialog.findViewById(R.id.lvFilter);
@@ -166,32 +166,6 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
                 @Override
                 public void onClickedButton(RadioRealButton button, int position) {
                     switch (position) {
-                        case 0:
-                            String[] notAll = { "men", "women" };
-                            filteredTags.removeAll(Arrays.asList(notAll));
-                            break;
-                        case 1:
-                            String[] notMen = { "women" };
-                            filteredTags.removeAll(Arrays.asList(notMen));
-                            filteredTags.add("men");
-                            break;
-                        case 2:
-                            String[] notWomen = { "men" };
-                            filteredTags.removeAll(Arrays.asList(notWomen));
-                            filteredTags.add("women");
-                            break;
-                        default:
-                            String[] def = { "men", "women" };
-                            filteredTags.removeAll(Arrays.asList(def));
-                            break;
-                    }
-                }
-            });
-
-            genderGroup.setOnPositionChangedListener(new RadioRealButtonGroup.OnPositionChangedListener() {
-                @Override
-                public void onPositionChanged(RadioRealButton button, int currentPosition, int lastPosition) {
-                    switch (currentPosition) {
                         case 0:
                             String[] notAll = { "men", "women" };
                             filteredTags.removeAll(Arrays.asList(notAll));

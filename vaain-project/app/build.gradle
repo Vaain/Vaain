@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.parse.bolts:bolts-android:1.4.0'
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation 'com.github.ceryle:RadioRealButton:v2.1.1'
+    implementation 'me.gujun.android.taggroup:library:1.4@aar'
 
     implementation 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
