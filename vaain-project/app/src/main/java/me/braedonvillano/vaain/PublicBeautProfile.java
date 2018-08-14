@@ -61,6 +61,7 @@ public class PublicBeautProfile extends Fragment implements BeautsProductsAdapte
     private TextView tvName;
     private TextView tvEmail;
     private Button btnFollow;
+    private int numClicks;
     List<ParseUser> followedBeauts;
 
     public PublicBeautProfile() {
@@ -113,6 +114,9 @@ public class PublicBeautProfile extends Fragment implements BeautsProductsAdapte
         if(followedBeauts.contains(user)){
             btnFollow.setBackground(getResources().getDrawable(R.drawable.rounded_button_purple));
             btnFollow.setText("Followed");
+        }else {
+            btnFollow.setBackground(getResources().getDrawable(R.drawable.rounded_button_grey));
+            btnFollow.setText("Follow");
         }
 
         tvName.setText(user.getString("Name"));
