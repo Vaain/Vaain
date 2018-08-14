@@ -249,6 +249,7 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
                     return;
                 }
                 // TODO: route the user to the appointments/requests page via interface
+
                 mInterface.onBookAppointment();
                 Toast.makeText(getContext(), "Request Made!", Toast.LENGTH_LONG).show();
             }
