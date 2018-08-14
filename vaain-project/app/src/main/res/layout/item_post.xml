@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/ivPostImage"
-                android:layout_width="380dp"
-                android:layout_height="380dp"
+                android:layout_width="0dp"
+                android:layout_height="368dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="68dp"
