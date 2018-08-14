@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -42,6 +43,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Product product = products.get(i);
         if(product.getImage() != null) Glide.with(context).load(product.getImage().getUrl()).into(viewHolder.ivProductImage);
+        viewHolder.tvProName.setText(product.getName());
 
     }
 
@@ -59,11 +61,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView ivProductImage;
+        TextView tvProName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
+            tvProName = itemView.findViewById(R.id.tvProName);
 
             DisplayMetrics displayMetrics = new DisplayMetrics();
             ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
