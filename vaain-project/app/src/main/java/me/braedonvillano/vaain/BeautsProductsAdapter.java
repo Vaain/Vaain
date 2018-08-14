@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
-import java.util.Objects;
 
 import me.braedonvillano.vaain.models.Product;
 
@@ -104,6 +103,8 @@ public class BeautsProductsAdapter extends RecyclerView.Adapter<BeautsProductsAd
         public void onClick(View view) {
             Product curProd = products.get(getAdapterPosition());
 
+            TextView dlgCategory = myDialog.findViewById(R.id.tvGen);
+            TextView dlgLocation = myDialog.findViewById(R.id.tvLoc);
             ImageView dlgProfilePic = myDialog.findViewById(R.id.ivDProfilePic);
             TextView dlgBeautName = myDialog.findViewById(R.id.tvDiaBeautName);
             TextView dlgPrice = myDialog.findViewById(R.id.tvDPrice);
@@ -112,11 +113,12 @@ public class BeautsProductsAdapter extends RecyclerView.Adapter<BeautsProductsAd
             Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
             final TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
 
-
-            dlgBeautName.setText(curProd.getBeaut().getUsername());
-            dlgPrice.setText(curProd.getPrice().toString());
+            dlgBeautName.setText(curProd.getBeaut().getString("Name"));
+            dlgPrice.setText("$ " + curProd.getPrice().toString());
             dlgDescription.setText(curProd.getDescription());
             dlgProductName.setText(curProd.getName());
+            dlgLocation.setText(curProd.getBeaut().getString("location"));
+            dlgCategory.setText(curProd.getBeaut().getString("category"));
 
 
 
