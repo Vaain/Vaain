@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 
 import me.braedonvillano.vaain.models.Product;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface,ClientFollowingFragment.FollowingFragmentInterface,PublicBeautProfile.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface, ClientFollowingFragment.FollowingFragmentInterface, PublicBeautProfile.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
 
@@ -67,10 +67,10 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
 
     @Override
     public void renderRequestFlow(Product product, int code) {
-        if(code == SearchProductsAdapter.REQUEST_CODE) {
+        if (code == SearchProductsAdapter.REQUEST_CODE) {
             requestFragment.setProduct(product);
             changeMainFragment(requestFragment);
-        }else if(code == SearchProductsAdapter.PROFILE_CODE){
+        } else if (code == SearchProductsAdapter.PROFILE_CODE) {
             beautProfile2.setUser(product.getBeaut());
             changeMainFragment(beautProfile2);
         }
@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
     public void publicProfileCallback(ParseUser beaut, int code) {
             beautProfile2.setUser(beaut);
             changeMainFragment(beautProfile2);
-
-
     }
 
 

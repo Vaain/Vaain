@@ -2,85 +2,83 @@
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:paddingBottom="15dp"
-    android:paddingRight="5dp"
-    app:cardBackgroundColor="@android:color/white">
+    android:layout_marginBottom="4dp">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/ivAppProPic"
-            android:layout_width="61dp"
-            android:layout_height="60dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvSer"
-            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
         <TextView
             android:id="@+id/tvSer"
-            android:layout_width="183dp"
-            android:layout_height="26dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginTop="16dp"
-            android:text="service"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toStartOf="@+id/tvDate"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="Service"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/ivAppProPic"
+            app:layout_constraintTop_toBottomOf="@+id/tvBeautName" />
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="12dp"
-            android:text="date "
-            android:textColor="@android:color/black"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:text="Date"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvTime"
+            app:layout_constraintStart_toEndOf="@+id/ivAppProPic"
             app:layout_constraintTop_toBottomOf="@+id/tvSer"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="44dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
             android:text="Time"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ibtnPhone"
+            app:layout_constraintStart_toEndOf="@+id/tvDate"
             app:layout_constraintTop_toBottomOf="@+id/tvSer"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvPrice"
-            android:layout_width="53dp"
-            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:text="price"
-            android:textColor="@android:color/black"
+            android:layout_marginTop="8dp"
+            android:text="Price"
+            android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,27 +87,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPrice"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@android:drawable/sym_action_call" />
 
         <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="14dp"
-            android:layout_height="23dp"
-            android:layout_marginBottom="8dp"
+            android:id="@+id/tvBeautName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
-            android:text="$"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvPrice"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.177" />
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ivAppProPic"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
