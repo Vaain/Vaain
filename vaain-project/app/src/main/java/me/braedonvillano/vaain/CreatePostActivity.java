@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -203,6 +204,9 @@ public class CreatePostActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE: {
                 Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+
+                bitmap = rotateImage(bitmap, 90);
+
                 image.setImageBitmap(bitmap);
                 parseImage = new ParseFile(photoFile);
                 break;
@@ -229,5 +233,13 @@ public class CreatePostActivity extends AppCompatActivity {
                 Log.e("OnActivityResult", "The requestCode did not match any case!");
                 break;
         }
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
     }
 }

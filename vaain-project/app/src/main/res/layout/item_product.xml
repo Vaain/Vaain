@@ -39,7 +39,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:background="@drawable/checked"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </FrameLayout>
 
