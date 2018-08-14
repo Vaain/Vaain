@@ -99,9 +99,6 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
 //        mProduct = null;
     }
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -134,7 +131,7 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
         final int ranRate = new Random().nextInt(5);
         ratingBar.setRating(Float.parseFloat(String.valueOf(ranRate)));
 
-        if(mBeaut.get("profileImage") != null) {
+        if (mBeaut.get("profileImage") != null) {
             ParseFile file = mBeaut.getParseFile("profileImage");
             Glide.with(this).load(file.getUrl()).apply(RequestOptions.circleCropTransform()).into(profilePic);
         }
@@ -217,8 +214,6 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
         }
     }
 
-
-
     /* logic for making request and pushing request to parse */
     public void makeRequest() {
         Request newRequest = new Request();
@@ -253,6 +248,7 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
                     return;
                 }
                 // TODO: route the user to the appointments/requests page via interface
+
                 Toast.makeText(getContext(), "Request Made!", Toast.LENGTH_LONG).show();
             }
         });
@@ -430,7 +426,7 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
 
     @Override
     public void onRequestProduct(Product product, int code) {
-        mmListener.onProductClick(product,code);
+        mmListener.onProductClick(product, code);
     }
 
     public interface OnFragmentInteractionListener {
@@ -438,7 +434,9 @@ public class ClientRequestsFragment extends Fragment implements SearchProductsAd
         void onProductClick(Product product, int code);
     }
 
-
+    public interface RequestFragmentInterface {
+        void onBookAppointment();
+    }
 
 }
 

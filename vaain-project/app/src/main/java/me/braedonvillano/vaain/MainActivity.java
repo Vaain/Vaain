@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 
 import me.braedonvillano.vaain.models.Product;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface, ClientFollowingFragment.FollowingFragmentInterface, PublicBeautProfile.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SearchFragment.SearchFragmentInterface, ClientFollowingFragment.FollowingFragmentInterface, PublicBeautProfile.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, ClientRequestsFragment.RequestFragmentInterface {
 
     private FragmentManager fragmentManager;
 
@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.Se
         }
     }
 
+    @Override
+    public void onBookAppointment() {
+        changeMainFragment(clientAccountFragment);
+    }
 
     @Override
     public void publicProfileCallback(ParseUser beaut, int code) {
