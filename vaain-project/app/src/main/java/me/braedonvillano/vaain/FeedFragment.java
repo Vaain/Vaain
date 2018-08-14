@@ -52,7 +52,7 @@ public class FeedFragment extends Fragment {
     }
 
     public void loadPosts() {
-        final Post.Query postQ = new Post.Query().withBeaut();
+        final Post.Query postQ = new Post.Query().withBeaut().withProduct();
         postQ.whereContainedIn("beaut", (Collection<ParseUser>) user.get("follow"));
 
         postQ.findInBackground(new FindCallback<Post>() {
