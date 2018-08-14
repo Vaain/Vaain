@@ -3,7 +3,6 @@ package me.braedonvillano.vaain;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         product.fetchInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-               Log.d("********", "they have been updated");
                 if(e == null) {
                     holder.tvProductName.setText(product.getName());
 

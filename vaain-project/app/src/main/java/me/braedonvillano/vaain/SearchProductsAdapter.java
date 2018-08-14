@@ -4,28 +4,35 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
+
 
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.ViewHolder>  {
 
@@ -36,6 +43,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     private Dialog myDialog;
     private CardView cardView;
     static Callback callback;
+    private ParseUser user;
     public static final int REQUEST_CODE = 300;
     public static final int PROFILE_CODE = 400;
 
@@ -72,42 +80,114 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         LayoutInflater i = LayoutInflater.from(context);
         View view = i.inflate(R.layout.item_home_grid, viewGroup, false);
 
-        return new ViewHolder(view);
+        final ViewHolder vHolder = new ViewHolder(view);
+
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.item_home);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        vHolder.rlHomeGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Product curProd = mProducts.get(vHolder.getAdapterPosition());
+
+                ImageView dlgProfilePic = myDialog.findViewById(R.id.ivDProfilePic);
+                TextView dlgBeautName = myDialog.findViewById(R.id.tvDiaBeautName);
+                TextView dlgPrice = myDialog.findViewById(R.id.tvDPrice);
+                TextView dlgDescription = myDialog.findViewById(R.id.tvDDescript);
+                ImageView dlgProductPic = myDialog.findViewById(R.id.ivDProduct);
+                Button dlgRequest = myDialog.findViewById(R.id.btnDRequest);
+                TextView dlgProductName = myDialog.findViewById(R.id.tvDProName);
+                TextView dlgCategory = myDialog.findViewById(R.id.tvGen);
+                TextView dlgLoc = myDialog.findViewById(R.id.tvLoc);
+
+                dlgLoc.setText(curProd.getBeaut().getString("location"));
+                dlgCategory.setText(curProd.getString("category"));
+                dlgBeautName.setText(curProd.getBeaut().getString("Name"));
+                String price = curProd.getPrice().toString();
+                dlgPrice.setText("$ " + price);
+                dlgDescription.setText(curProd.getDescription());
+                dlgProductName.setText(curProd.getName());
+
+                Glide.with(context)
+                        .load(curProd.getImage()
+                        .getUrl())
+                        .into(dlgProductPic);
+                Glide.with(context)
+                        .load(curProd.getBeaut().getParseFile("profileImage")
+                        .getUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(dlgProfilePic);
+
+                dlgRequest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                            callback.onRequestProduct(curProd, REQUEST_CODE);
+                            myDialog.dismiss();
+                        }
+                    });
+                dlgProfilePic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Product curProd = mProducts.get(vHolder.getAdapterPosition());
+                        callback.onRequestProduct(curProd, PROFILE_CODE);
+                        myDialog.dismiss();
+                        Log.d("request","beaut clicked");
+                    }
+                });
+                myDialog.show();
+            }
+        });
+
+        vHolder.rlHomeGrid.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Product likeProd = mProducts.get(vHolder.getAdapterPosition());
+                ParseUser user = ParseUser.getCurrentUser();
+                int current = vHolder.cv.getCardBackgroundColor().getDefaultColor();
+                String currentStr = Integer.toHexString(current);
+                if (currentStr.compareTo("0") == 0) {
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#eb5e55"));
+                    user.add("likedProduct", likeProd);
+                    user.saveInBackground();
+
+                } else {
+                    vHolder.cv.setCardBackgroundColor(Color.parseColor("#00000000"));
+                    ArrayList list = new ArrayList();
+                    list.add(likeProd);
+                    likeProd.removeAll("likedProduct", list);
+                    likeProd.saveInBackground();
+                }
+                return true;
+            }
+        });
+        return vHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         final Product product = mProducts.get(position);
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        List<String> likees = (List<String>) product.get("usherLike");
-
-        if (likees != null) {
-            if (likees.contains(parseUser.getObjectId())) {
-                viewHolder.cv.setCardBackgroundColor(Color.parseColor("#FF4081"));
-            }
-        }
-
-        viewHolder.ivProductImage.setOnTouchListener(new OnSwipeTouchListener(context) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery().include("likedProduct");
+        query.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseUser>() {
             @Override
-            public void onSwipeDown() {
-                Toast.makeText(context, "Down", Toast.LENGTH_SHORT).show();
-            }
+            public void done(List<ParseUser> objects, ParseException e) {
+                if (e == null) {
+                    user = objects.get(0);
+                    List<Product> likees = (List<Product>) user.get("likedProduct");
+                    if (likees != null) {
+                        for (int i = 0; i<likees.size(); i++) {
+                            if (likees.get(i).getObjectId().compareTo(product.getObjectId()) == 0) {
+                                viewHolder.cv.setCardBackgroundColor(Color.parseColor("#eb5e55"));
+                            }
 
-            @Override
-            public void onSwipeLeft() {
-                Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSwipeUp() {
-                Toast.makeText(context, "Up", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSwipeRight() {
-                Toast.makeText(context, "Right", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }
         });
+//        List<String> likees = (List<String>) parseUser.get("likedProduct");
 
 
         viewHolder.tvProductName.setText(product.getName());

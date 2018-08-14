@@ -57,9 +57,13 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
             viewHolder.service.setText(prodName);
         }
 
+        if (request.getBeaut().getString("Name") != null) {
+            String beautName = request.getBeaut().getString("Name");
+            viewHolder.beautName.setText(beautName);
+        }
 
         String price = request.getProduct().getPrice().toString();
-        viewHolder.price.setText(price);
+        viewHolder.price.setText("$ " + price);
 
         String date = request.getDateTime().toString().substring(0, 10);
         viewHolder.date.setText(date);
@@ -76,7 +80,7 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
         viewHolder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNum = request.getBeaut().get("phoneNumber").toString();
+                String phoneNum = request.getBeaut().get("phone").toString();
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -110,6 +114,7 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
         private TextView price;
         private ImageView profilePic;
         private ImageButton phone;
+        private TextView beautName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,6 +125,7 @@ public class ClientAccountAdapter extends RecyclerView.Adapter<ClientAccountAdap
             time = itemView.findViewById(R.id.tvATime);
             price = itemView.findViewById(R.id.tvAPrice);
             phone = itemView.findViewById(R.id.ivbtnPhone2);
+            beautName = itemView.findViewById(R.id.tvABeautName);
 
         }
     }
