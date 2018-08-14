@@ -29,6 +29,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import me.braedonvillano.vaain.models.Product;
@@ -154,10 +155,9 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
                 } else {
                     vHolder.cv.setCardBackgroundColor(Color.parseColor("#00000000"));
-                    ArrayList list = new ArrayList();
-                    list.add(likeProd);
-                    likeProd.removeAll("likedProduct", list);
-                    likeProd.saveInBackground();
+                    List<Product> likedProd = (List<Product>) user.get("likedProduct");
+                    user.removeAll("likedProduct", Arrays.asList(likeProd));
+                    user.saveInBackground();
                 }
                 return true;
             }
