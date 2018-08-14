@@ -36,10 +36,10 @@
 
             <TextView
                 android:id="@+id/tvOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/vaain_black"
-                android:visibility="invisible"  />
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/checked"
+                android:visibility="visible" />
 
         </FrameLayout>
 
