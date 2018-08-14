@@ -9,28 +9,27 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="91dp"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_marginTop="71dp"
         android:text="Distance" />
 
     <SeekBar
-        android:id="@+id/sbPrice2"
+        android:id="@+id/sbPrice"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="335dp"
         android:layout_height="55dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView13"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="187dp"
         android:max="2"
-        android:progress="3" />
+        android:progress="0"
+        android:thumbTint="@color/vaain_red" />
 
     <co.ceryle.radiorealbutton.RadioRealButtonGroup
         android:id="@+id/genderGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         app:rrbg_animateDrawables_enter="overshoot"
         app:rrbg_animateTexts_enter="overshoot"
         app:rrbg_dividerColor="@color/vaain_black"
@@ -81,7 +80,7 @@
     <Button
         android:id="@+id/btnApplyFilter"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="41dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/lvFilter"
         android:background="@drawable/rounded_button_purple"
@@ -91,24 +90,26 @@
     <ListView
         android:id="@+id/lvFilter"
         android:layout_width="match_parent"
-        android:layout_height="246dp"
+        android:layout_height="215dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/sbPrice2" />
+        android:layout_below="@+id/sbPrice" />
 
     <SeekBar
         android:id="@+id/sbDistance"
         android:layout_width="335dp"
         android:layout_height="55dp"
         android:layout_below="@+id/textView16"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:thumbTint="@color/vaain_red" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sbPrice2"
-        android:layout_alignStart="@+id/sbPrice2"
-        android:layout_marginBottom="-187dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="157dp"
         android:text="Price" />
 
 </RelativeLayout>

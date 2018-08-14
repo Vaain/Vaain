@@ -152,9 +152,6 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
             filterDialog.setContentView(R.layout.filter_dialog);
             filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
-//            final RadioRealButton btnAll = filterDialog.findViewById(R.id.all);
-//            final RadioRealButton btnMen = filterDialog.findViewById(R.id.men);
-//            final RadioRealButton btnWomen = filterDialog.findViewById(R.id.women);
             RadioRealButtonGroup genderGroup = filterDialog.findViewById(R.id.genderGroup);
             Button applyFilter =  filterDialog.findViewById(R.id.btnApplyFilter);
             ListView lvFilterTags = filterDialog.findViewById(R.id.lvFilter);
@@ -193,6 +190,7 @@ public class SearchFragment extends Fragment implements SearchProductsAdapter.Ca
                 public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                     // TODO: determine whether item is selected and handle accordingly
                     filteredTags.add(String.valueOf(parent.getItemAtPosition(i)));
+                    filterAdapter.remove(String.valueOf(parent.getItemAtPosition(i)));
                 }
             });
 //
