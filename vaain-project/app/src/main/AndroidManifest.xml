@@ -68,9 +68,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".CreateProductActivity" />
-        <activity android:name=".CreatePostActivity"></activity>
-
         <activity
             android:name=".ReqApptDetailActivity"
             android:label="@string/title_activity_req_appt_detail"

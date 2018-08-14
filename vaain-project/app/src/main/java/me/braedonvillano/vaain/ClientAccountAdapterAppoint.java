@@ -146,7 +146,6 @@ public class ClientAccountAdapterAppoint extends RecyclerView.Adapter<ClientAcco
 
 
         }
-
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
