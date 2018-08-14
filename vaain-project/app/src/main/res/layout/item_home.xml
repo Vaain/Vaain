@@ -47,15 +47,12 @@
 
         <TextView
             android:id="@+id/tvDiaBeautName"
-            android:layout_width="123dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="19dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignTop="@+id/ivDProfilePic"
+            android:layout_toStartOf="@+id/tvDPrice"
             android:background="@android:color/transparent"
             android:text="Name"
-            android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -64,9 +61,10 @@
             android:id="@+id/tvDPrice"
             android:layout_width="53dp"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tvDProName"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="96dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="92dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/product_name_textview"
             android:textAlignment="center"
             android:textColor="@android:color/background_dark" />
@@ -97,15 +95,14 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_below="@+id/tvDiaBeautName"
-            android:layout_marginTop="2dp"
-            android:layout_toStartOf="@+id/tvLoc"
+            android:layout_toStartOf="@+id/tvDiaBeautName"
             app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
         <TextView
             android:id="@+id/tvLoc"
-            android:layout_width="92dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tvDiaBeautName"
+            android:layout_alignStart="@+id/tvDProName"
             android:layout_below="@+id/tvDiaBeautName"
             android:text="TextView"
             android:textColor="@android:color/background_dark" />
